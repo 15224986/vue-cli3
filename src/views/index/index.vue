@@ -1,0 +1,145 @@
+<template>
+    <article id="page-bodier">
+        <aside id="sidebar">
+            <el-menu
+                :default-active="$route.path"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                router
+            >
+                <el-menu-item index="/home/directiveFilters">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">全局指令、过滤器、工具</span>
+                </el-menu-item>
+                
+                <el-menu-item index="/home/tinymce">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">tinymce5富文本编辑器</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/jQuery">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">jQuery 引用</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/sector">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">css3 效果</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/syncModel">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">数据的双向传递</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/multilayerNesting">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">Vue多层嵌套</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/selectRelevant">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">select全选、联动</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/complexData">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">js复杂数据类型的深层复制</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/transferSearch">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">穿梭框自定义搜索</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/requiredType">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">切换必填状态</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/fuzzySearch">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">模糊搜索</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/tableRelevant">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">table相关</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/sortablejs">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">拖拽排序</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/mockjsData">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">mock.js测试</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/lotteryDraw">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">抽奖功能</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/sliderScale">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">滑块控制缩放</span>
+                </el-menu-item>
+
+            </el-menu>
+        </aside>
+        <main id="content">
+            <moc-tags-view></moc-tags-view>
+            <keep-alive>
+                <transition name="fade-transform" mode="out-in">
+                    <router-view :key="key"></router-view>
+                </transition>
+            </keep-alive>
+        </main>
+    </article>
+</template>
+<script>
+
+    export default {
+        name: 'widget',
+        data() {
+            return {};
+        },
+        computed: {
+            key() {
+                return this.$route.name !== undefined ? this.$route.name + new Date().getTime() : this.$route + new Date().getTime()
+            }
+        },
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
+        }
+    };
+</script>
+<style>
+    #content{
+        overflow: hidden
+    }
+    /* 可以设置不同的进入和离开动画 */
+    /* 设置持续时间和动画函数 */
+    .fade-transform-enter-active,.fade-transform-leave-active {
+        -webkit-transition: all .5s;
+        transition: all .5s
+    }
+    .fade-transform-enter {
+        opacity: 0;
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px)
+    }
+    .fade-transform-leave-to {
+        opacity: 0;
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px)
+    }
+</style>
