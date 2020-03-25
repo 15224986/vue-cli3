@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+// **************************** page 页面框架 **********************************
+.body-bg-default{
+	background-color: #fafafa;
+}
+#page-container{
+	position: relative;
+}
+$headerHight: 60px;
+#page-header{
+	width: 100%;
+	height: $headerHight;
+	position: fixed;
+	left: 0;
+	top: 0;
+	border-bottom: solid 1px #e6e6e6;
+	z-index: 90;
+	background-color: #fff;
+	.logo{
+		float: left;
+		line-height: $headerHight;
+		padding: 0 30px;
+		font-size: 24px;
+	}
+	.nav{
+		float: left;
+		margin-left: 36px;
+		li{
+			float: left;
+			a{
+				display: block;
+				color: #333;
+				line-height: $headerHight;
+				border-bottom: rgba(0,0,0, 0) 1px solid;
+				padding: 0 20px;
+				&.active{
+					color: #409EFF;
+					border-bottom-color: #409EFF;
+				}
+			}
+		}
+	}
+	.user{
+		float: right;
+		line-height: 30px;
+		margin-top: 15px;
+		.btn-text,
+		.el-dropdown{
+			margin-right: 20px;
+		}
+		.userinfo-inner{
+			cursor: pointer;
+			display: inline-block;
+			&:hover{
+				color: #409EFF;
+			}
+			img{
+				width: 30px;
+			    height: 30px;
+			    border-radius: 50%;
+			    vertical-align: top;
+			}
+		} 
+	}
+}
+#sidebar{
+	width: 250px;
+    position: fixed;
+    left: 0;
+    top: $headerHight + 1px;
+    bottom: 0;
+	background-color: #fff;
+	.el-menu{
+		height: 100%;
+		overflow: auto;
+	}
+    + #content{
+    	margin-left: 250px;
+    }
+}
+#page-bodier{
+	padding-top: 1px;
+	margin-top: -1px;
+}
+#content{
+	margin-top: $headerHight + 1px;
+	padding: 20px;
+}
+
+
+
+/*
+ * 去除左道航
+ */
+.sidebar-hide{
+    #sidebar{
+        display: none;
+        + #content{
+            margin-left: 0;
+        }
+    }
+}
+/*
+ * 去除顶部道航
+ */
+.header-hide{
+    #page-header{
+        display: none;
+    }
+    #sidebar{
+        top: 0;
+    }
+    #content{
+        margin-top: 0;
+    }
+}
+// 结束
+
+

@@ -1,0 +1,129 @@
+@charset "utf-8";
+
+// **************************** select 下拉框样式 **********************************
+.moc-select-box {
+	position: relative;
+	line-height: 36px;
+}
+
+.moc-select-content {
+	position: relative;
+	transition-duration: 300ms;
+}
+
+.input {
+	display: block;
+	width: 100%;
+	height: 36px;
+	padding: 0 30px 0 10px;
+	cursor: pointer;
+	border: 1px solid #d8dce5;
+	border-radius: 5px;
+	@include boxSizing;
+	@include placeholder(#bbb);
+
+	&:disabled {
+		background-color: #f5f7fa;
+		border-color: #e4e7ed;
+		color: #c0c4cc;
+	}
+}
+
+.arrow {
+	position: absolute;
+	height: 0;
+	width: 0;
+	border-top: 6px solid #d8dce5;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	right: 9px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	transition-duration: 300ms;
+	transition-timing-function: ease-in-out;
+}
+
+.clear-btn {
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	right: 9px;
+	top: 50%;
+	margin-top: -8px;
+	border-radius: 50%;
+	background-color: #f00;
+	cursor: pointer;
+	display: none;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+	color: #fff;
+}
+
+.open {
+	.arrow {
+		transform: rotate(-180deg);
+		border-top-color: #d8dce5;
+	}
+}
+
+.has-valua {
+	&:hover {
+		.clear-btn {
+			display: block;
+		}
+	}
+}
+
+//	下拉框的样式
+.moc-select-options {
+	width: 100%;
+	padding: 10px 0;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	border: 1px solid #d8dce5;
+	border-radius: 4px;
+	background-color: #fff;
+	@include boxSizing;
+	z-index: 89;
+}
+
+.moc-select-option {
+	padding: 0 10px;
+	cursor: pointer;
+	transition-duration: 300ms;
+
+	&:hover,
+	&.active {
+		background: #f1f1f1;
+	}
+
+	&.disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// 下拉框显示隐藏动画
+.slide-down-enter-active,
+.slide-down-leave {
+	transition: all .3s ease-in-out;
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: center top;
+    transform-origin: center top
+}
+
+.slide-down-enter {
+	transform: scaleY(0);
+	transform-origin: 0 top;
+}
+
+.slide-down-leave-active {
+	transition: all .3s ease-in-out;
+	transform-origin: 0 top;
+	transform: scaleY(0);
+}
+// 结束
