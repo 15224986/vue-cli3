@@ -218,19 +218,28 @@
                     /**
                      * 判断节点是否符合条件
                      */
-                    if( this.activeOrgchartId !== item.id ){
-                        if( item.children && item.children.length > 0 ){
-                            this.getOrgchartNode( item.children )
-                        }
-                    }else{
+                    // console.log( 1,this.activeOrgchartId , item.id , this.activeOrgchartList, this.form.relationTree);
+                    if( this.activeOrgchartId === item.id ){
                         /**
                          * 插入obj
                          */
+                        this.$set( this.activeOrgchartList, 'children', []);
                         if( item.children ){
                             item.children.push( this.activeOrgchartList );
                         }else{
                             this.$set( item, 'children', []);
                             item.children.push( this.activeOrgchartList );
+                        }
+                    }else{
+                        if( item.children && item.children.length > 0 && item.children.constructor==Array ){
+                            item.children.forEach( (childrenEl,childrenIndex) => {
+                                if( item.id == childrenEl.id  ){
+                                    item.children.splice(childrenIndex, 1);
+                                }
+                            });
+                            if( item.children.length > 0 ){
+                                this.getOrgchartNode( item.children )
+                            }
                         }
                     }
                 }
@@ -291,6 +300,11 @@
                      */
                     if( this.orgchartDeleteId.indexOf( item.id ) == -1 ){
                         if( item.children && item.children.length > 0 ){
+                            item.children.forEach( (childrenEl,childrenIndex) => {
+                                if( item.id == childrenEl.id  ){
+                                    item.children.splice(childrenIndex, 1);
+                                }
+                            });
                             this.delOrgchartNode( item.children );
                         }
                     }else{
