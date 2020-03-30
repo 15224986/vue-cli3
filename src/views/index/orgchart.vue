@@ -397,6 +397,6 @@
 </style>
 <style lang="scss">
     .orgchart{
-        margin-top: 14px;
+        margin-top: 16px;
     }
 </style>
