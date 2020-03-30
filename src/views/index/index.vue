@@ -12,6 +12,11 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">全局指令、过滤器、工具</span>
                 </el-menu-item>
+
+                <el-menu-item index="/home/orgchart">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">orgchart组织架构图</span>
+                </el-menu-item>
                 
                 <el-menu-item index="/home/tinymce">
                     <i class="el-icon-menu"></i>
