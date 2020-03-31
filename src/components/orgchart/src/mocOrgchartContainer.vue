@@ -11,7 +11,7 @@
 			@mousedown="pan && panStartHandler($event)"
 			@mousemove="pan && panning && panHandler($event)"
 		>
-			<moc-orgchart-node :datasource="datasource" :deletebtn="deleteBtn" :handle-delete="handleDelete" :handle-click="handleClick">
+			<moc-orgchart-node :datasource="datasource" :deletebtn="deleteBtn" :datapid="datapid" :handle-delete="handleDelete" :handle-click="handleClick">
 				<template
 					v-for="slot in Object.keys($scopedSlots)"
 					:slot="slot"
@@ -33,14 +33,17 @@
 			mocOrgchartNode
 		},
 		props: {
+			// 树节点数据
 			datasource: {
 				type: Object,
 				required: true
 			},
+			// 是否可以拖动
 			pan: {
 				type: Boolean,
 				default: false
 			},
+			// 是否可以滚轮缩放
 			zoom: {
 				type: Boolean,
 				default: false
@@ -53,10 +56,16 @@
 				type: Number,
 				default: 7
 			},
+			// 节点中是否添加删除按钮
 			deleteBtn:{
 				type: Boolean,
 				default: false
 			},
+			// 数据中是否添加pid
+			datapid:{
+				type: Boolean,
+				default: false
+			}
 		},
 		data () {
 			return {
@@ -67,9 +76,15 @@
 			}
 		},
 		methods: {
+			/**
+			 * 节点点击回调
+			 */
 			handleClick (nodeData,$event) {
 				this.$emit('node-click', nodeData, $event);
 			},
+			/**
+			 * 节点删除回调
+			 */
 			handleDelete(nodeData,$event){
 				this.$emit('node-delete', nodeData, $event);
 			},
