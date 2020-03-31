@@ -29,7 +29,7 @@
 			</tr>
 			<tr class="nodes">
 				<td colspan="2" v-for="child in datasource.children" :key="child.id">
-					<moc-orgchart-node :datasource="child" :pid="datasource.id" :deletebtn="deletebtn"  :handle-delete="handleDelete" :handle-click="handleClick">
+					<moc-orgchart-node :datasource="child" :pid="datasource.id" :deletebtn="deletebtn" :datapid="datapid" :handle-delete="handleDelete" :handle-click="handleClick">
 						<template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
 							<slot :name="slot" v-bind="scope"/>
 						</template>
@@ -44,13 +44,17 @@
 	export default {
 		name: 'mocOrgchartNode',
 		props: {
-			pid: [String, Number],
-			datasource: Object,
-			deletebtn: Boolean,
+			pid: [String, Number],		// 节点的pid
+			datasource: Object,			// 节点数据
+			deletebtn: Boolean,			// 是否添加删除按钮
+			datapid: Boolean,			// 是否在数据中添加pid
 			handleClick: Function,
 			handleDelete: Function
 		},
 		mounted(){
+			if( this.datapid && this.pid ){
+				this.datasource.pid = this.pid;
+			}			
 		},
 		methods: {
 		}
