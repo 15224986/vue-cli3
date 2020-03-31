@@ -16,9 +16,12 @@
                         </li>
                     </ul>
                     <div class="orgChart-box">
-                        <moc-orgchart :datasource="orgchartData" pan zoom deleteBtn @node-delete="nodeDeletefn"></moc-orgchart>
+                        <moc-orgchart :datasource="orgchartData" pan zoom deleteBtn datapid @node-delete="nodeDeletefn"></moc-orgchart>
                     </div>
                 </div>
+            </section>
+            <section class="section">
+                <el-button @click="showData()" type="primary">显示数据</el-button>
             </section>
         </div>
     </article>
@@ -329,6 +332,9 @@
                         this.delOrgchartAllId( item.children )
                     }
                 }
+            },
+            showData(){
+                console.log( this.orgchartData );
             }
         }
     };
