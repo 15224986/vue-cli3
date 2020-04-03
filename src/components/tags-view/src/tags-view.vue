@@ -147,6 +147,14 @@
                 }
             },
             /**
+             * 清空标签
+             */
+            emptyTags(){
+                this.$nextTick(() => {
+                    this.tagsView.splice(0, this.tagsView.length - 1);
+                });
+            },
+            /**
              * 
              * el-scrollbar
              * 
