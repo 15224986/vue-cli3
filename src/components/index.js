@@ -31,7 +31,12 @@ import mocTagsView from './tags-view/index.js';
 // orgchart 组织架构图
 import mocOrgchart from './orgchart/index.js';
 
+// anchor 锚点
+import mocAnchor from './anchor/index.js';
+import mocAnchorLink from './anchor-link/index.js';
 
+// affix 组织架构图
+import mocAffix from './affix/index.js';
 
 
 
@@ -66,7 +71,10 @@ const components = [
 	mocTabs,
 	mocTabsPane,
 	mocTagsView,
-	mocOrgchart
+	mocOrgchart,
+	mocAnchor,
+	mocAnchorLink,
+	mocAffix
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -111,6 +119,9 @@ export {
 	mocTabsPane,
 	mocTagsView,
 	mocOrgchart,
+	mocAnchor,
+	mocAnchorLink,
+	mocAffix,
 	
 	mocDialog,
 	mocLoading,
