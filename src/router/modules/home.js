@@ -15,7 +15,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				title:'案例页面',
-				breadcrumb: "Anchor 锚点",
+				breadcrumb: "Anchor锚点、Affix图钉",
 				path: '/home/anchor',
 				affix: false // 
 			}
