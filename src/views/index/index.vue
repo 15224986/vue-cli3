@@ -10,7 +10,7 @@
             >
                 <el-menu-item index="/home/anchor">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">Anchor 锚点</span>
+                    <span slot="title">Anchor锚点、Affix图钉</span>
                 </el-menu-item>
 
                 <el-menu-item index="/home/directiveFilters">
@@ -119,7 +119,7 @@
         },
         computed: {
             key() {
-                return this.$route.name !== undefined ? this.$route.name + new Date().getTime() : this.$route + new Date().getTime()
+                return this.$route.name !== undefined ? this.$route.name : this.$route.fullPath.replace(/\//g, '')
             }
         },
         methods: {
