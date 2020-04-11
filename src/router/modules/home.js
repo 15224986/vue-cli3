@@ -9,6 +9,18 @@ export default {
 	},
     children: [
     	{
+			path: 'anchor',
+			component: () => import(/* webpackChunkName: "home" */ '@/views/index/anchor'),
+			name: 'anchor',
+			meta: {
+				loginRrquired: false,
+				title:'案例页面',
+				breadcrumb: "Anchor 锚点",
+				path: '/home/anchor',
+				affix: false // 
+			}
+		},
+    	{
 			path: 'directiveFilters',
 			component: () => import(/* webpackChunkName: "home" */ '@/views/index/directive-filters'),
 			name: 'directive-filters',
