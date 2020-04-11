@@ -16,11 +16,23 @@
 
             <section class="section anchor-list" id="basic_a">
                 <h3 class="section-title">Basic a</h3>
-                <div class="anchor-box"></div>
+                <div class="anchor-box">
+                    <dl>
+                        <dt>Anchor 锚点</dt>
+                        <dd>复制的iView里面的源码，修改了class的前缀，别的没有改变。参数、方法、回调等请看iView文档</dd>
+                    </dl>
+                </div>
             </section>
             <section class="section anchor-list" id="basic_b">
                 <h3 class="section-title">Basic b</h3>
-                <div class="anchor-box"></div>
+                <div class="anchor-box">
+                    <moc-affix :offset-top="70">
+                        <dl class="demo-affix">
+                            <dt>Affix 图钉</dt>
+                            <dd>复制的iView里面的源码，修改了class的前缀，别的没有改变。参数、方法、回调等请看iView文档</dd>
+                        </dl>
+                    </moc-affix>
+                </div>
             </section>
             <section class="section anchor-list" id="basic_c">
                 <h3 class="section-title">Basic c</h3>
@@ -83,6 +95,13 @@
         margin-top: -6px;
     }
 
+    .demo-affix{
+        display: inline-block;
+        color: #fff;
+        padding: 10px 30px;
+        text-align: center;
+        background: rgba(0,153,229,.9)
+    }
     #page-bodier{
         margin-top: 20px;
     }
