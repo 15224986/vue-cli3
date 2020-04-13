@@ -14,6 +14,8 @@ export default {
 			name: 'anchor',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,	// 是否使用keep-alive缓存页面
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "Anchor锚点、Affix图钉",
 				path: '/home/anchor',
@@ -26,6 +28,8 @@ export default {
 			name: 'directive-filters',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "指令、过滤器、工具的全局使用",
 				path: '/home/directiveFilters',
@@ -38,6 +42,8 @@ export default {
 			name: 'orgchart',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "orgchart组织架构图",
 				path: '/home/orgchart',
@@ -50,6 +56,8 @@ export default {
 			name: 'tinymce',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "tinymce5富文本编辑器",
 				path: '/home/tinymce',
@@ -62,6 +70,8 @@ export default {
 			name: 'jQuery',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "jQuery 引用",
 				path: '/home/jQuery',
@@ -74,6 +84,8 @@ export default {
 			name: 'sector',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "css3 效果",
 				path: '/home/sector',
@@ -86,6 +98,8 @@ export default {
 			name: 'syncModel',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "数据的双向传递",
 				path: '/home/syncModel',
@@ -98,6 +112,8 @@ export default {
 			name: 'multilayerNesting',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "Vue多层嵌套",
 				path: '/home/multilayerNesting',
@@ -110,6 +126,8 @@ export default {
 			name: 'selectRelevant',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "select全选、联动",
 				path: '/home/selectRelevant',
@@ -122,6 +140,8 @@ export default {
 			name: 'complexData',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "js复杂数据类型的深层复制",
 				path: '/home/complexData',
@@ -134,6 +154,8 @@ export default {
 			name: 'transferSearch',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "穿梭框自定义搜索",
 				path: '/home/transferSearch',
@@ -146,6 +168,8 @@ export default {
 			name: 'requiredType',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "切换必填状态",
 				path: '/home/requiredType',
@@ -158,6 +182,8 @@ export default {
 			name: 'fuzzySearch',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "模糊搜索",
 				path: '/home/fuzzySearch',
@@ -170,6 +196,8 @@ export default {
 			name: 'tableRelevant',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "table相关",
 				path: '/home/tableRelevant',
@@ -182,6 +210,8 @@ export default {
 			name: 'sortablejs',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "拖拽排序",
 				path: '/home/sortablejs',
@@ -194,6 +224,8 @@ export default {
 			name: 'mockjsData',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "mock.js测试",
 				path: '/home/mockjsData',
@@ -206,6 +238,8 @@ export default {
 			name: 'lotteryDraw',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "抽奖功能",
 				path: '/home/lotteryDraw',
@@ -218,6 +252,8 @@ export default {
 			name: 'sliderScale',
 			meta: {
 				loginRrquired: false,
+				keepAlive: true,
+				scrollTop:0,
 				title:'案例页面',
 				breadcrumb: "滑块控制缩放",
 				path: '/home/sliderScale',
