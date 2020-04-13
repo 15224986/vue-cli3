@@ -69,11 +69,22 @@ const router = new Router({
 	scrollBehavior (to, from, savedPosition) {
 	    if (savedPosition) {
 	        return savedPosition
-	    }   else {
-	        if (from.meta.keepAlive) {
-	            from.meta.savedPosition = document.body.scrollTop;
-	        }
-	        return { x: 0, y: to.meta.savedPosition || 0 }
+	    }else {
+	    	if( to.path !== from.path ){	// 判断是否因为锚点而改变滚动条
+	    		if (from.meta.keepAlive) {	// 判断是否keep-alive存储
+	    			// 获取浏览器距离顶部的距离
+	    			var scrollTop=0;
+			        if (window.pageYOffset) {  
+			        	scrollTop = window.pageYOffset;
+			        }else if (document.compatMode && document.compatMode != 'BackCompat'){
+			        	scrollTop = document.documentElement.scrollTop;
+			        }else if (document.body) {
+			        	scrollTop = document.body.scrollTop;
+			        }
+		            from.meta.savedPosition = scrollTop;
+		        }
+		        return { x: 0, y: to.meta.savedPosition || 0 }
+	    	}
 	    }
 	}
 });
