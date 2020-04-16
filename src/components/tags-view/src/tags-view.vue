@@ -42,10 +42,6 @@
                 arrowLeft: false,
                 arrowRight: false,
                 menudata:{
-                    // 菜单box的样式   Menu box style
-                    boxStyle:"width:150px;background:#f55;",
-                    // 菜单选项的样式 Style of menu options
-                    optionStyle:"color:#fff;line-height:30px;font-size:15px;",
                     menus:[
                         // {
                         //     content:"关闭当前",
@@ -148,7 +144,7 @@
             closeTags(index){
                 if( this.tagsView.length > 1 ){
                     // 判断关闭的标签是否为打开的标签
-                    if( this.$route.path === this.tagsView[index].path ){
+                    if( this.tagsView[index].active ){
                         this.tagsView.splice(index,1);
                         // 选中的标签index
                         let currentTagIndex = index-1;
@@ -195,8 +191,6 @@
                     const $scrollWrapper = this.scrollWrapper
                     const tagList = this.$refs.tagitem
                     const currentTag = this.$refs.tagitem[ currentTagIndex ]
-
-
                     let firstTag = null
                     let lastTag = null
                     // find first tag and last tag
