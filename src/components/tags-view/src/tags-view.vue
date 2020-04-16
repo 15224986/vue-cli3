@@ -10,6 +10,7 @@
                 v-mocSmartMenu="menudata"
                 class="neu-tagsView-item"
                 :class="{'neu-active':tag.active,'neu-affix':tag.affix}"
+                @click.native="handleClickTags(tag)"
                 @contextmenu.prevent.native="contextmenuMenu(index,$event)"
             >
                 <span>{{ tag.title }}</span>
@@ -26,6 +27,13 @@
     export default {
         name: 'mocTagsView',
         componentName: 'mocTagsView',
+        props:{
+            /**
+             * 添加第三个判断是否相等的条件，如果传值了, 会获取query[decide]的值进行判断，是否相等
+             * @type {String, Number}
+             */
+            decide: [String, Number],
+        },
         data () {
             return {
                 tagsView: [],
@@ -33,8 +41,6 @@
                 tagAndTagSpacing: 4,
                 arrowLeft: false,
                 arrowRight: false,
-
-
                 menudata:{
                     // 菜单box的样式   Menu box style
                     boxStyle:"width:150px;background:#f55;",
@@ -88,19 +94,29 @@
                 // 获取标签需要显示的文字
                 // 选中的标签的index
                 // 循环判断页面是否已经打开
-                let title = this.$route.query.title ? this.$route.query.title : this.$route.meta.breadcrumb;
+                let title = this.$route.query.title ? this.$route.query.title : this.$route.meta.title;
                 let currentTagIndex = 0;
                 let isHasTags = true;
                 this.tagsView.forEach( (item, index)=>{
                     // 如果tag已经存在将其选中
-                    if( item.path == this.$route.path  &&  item.title == title){
-                        isHasTags = false;
-                        item.active = true;
-                        currentTagIndex = index;
+                    if( item.path == this.$route.path && item.title == title){
+                        if( this.decide ){
+                            if( item.query[this.decide] == this.$route.query[this.decide] ){
+                                item.active = true;
+                                isHasTags = false;
+                                currentTagIndex = index;
+                            }else{
+                                item.active = false;
+                            }
+                        }else{
+                            item.active = true;
+                            isHasTags = false;
+                            currentTagIndex = index;
+                        }
                     }else{ // 不存在清空选中
                         item.active = false;
                     }
-                } )
+                })
                 /**
                  * 存储标签信息
                  */
@@ -119,6 +135,12 @@
                  * 移动选中位置
                  */
                 this.moveToTarget( currentTagIndex );
+            },
+            /**
+             * 标签点击事件
+             */
+            handleClickTags(tag){
+                this.$emit('node-click', tag);
             },
             /**
              * 关闭标签
@@ -150,9 +172,7 @@
              * 清空标签
              */
             emptyTags(){
-                this.$nextTick(() => {
-                    this.tagsView.splice(0, this.tagsView.length - 1);
-                });
+                this.tagsView.splice(0, this.tagsView.length);
             },
             /**
              * 
