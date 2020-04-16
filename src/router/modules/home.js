@@ -4,7 +4,7 @@ export default {
     name: 'case',
     redirect: '/home/jQuery',
     meta: {
-		breadcrumb: "案例页面",
+		title: "案例页面",
 		path: '/home/jQuery'
 	},
     children: [
@@ -15,8 +15,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,	// 是否使用keep-alive缓存页面
-				title:'案例页面',
-				breadcrumb: "Anchor锚点、Affix图钉",
+				title: "Anchor锚点、Affix图钉",
 				path: '/home/anchor',
 				affix: false // 
 			}
@@ -28,8 +27,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "指令、过滤器、工具的全局使用",
+				title: "指令、过滤器、工具的全局使用",
 				path: '/home/directiveFilters',
 				affix: false // 
 			}
@@ -41,8 +39,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "orgchart组织架构图",
+				title: "orgchart组织架构图",
 				path: '/home/orgchart',
 				affix: false
 			}
@@ -54,8 +51,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "tinymce5富文本编辑器",
+				title: "tinymce5富文本编辑器",
 				path: '/home/tinymce',
 				affix: true
 			}
@@ -67,8 +63,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "jQuery 引用",
+				title: "jQuery 引用",
 				path: '/home/jQuery',
 				affix: false
 			}
@@ -80,8 +75,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "css3 效果",
+				title: "css3 效果",
 				path: '/home/sector',
 				affix: false
 			}
@@ -93,8 +87,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "数据的双向传递",
+				title: "数据的双向传递",
 				path: '/home/syncModel',
 				affix: false
 			}
@@ -106,8 +99,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "Vue多层嵌套",
+				title: "Vue多层嵌套",
 				path: '/home/multilayerNesting',
 				affix: false
 			}
@@ -119,8 +111,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "select全选、联动",
+				title: "select全选、联动",
 				path: '/home/selectRelevant',
 				affix: false
 			}
@@ -132,8 +123,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "js复杂数据类型的深层复制",
+				title: "js复杂数据类型的深层复制",
 				path: '/home/complexData',
 				affix: false
 			}
@@ -145,8 +135,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "穿梭框自定义搜索",
+				title: "穿梭框自定义搜索",
 				path: '/home/transferSearch',
 				affix: false
 			}
@@ -158,8 +147,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "切换必填状态",
+				title: "切换必填状态",
 				path: '/home/requiredType',
 				affix: false
 			}
@@ -171,8 +159,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "模糊搜索",
+				title: "模糊搜索",
 				path: '/home/fuzzySearch',
 				affix: false
 			}
@@ -184,8 +171,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "table相关",
+				title: "table相关",
 				path: '/home/tableRelevant',
 				affix: false
 			}
@@ -197,8 +183,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "拖拽排序",
+				title: "拖拽排序",
 				path: '/home/sortablejs',
 				affix: false
 			}
@@ -210,8 +195,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "mock.js测试",
+				title: "mock.js测试",
 				path: '/home/mockjsData',
 				affix: false
 			}
@@ -223,8 +207,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "抽奖功能",
+				title: "抽奖功能",
 				path: '/home/lotteryDraw',
 				affix: false
 			}
@@ -236,8 +219,7 @@ export default {
 			meta: {
 				loginRrquired: false,
 				keepAlive: true,
-				title:'案例页面',
-				breadcrumb: "滑块控制缩放",
+				title: "滑块控制缩放",
 				path: '/home/sliderScale',
 				affix: false
 			}
