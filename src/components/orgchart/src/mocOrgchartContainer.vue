@@ -1,6 +1,7 @@
 <template>
 	<div
 		class="orgchart-container"
+		:class="direction"
 		@wheel="zoom && zoomHandler($event)"
 		@mouseup="pan && panning && panEndHandler($event)"
 	>
@@ -65,6 +66,10 @@
 			datapid:{
 				type: Boolean,
 				default: false
+			},
+			direction:{
+				type: String,
+				default: ''
 			}
 		},
 		data () {
