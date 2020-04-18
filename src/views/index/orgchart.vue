@@ -21,6 +21,38 @@
                 </div>
             </section>
             <section class="section">
+                <div class="orgChart-section">
+                    <ul class="orgChart-list">
+                        <li v-for="(item, index) in showOrgchartList" :key="index"
+                            draggable="true"
+                            @dragstart="orgchartDragStart($event,item)"
+                            @dragend="orgchartDragend($event,item)"
+                        >
+                            {{item.name}}
+                        </li>
+                    </ul>
+                    <div class="orgChart-box">
+                        <moc-orgchart :datasource="orgchartData" direction="l2r" datapid @node-delete="nodeDeletefn"></moc-orgchart>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="orgChart-section">
+                    <ul class="orgChart-list">
+                        <li v-for="(item, index) in showOrgchartList" :key="index"
+                            draggable="true"
+                            @dragstart="orgchartDragStart($event,item)"
+                            @dragend="orgchartDragend($event,item)"
+                        >
+                            {{item.name}}
+                        </li>
+                    </ul>
+                    <div class="orgChart-box">
+                        <moc-orgchart :datasource="orgchartData" direction="r2l" datapid @node-delete="nodeDeletefn"></moc-orgchart>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
                 <el-button @click="showData()" type="primary">显示数据</el-button>
             </section>
         </div>
