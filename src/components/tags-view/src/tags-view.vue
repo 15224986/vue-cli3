@@ -74,7 +74,7 @@
         },
         watch:{
             $route(){
-                this.addTags();
+                this.addTags("watch");
             }
         },
         computed: {
@@ -87,6 +87,25 @@
              * 新增标签
              */
             addTags(){
+                /**
+                 * 判断是否需要新增标签
+                 * 如果不需要新增标签，刷新时回到关联页面
+                 * 
+                 */
+                if( this.$route.meta.srcTagsView ){
+                    if( type ==="watch" ){
+                        return;
+                    }else{
+                        if( this.$route.path !== this.$route.meta.srcTagsView ){
+                            this.$router.push({
+                                path: this.$route.meta.srcTagsView,
+                                query: this.$route.query
+                            });
+                        }
+                        return;
+                    }
+                }
+                
                 // 获取标签需要显示的文字
                 // 选中的标签的index
                 // 循环判断页面是否已经打开
