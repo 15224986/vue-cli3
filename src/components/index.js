@@ -35,8 +35,16 @@ import mocOrgchart from './orgchart/index.js';
 import mocAnchor from './anchor/index.js';
 import mocAnchorLink from './anchor-link/index.js';
 
-// affix 组织架构图
+// Affix 图钉
 import mocAffix from './affix/index.js';
+
+// element-ul Select 选择器 封装全选
+import mocAllSelect from './all-select/index.js';
+
+
+
+
+
 
 
 
@@ -74,7 +82,8 @@ const components = [
 	mocOrgchart,
 	mocAnchor,
 	mocAnchorLink,
-	mocAffix
+	mocAffix,
+	mocAllSelect
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -122,6 +131,7 @@ export {
 	mocAnchor,
 	mocAnchorLink,
 	mocAffix,
+	mocAllSelect,
 	
 	mocDialog,
 	mocLoading,
