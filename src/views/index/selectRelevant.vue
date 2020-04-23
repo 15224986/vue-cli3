@@ -17,52 +17,19 @@
                     <el-form-item
                         label="下拉多选（全选）"
                     >
-                        <el-select
-                            v-model="search.chooseData"
-                            @change="handleSelectAll($event,'selectOptions', 'chooseData', 'chooseData', {optionsType:'searchOptions',selectedType:'search'})"
-                            multiple
-                            filterable
-                            clearable
-                            placeholder="请选择"
-                        >
-                            <el-option label="全选" value="all-selected-neusoft"></el-option>
-                            <el-option
-                                v-for="item in searchOptions.selectOptions"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            >
-                            </el-option>
-                        </el-select>   
+                        <moc-all-select v-model="search.chooseData" :selectOptions="searchOptions.selectOptions" clearable></moc-all-select> 
                     </el-form-item>
 
                     <el-form-item
                         label="下拉多选（联动）"
                     >
-                        <el-select v-model="search.selectLinkage" @change="onSelectLinkageChange" multiple filterable clearable placeholder="请选择">
-                            <el-option label="全选" value="all-selected-neusoft"></el-option>
-                            <el-option
-                                v-for="item in searchOptions.selectOptions"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            >
-                            </el-option>
-                        </el-select>   
+                        <moc-all-select v-model="search.selectLinkage" :selectOptions="searchOptions.selectOptions" @change="changeValue"></moc-all-select>
                     </el-form-item>
 
                     <el-form-item
                         label="下拉多选（联动）"
                     >
-                        <el-select v-model="search.selectLinkage1" multiple placeholder="请选择">
-                            <el-option
-                                v-for="item in searchOptions.selectLinkage"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            >
-                            </el-option>
-                        </el-select>   
+                        <moc-all-select v-model="search.selectLinkage1" :selectOptions="searchOptions.selectLinkage"></moc-all-select>  
                     </el-form-item>
                 </el-form>
             </section>
@@ -133,15 +100,13 @@
         data() {
             return {
                 loading: false,
-                /**
-                 * select组件 全选 功能
-                 */
                 selectAll:{
                     chooseData: [],
-                    selectLinkage: []
+                    selectLinkage: [],
+                    selectLinkage1: []
                 },
                 search:{
-                    chooseData: [],
+                    chooseData: [1,2],
                     selectLinkage: [],
                     selectLinkage1: []
                 },
@@ -176,18 +141,18 @@
         },
 
         methods: {
-            /**
-             * select组件 全选、联动
-             */
-            onSelectLinkageChange(val){
-                this.search.selectLinkage1 = [];
-
-                this.handleSelectAll( this.search.selectLinkage,'selectOptions', 'selectLinkage', 'selectLinkage', {optionsType:'searchOptions',selectedType:'search'});
-
-                if( this.search.selectLinkage.length===0 ){
-                    this.searchOptions.selectLinkage = this.setNewOptions('selectLinkage','all-options');
+            changeValue(val){
+                this.searchOptions.selectLinkage = [];
+                if( Array.isArray(val) ){
+                    val.forEach( (key)=>{
+                        if ( this.optionsObj.selectLinkage.hasOwnProperty(key) ) {
+                            this.searchOptions.selectLinkage = this.searchOptions.selectLinkage.concat( this.optionsObj.selectLinkage[key] );
+                        }
+                    });
                 }else{
-                    this.searchOptions.selectLinkage = this.setNewOptions('selectLinkage',this.search.selectLinkage);
+                    if ( this.optionsObj.selectLinkage.hasOwnProperty(val) ) {
+                        this.searchOptions.selectLinkage = this.searchOptions.selectLinkage.concat( this.optionsObj.selectLinkage[key] );
+                    }
                 }
             }
         }
