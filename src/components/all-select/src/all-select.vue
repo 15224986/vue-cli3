@@ -68,6 +68,11 @@ export default {
             chooseData: this.selectData
         };
     },
+    watch: {
+        selectData:function (nData, oData) {
+            this.chooseData = nData
+        }
+    },
     methods: {
 		selectAll (val) {
             // 保留所有值
