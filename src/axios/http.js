@@ -32,6 +32,26 @@ const http = ( params = {} ) => {
 };
 
 
+/**
+ * 封装all方法
+ * 创建的 instance 里面并没有all方法，所有使用 Axios 执行，如果要想使用 instance.all 需要 添加下面的解决方案，
+ * 这里之所以要加上注释，因为在eslint里是不允许对__proto__进行重新赋值的
+ */
+/* eslint-disable no-proto */
+// http.__proto__ = axios
+/* eslint-enable */
+http.all = ( promiseArray = [] ) => {
+	return new Promise((resolve, reject) => {
+		Axios.all(promiseArray)
+			.then(allResponse => {
+				resolve(allResponse)
+			})
+			.catch((error) => {
+				reject(error)
+			})
+	})
+};
+
 
 /**
  * 封装get方法
@@ -40,7 +60,7 @@ const http = ( params = {} ) => {
  * @param obj       // 配置
  * @returns {Promise}
  */
-http.get = (url, params = {}, obj = {} ) => {   
+http.get = (url, params = {}, obj = {} ) => {
     return new Promise((resolve, reject) => {
         obj.params = params;
         instance.get(url, obj ).then(response => {
@@ -156,7 +176,7 @@ import store from '@/store/index';
 
 // 请求拦截器
 instance.interceptors.request.use((config) => {
-        
+
     // console.log(config);
 
     // 在发送请求之前转换post传过去时的参数格式
@@ -176,7 +196,7 @@ instance.interceptors.request.use((config) => {
     //     config.headers['token'] = accessToken;
     // }
 
-    
+
     return config;
 }, error =>{
     // 对请求错误做些什么
@@ -188,9 +208,9 @@ instance.interceptors.response.use(response =>{
     // 根据code跳转到响应页面
     if( response.data && response.data.code == 702 ){
         store.dispatch('toFullPath/invokeChangeSrc', router.history.current.fullPath);
-        router.push({ path: "/login" });   
+        router.push({ path: "/login" });
     }else if( response.data && response.data.code == 400 ){
-        router.push({ path: "/400" });  
+        router.push({ path: "/400" });
     }
     // 对响应数据做点什么
     return response
