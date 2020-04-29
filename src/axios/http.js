@@ -2,6 +2,8 @@ import Axios from 'axios';
 import Qs from 'qs';
 
 
+
+
 /**
  * 使用自定义配置新建一个 axios 实例
  */
@@ -36,9 +38,11 @@ const http = ( params = {} ) => {
  * 封装all方法
  * 创建的 instance 里面并没有all方法，所有使用 Axios 执行，如果要想使用 instance.all 需要 添加下面的解决方案，
  * 这里之所以要加上注释，因为在eslint里是不允许对__proto__进行重新赋值的
+ * https://blog.csdn.net/weixin_33928137/article/details/88040948
  */
 /* eslint-disable no-proto */
-// http.__proto__ = axios
+// instance.__proto__ = Axios
+http.__proto__ = Axios
 /* eslint-enable */
 http.all = ( promiseArray = [] ) => {
 	return new Promise((resolve, reject) => {
@@ -51,6 +55,31 @@ http.all = ( promiseArray = [] ) => {
 			})
 	})
 };
+/**
+ * 使用例子
+ */
+// httpall(){
+//     let params = {};
+//     let params2 = {
+//         baseURL:''       // 修改默认路径
+//     };
+//     let ajaxArr= [
+//         this.$http.get('/mock/additionOptions', params, params2),
+//         this.$http.get('/mock/addition', params, params2)
+//     ];
+//     this.$http.all(ajaxArr).then(response => {
+//             console.log( response );
+//         })
+//         .catch(error => {
+//             console.log(error);
+//         });
+//     this.$http.all(ajaxArr).then(this.$http.spread(function(acct, perms) {
+//             console.log( acct, perms );
+//         }))
+//         .catch(error => {
+//             console.log(error);
+//         });
+// },
 
 
 /**
