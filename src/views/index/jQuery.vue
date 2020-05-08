@@ -82,6 +82,9 @@
             this.arr2 = this.arr2.remove(2);
             this.arr3 = this.arr3.delete(2);
 
+            /**
+             * 字符串相关的方法
+             */
             this.string1 = this.string1.triml();
             this.string2 = this.string2.trimr();
             this.string3 = this.string3.trimall();
