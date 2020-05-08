@@ -22,7 +22,7 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">orgchart组织架构图</span>
                 </el-menu-item>
-                
+
                 <el-menu-item index="/home/tinymce">
                     <i class="el-icon-menu"></i>
                     <span slot="title">tinymce5富文本编辑器</span>
@@ -30,7 +30,9 @@
 
                 <el-menu-item index="/home/jQuery">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">jQuery 引用</span>
+                    <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
+                        <span>jQuery、Array、String</span>
+                    </el-tooltip>
                 </el-menu-item>
 
                 <el-menu-item index="/home/sector">
@@ -151,5 +153,10 @@
         opacity: 0;
         -webkit-transform: translateX(30px);
         transform: translateX(30px)
+    }
+
+    .el-menu-item{
+        overflow: hidden;
+        white-space: pre-wrap;
     }
 </style>
