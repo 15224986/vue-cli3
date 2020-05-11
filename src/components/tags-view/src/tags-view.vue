@@ -46,7 +46,7 @@
                         // {
                         //     content:"关闭当前",
                         //     callback:(val)=>{
-                                
+
                         //     },
                         //     theme: 'aaaaa'
                         // },
@@ -90,7 +90,7 @@
                 /**
                  * 判断是否需要新增标签
                  * 如果不需要新增标签，刷新时回到关联页面
-                 * 
+                 *
                  */
                 if( this.$route.meta.srcTagsView ){
                     if( type ==="watch" ){
@@ -105,7 +105,7 @@
                         return;
                     }
                 }
-                
+
                 // 获取标签需要显示的文字
                 // 选中的标签的index
                 // 循环判断页面是否已经打开
@@ -114,9 +114,10 @@
                 let isHasTags = true;
                 this.tagsView.forEach( (item, index)=>{
                     // 如果tag已经存在将其选中
-                    if( item.path == this.$route.path && item.title == title){
+                    if( item.isPath == this.$route.path && item.title == title){
                         if( this.decide ){
                             if( item.query[this.decide] == this.$route.query[this.decide] ){
+                                item.path = this.$route.fullPath;
                                 item.active = true;
                                 isHasTags = false;
                                 currentTagIndex = index;
@@ -124,6 +125,7 @@
                                 item.active = false;
                             }
                         }else{
+                            item.path = this.$route.fullPath;
                             item.active = true;
                             isHasTags = false;
                             currentTagIndex = index;
@@ -137,7 +139,8 @@
                  */
                 if( isHasTags ){
                     const route = {
-                        path: this.$route.path,
+                        path: this.$route.fullPath,
+                        isPath: this.$route.path,
                         title: title,
                         affix: this.$route.meta.affix,
                         query: this.$route.query,
@@ -190,9 +193,9 @@
                 this.tagsView.splice(0, this.tagsView.length);
             },
             /**
-             * 
+             *
              * el-scrollbar
-             * 
+             *
              */
             // 鼠标控制滚动条位置的移动
             handleScroll(e) {
@@ -238,7 +241,7 @@
                     }
 
                     this.arrowBtn();
-                });   
+                });
             },
             // 按钮的点击事件
             moveScrollbar(direction){
@@ -275,14 +278,14 @@
                     }else{
                         this.arrowRight = false;
                     }
-                });   
+                });
             },
 
 
             /**
-             * 
+             *
              * mocSmartMenu
-             * 
+             *
              */
             contextmenuMenu(index){
                 this.selectedTagIndex = index;
