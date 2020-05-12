@@ -46,6 +46,22 @@ Vue.prototype.$echarts = echarts
 
 
 /**
+ * 引入导出表格xlsx
+ * npm install -S file-saver xlsx
+ * https://www.jianshu.com/p/2819b563bfd7
+ */
+import XLSX from "xlsx";
+import FileSaver from "file-saver";
+Vue.prototype.$XLSX = XLSX;
+Vue.prototype.$FileSaver= FileSaver;
+
+
+
+
+
+
+
+/**
  * 引入项目的公共方法
  */
 import commonJs from '@/assets/scripts/common.js'
