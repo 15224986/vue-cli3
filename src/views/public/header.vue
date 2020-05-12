@@ -24,6 +24,9 @@
             <li>
                 <router-link :to="{path:'/400'}">400</router-link>
             </li>
+            <li>
+                <router-link :to="{path:'/container'}">页面布局</router-link>
+            </li>
         </ul>
         <div class="user">
             <button class="btn-text" @click="signInOut">{{loginBtn}}</button>
@@ -61,7 +64,7 @@
 	        }
         },
         computed:{
-            ...mapGetters({ 
+            ...mapGetters({
                 userInfo: 'userInfo/renderUser'    // userInfo 模块下，getters里面的renderUser方法
             })
         },
@@ -71,7 +74,7 @@
                 changeSrc: 'toFullPath/invokeChangeSrc'
             }),
 	        signInOut() {
-        
+
 	            if ( this.userInfo ) { // 点击退出
 	                // 后台请求
 	                this.$http.get('sys/user/logout').then((response) => {
@@ -79,7 +82,7 @@
 	                    this.loginBtn = '登录';
 	                    // 修改登录信息
                         this.changeUser(false);
-                        
+
 	                    /**
                          * 1.退出成功后，判断当前页面是否需要登录
                          * 2.如果当前页面需要登录，跳转到登录页,并且保存当前路径
