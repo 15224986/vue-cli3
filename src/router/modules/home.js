@@ -17,7 +17,7 @@ export default {
 				keepAlive: true,	// 是否使用keep-alive缓存页面
 				title: "Anchor锚点、Affix图钉",
 				path: '/home/anchor',
-				affix: false // 
+				affix: false //
 			}
 		},
     	{
@@ -29,7 +29,7 @@ export default {
 				keepAlive: true,
 				title: "指令、过滤器、工具的全局使用",
 				path: '/home/directiveFilters',
-				affix: false // 
+				affix: false //
 			}
 		},
     	{
@@ -176,6 +176,18 @@ export default {
 				affix: false
 			}
 		},
+        {
+        	path: 'exportExcel',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/exportExcel'),
+        	name: 'exportExcel',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "导出excel",
+        		path: '/home/exportExcel',
+        		affix: false
+        	}
+        },
 		{
 			path: 'sortablejs',
 			component: () => import(/* webpackChunkName: "home" */ '@/views/index/sortablejs'),
