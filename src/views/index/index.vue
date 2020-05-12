@@ -80,6 +80,11 @@
                     <span slot="title">table相关</span>
                 </el-menu-item>
 
+                <el-menu-item index="/home/exportExcel">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">导出excel</span>
+                </el-menu-item>
+
                 <el-menu-item index="/home/sortablejs">
                     <i class="el-icon-menu"></i>
                     <span slot="title">拖拽排序</span>
