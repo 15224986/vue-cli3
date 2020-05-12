@@ -8,11 +8,11 @@ Vue.use(Router);
  */
 import NProgress from 'nprogress' 		// progress bar
 import 'nprogress/nprogress.css' 		// progress bar style
-NProgress.configure({     
-	easing: 'ease',  					// 动画方式    
-	speed: 500,  						// 递增进度条的速度    
-	showSpinner: false, 				// 是否显示加载ico    
-	trickleSpeed: 200, 					// 自动递增间隔    
+NProgress.configure({
+	easing: 'ease',  					// 动画方式
+	speed: 500,  						// 递增进度条的速度
+	showSpinner: false, 				// 是否显示加载ico
+	trickleSpeed: 200, 					// 自动递增间隔
 	minimum: 0.3 						// 初始化时的最小百分比
 })
 
@@ -63,6 +63,11 @@ const router = new Router({
 			path: '/400',
 			component: () => import(/* webpackChunkName: "login" */ '@/views/400'),
 			name: 'page400'
+		},
+		{
+			path: '/container',
+			component: () => import(/* webpackChunkName: "login" */ '@/views/Container'),
+			name: 'container'
 		}
 	],
 	// 解决使用keep-alive时，滚动条的问题
@@ -74,7 +79,7 @@ const router = new Router({
 	    		if (from.meta.keepAlive) {	// 判断是否keep-alive存储
 	    			// 获取浏览器距离顶部的距离
 	    			var scrollTop=0;
-			        if (window.pageYOffset) {  
+			        if (window.pageYOffset) {
 			        	scrollTop = window.pageYOffset;
 			        }else if (document.compatMode && document.compatMode != 'BackCompat'){
 			        	scrollTop = document.documentElement.scrollTop;
@@ -124,7 +129,7 @@ router.beforeEach((to, from, next) => {
 });
 
 //当路由进入后：关闭进度条
-router.afterEach(() => {  
+router.afterEach(() => {
     // 在即将进入新的页面组件前，关闭掉进度条
     NProgress.done()
 })
