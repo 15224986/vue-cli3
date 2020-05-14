@@ -249,6 +249,7 @@ $lte8: true !default;
     -o-transition: all $time $timing;
 }
 
+// 文字不可以选中
 @mixin noselect(){
     -webkit-user-select:none;
     -moz-user-select:none;
@@ -256,3 +257,14 @@ $lte8: true !default;
     user-select:none;
 }
 
+
+
+
+// 内部盒子
+@mixin box-inner(){
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
