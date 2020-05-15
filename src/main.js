@@ -55,6 +55,13 @@ import FileSaver from "file-saver";
 Vue.prototype.$XLSX = XLSX;
 Vue.prototype.$FileSaver= FileSaver;
 
+/**
+ * 全局lodash
+ * Lodash 是一个一致性、模块化、高性能的 JavaScript 实用工具库
+ * https://www.lodashjs.com
+ */
+import * as lodash from "lodash";
+Vue.prototype.$lodash = lodash;
 
 
 
