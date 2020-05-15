@@ -41,6 +41,8 @@ import mocAffix from './affix/index.js';
 // element-ul Select 选择器 封装全选
 import mocAllSelect from './all-select/index.js';
 
+// element-ul Select 选择器 封装下拉树
+import mocSelectTree from './select-tree/index.js';
 
 
 
@@ -83,7 +85,8 @@ const components = [
 	mocAnchor,
 	mocAnchorLink,
 	mocAffix,
-	mocAllSelect
+	mocAllSelect,
+    mocSelectTree
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -132,7 +135,8 @@ export {
 	mocAnchorLink,
 	mocAffix,
 	mocAllSelect,
-	
+    mocSelectTree,
+
 	mocDialog,
 	mocLoading,
 	mocToastr,
