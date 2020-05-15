@@ -14,7 +14,7 @@
     "element-ui": "^2.7.2",
     "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.13",
     "nprogress": "^0.2.0",
     "sortablejs": "1.8.4",
     "tinymce": "^5.0.3",
