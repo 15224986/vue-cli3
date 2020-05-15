@@ -6,6 +6,8 @@ export default function(target) {
                 let value = source[prop];
                 if (value !== undefined) {
                     target[prop] = value;
+                }else{
+                    target[prop] = '';
                 }
             }
         }
