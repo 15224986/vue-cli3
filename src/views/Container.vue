@@ -55,7 +55,7 @@
 			</el-aside>
 			<el-main>
 				<div class="moc-container">
-                    
+
                     <section class="moc-breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/user' }">首页</el-breadcrumb-item>
@@ -64,9 +64,15 @@
                             <el-breadcrumb-item>活动详情</el-breadcrumb-item>
                         </el-breadcrumb>
                     </section>
-                    <section class="moc-bodier moc-form">
+                    <!-- <section class="moc-bodier moc-form">
                         <p>典型表单</p>
-                        <el-form ref="form" :model="form" label-width="80px">
+                        <el-form ref="form" :model="form" label-width="80px" class="moc-form-horizontal">
+                            <el-form-item v-for="item in conts" :key="item" label="活动名称">
+                                <el-input v-model="form.name"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <p>行内表单</p>
+                        <el-form ref="form" :model="form" label-width="80px" :inline="true" class="moc-form-inline">
                             <el-form-item v-for="item in conts" :key="item" label="活动名称">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
@@ -75,22 +81,83 @@
                     <section class="moc-footer">
                         <el-button type="primary">立即创建</el-button>
                         <el-button>取消</el-button>
-                    </section>
+                    </section> -->
 
 
 
 
-                    <!-- <section class="moc-search">
-                        <el-form :inline="true" :model="search" class="demo-form-inline">
+                    <section class="moc-search">
+                        <el-form :model="search" label-width="120px" :inline="true" size="small" class="moc-form-search">
+
                             <el-form-item label="审批人">
                                 <el-input v-model="search.user" placeholder="审批人"></el-input>
                             </el-form-item>
+
                             <el-form-item label="活动区域">
-                                <el-select v-model="search.region" placeholder="活动区域">
-                                    <el-option label="区域一" value="shanghai"></el-option>
-                                    <el-option label="区域二" value="beijing"></el-option>
+                                <el-select
+                                    v-model="search.region"
+                                    placeholder="活动区域"
+                                    filterable
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="(item, index) in selectOptions.region"
+                                        :key="index"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled"
+                                    >
+                                    </el-option>
                                 </el-select>
                             </el-form-item>
+
+                            <el-form-item label="日期选择">
+                                <el-date-picker
+                                    v-model="search.date"
+                                    placeholder="任意日期">
+                                </el-date-picker>
+                            </el-form-item>
+
+                            <el-form-item label="日期时间选择">
+                                <el-date-picker
+                                    v-model="search.datetime"
+                                    type="datetime"
+                                    placeholder="任意时间">
+                                </el-date-picker>
+                                <span class="moc-form-label-static">至</span>
+                                <el-date-picker
+                                    v-model="search.datetime"
+                                    type="datetime"
+                                    placeholder="任意时间">
+                                </el-date-picker>
+                            </el-form-item>
+
+                            <el-form-item class="neu-time-slot" label="时间段选择">
+                                    <!-- <el-date-picker
+                                        v-model="search.createTime"
+                                        type="datetimerange"
+                                        value-format="yyyyMMddHHmmss"
+                                        range-separator="至"
+                                        start-placeholder="开始时间"
+                                        end-placeholder="结束时间"
+                                    > -->
+                                    <!--
+                                        隐藏底部清空按钮
+                                        popper-class="no-has-clearable"
+                                     -->
+                                    <el-date-picker
+                                        v-model="search.checkTime"
+                                        type="datetimerange"
+                                        :clearable="false"
+                                        value-format="yyyyMMddHHmmss"
+                                        range-separator="至"
+                                        start-placeholder="开始时间"
+                                        end-placeholder="结束时间"
+                                        :default-time="['00:00:00', '23:59:59']"
+                                        :picker-options="datePickerOptions"
+                                    >
+                                    </el-date-picker>
+                                </el-form-item>
                             <el-form-item>
                                 <el-button type="primary" @click="onSearch()">查询</el-button>
                             </el-form-item>
@@ -119,7 +186,7 @@
                             :page-sizes="paginationSet.sizes"
                             background>
                         </el-pagination>
-					</section> -->
+					</section>
 
 				</div>
 			</el-main>
@@ -165,7 +232,10 @@
                  */
                 search: {
                     user: '',
-                    region: ''
+                    region: '',
+                    date: '',
+                    datetime: '',
+                    checkTime: ''
                 },
                 /**
                  * 表格
@@ -180,6 +250,31 @@
                     total: 1200,        // 总条数
                 },
 
+                selectOptions:{
+                    region:[
+                        {
+                            value: '选项1',
+                            label: '黄金糕'
+                        },
+                        {
+                            value: '选项2',
+                            label: '双皮奶',
+                            disabled: true
+                        },
+                        {
+                            value: '选项3',
+                            label: '蚵仔煎'
+                        },
+                        {
+                            value: '选项4',
+                            label: '龙须面'
+                        },
+                        {
+                            value: '选项5',
+                            label: '北京烤鸭'
+                        }
+                    ]
+                }
 			}
         },
         created(){
@@ -245,8 +340,35 @@
     }
 
 
+    /**
+     * 表单文件定义样式
+     * 上面写单独的组件
+     * 下面是这四种格式
+     */
+    // 行内表单两个组件之间的分隔符，例：  开始时间 至 结束时间
+    .moc-form-label-static{
+    	padding: 0 10px;
+    }
+    // 行内表单
+    .moc-form-inline{
 
+    }
+    // 表格的搜索条件
+    .moc-form-search{
+        .el-form-item{
+            margin-bottom: 6px;
+        }
+    }
+    // 典型表单
+    .moc-form-horizontal{
 
+    }
+    // 表单页的查看详情
+    .neu-form-details{
+        .el-form-item--mini.el-form-item{
+            margin-bottom: 6px;
+        }
+    }
 
     .moc-search{
         margin: 20px 20px 0;
