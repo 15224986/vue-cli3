@@ -7,11 +7,19 @@
             </section>
 
             <section class="section">
+                <h3 class="section-title">多层obj的值的获取和修改</h3>
+                <div class="m-b-20">
+                    <el-button @click="onChangeObj('search.costTimeS.tine')">多层obj的值++</el-button>
+                </div>
+                <h3 class="text-red">{{search.costTimeS.tine}}</h3>
+            </section>
+
+            <section class="section">
                 <h3 class="section-title">vue 多层嵌套，修改后dom刷新</h3>
                 <div class="m-b-20">
-                    <el-button @click="onMultiStoreyChange()">显示规则文档</el-button>                    
+                    <el-button @click="onMultiStoreyChange()">显示规则文档</el-button>
                 </div>
-                <ul 
+                <ul
                     :multi-storey-group="multiStoreyChanges"
                     class="color-list"
                     v-for="(item, index) in multiStoreyArray[0]"
@@ -25,13 +33,20 @@
                         :key="i"
                     ><span class="color-index">{{i+1}}：</span>{{list}}</li>
                 </ul>
-            </section>           
+            </section>
+
         </div>
     </article>
 </template>
 <script>
+    /**
+     * 混入对象
+     */
+    import common from '@/mixins/common.js';            // 通用  每个页面都需要引入
+
     export default {
         name: "multilayerNesting",
+        mixins:[ common ],
         data() {
             return {
                 loading: false,
@@ -63,14 +78,39 @@
                         '公共方法，再别的方法里调用的，处理数据格式，字符串样式等，使用“set”开头，例如“setParams”等。',
                         '所有和判断相关的，使用“is”开头，例如“isBoolean”等。',
                         '当组件回调和自定义方法使用相同的方法时，使用“on”开头。'
-                    ] 
-                ]
+                    ]
+                ],
+
+                search:{
+                    costTimeS:{
+                        tine: 1111
+                    }
+                }
             };
         },
+        created(){
+        },
         methods: {
+            onChangeObj(keys){
+                let prop = this.getPropByPath(this, keys, false);
+                prop.o[prop.k] = prop.v+1;
+
+
+                /**
+                 * prop.o = prop.obj  最终字段所在的obj
+                 * prop.k = prop.key  最终字段所在的obj的key
+                 * prop.v = prop.val  最终字段的val
+                 */
+
+
+                // let prop = this.getPropByPath(this, keys, true);
+                // let val = this.getPropByPath(this, keys, true).v;
+                // prop.o[prop.k] = val+1;
+            },
+
             /**
              * vue 多层嵌套 按钮的点击事件
-             */ 
+             */
             onMultiStoreyChange(){
                 this.multiStoreyArray[0] = this.multiStoreyShow;
                 this.multiStoreyChanges++;
@@ -124,5 +164,8 @@
     }
     .color-list + .color-list{
         margin-top: 30px;
+    }
+    .text-red{
+        color: red;
     }
 </style>
