@@ -26,6 +26,41 @@ export default {
 		}
 	},
 	methods: {
+        /**
+         * 多层obj的值的获取和修改
+         * @param {Object} 最外层的obj
+         * @param {Object} 相对最外层的路径
+         * @param {Object} 是否开启严格模式
+         * @return {o} 最终字段所在的obj
+         * @return {k} 最终字段所在的obj的key
+         * @return {v} 获取值
+         */
+        getPropByPath(obj, path, strict) {
+            let tempObj = obj;
+            path = path.replace(/\[(\w+)\]/g, '.$1');
+            path = path.replace(/^\./, '');
+
+            let keyArr = path.split('.');
+            let i = 0;
+            for (let len = keyArr.length; i < len - 1; ++i) {
+                if (!tempObj && !strict) break;
+
+                let key = keyArr[i];
+                if (key in tempObj) {
+                    tempObj = tempObj[key];
+                } else {
+                    if (strict) {
+                        throw new Error('please transfer a valid prop path to form item!');
+                    }
+                    break;
+                }
+            }
+            return {
+                o: tempObj,
+                k: keyArr[i],
+                v: tempObj ? tempObj[keyArr[i]] : null
+            };
+        },
 		/**
 		 * 自定义索引
 		 */
@@ -53,12 +88,24 @@ export default {
                 }
             });
 
-
-
-
+            /**
+             * 循环检测高度，每隔200毫秒从新获取 $('.neu-container-bd') 的高度
+             * 判断这个div的高度是否和table的高度相等，如果相等执行计数，如果连续25次相等，则停止循环
+             * 如果不相等，则将div的高度 赋值给table，并从新开始计数
+             */
+            let timesRun = 0;
+            let interval = setInterval( ()=>{
+                let containerH = $dom.clientHeight - minuend;
+                if( _this.tableHeight === containerH ){
+                    timesRun++;
+                    if( timesRun > 300 ){
+                        clearInterval(interval);
+                    }
+                }else{
+                    _this.tableHeight = containerH;
+                    timesRun = 0;
+                }
+            }, 200);
         }
-
-
-
 	}
 }
