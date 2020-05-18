@@ -1,21 +1,25 @@
 <template>
     <div id="wrapper">
-        <el-row>
-            <el-col :span="12">
-                <div id="echarts1" class="echarts-item"></div>
-            </el-col>
-            <el-col :span="12">
-                <div id="echarts2" class="echarts-item"></div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="12">
-                <div id="echarts3" class="echarts-item"></div>
-            </el-col>
-            <el-col :span="12">
-                <div id="echarts4" class="echarts-item"></div>
-            </el-col>
-        </el-row>
+        <section class="section">
+            <el-row>
+                <el-col :span="12">
+                    <div id="echarts1" class="echarts-item"></div>
+                </el-col>
+                <el-col :span="12">
+                    <div id="echarts2" class="echarts-item"></div>
+                </el-col>
+            </el-row>
+        </section>
+        <section class="section">
+            <el-row>
+                <el-col :span="12">
+                    <div id="echarts3" class="echarts-item"></div>
+                </el-col>
+                <el-col :span="12">
+                    <div id="echarts4" class="echarts-item"></div>
+                </el-col>
+            </el-row>
+        </section>
     </div>
 </template>
 
@@ -233,3 +237,8 @@
         },
     };
 </script>
+<style>
+    .section + .section{
+        margin-top: 20px;
+    }
+</style>
