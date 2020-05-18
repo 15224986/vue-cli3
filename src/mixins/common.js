@@ -85,27 +85,27 @@ export default {
             _this.$nextTick( ()=>{
                 if( $dom ){
                     _this.tableHeight = $dom.offsetHeight - minuend;
+                    /**
+                     * 循环检测高度，每隔200毫秒从新获取 $('.neu-container-bd') 的高度
+                     * 判断这个div的高度是否和table的高度相等，如果相等执行计数，如果连续25次相等，则停止循环
+                     * 如果不相等，则将div的高度 赋值给table，并从新开始计数
+                     */
+                    let timesRun = 0;
+                    let interval = setInterval( ()=>{
+                        let containerH = $dom.clientHeight - minuend;
+                        if( _this.tableHeight === containerH ){
+                            timesRun++;
+                            if( timesRun > 300 ){
+                                clearInterval(interval);
+                            }
+                        }else{
+                            _this.tableHeight = containerH;
+                            timesRun = 0;
+                        }
+                    }, 200);
                 }
             });
 
-            /**
-             * 循环检测高度，每隔200毫秒从新获取 $('.neu-container-bd') 的高度
-             * 判断这个div的高度是否和table的高度相等，如果相等执行计数，如果连续25次相等，则停止循环
-             * 如果不相等，则将div的高度 赋值给table，并从新开始计数
-             */
-            let timesRun = 0;
-            let interval = setInterval( ()=>{
-                let containerH = $dom.clientHeight - minuend;
-                if( _this.tableHeight === containerH ){
-                    timesRun++;
-                    if( timesRun > 300 ){
-                        clearInterval(interval);
-                    }
-                }else{
-                    _this.tableHeight = containerH;
-                    timesRun = 0;
-                }
-            }, 200);
         }
 	}
 }
