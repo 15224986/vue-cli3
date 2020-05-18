@@ -7,6 +7,13 @@
             </section>
 
             <section class="section">
+                <h3 class="section-title">css3 透视旋转</h3>
+                <div class="d3-wrap">
+                    <div class="rotateX"></div>
+                </div>
+            </section>
+
+            <section class="section">
                 <h3 class="section-title">css3 环形倒计时</h3>
                 <div class="sector">
                     <div class="sector-bg"> </div>
@@ -109,6 +116,27 @@
     .section-title + .section-subhead{
         margin-top: -6px;
     }
+
+    /**
+     * 3D旋转的效果
+     */
+    .d3-wrap {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 120px auto;
+        /* 规定如何在 3D 空间中呈现被嵌套的元素 */
+        transform-style: preserve-3d;
+    	background-color: #f1f1f1;
+    }
+    .rotateX {
+        width: 300px;
+        height: 300px;
+        background-color: #06c;
+
+        transform: perspective(1200px) rotateY(60deg);
+        transform-origin: 100%;
+    }
     /**
      * 环形倒计时
      */
@@ -161,7 +189,7 @@
     .card-list {
         border-left: 1px solid #eee;
         border-top: 1px solid #eee;
-        
+
     }
     .card-item {
         width: 33.333333333333333%;
