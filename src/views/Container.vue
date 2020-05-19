@@ -56,6 +56,8 @@
 			<el-main>
 				<div class="moc-container">
 
+
+
                     <section class="moc-breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/user' }">首页</el-breadcrumb-item>
@@ -87,6 +89,9 @@
 
 
                     <section class="moc-search">
+                        <h3>{{$route.params.id}}</h3>
+                        <h3>{{$route.params.name}}</h3>
+                        <p>params 传参 不建议</p>
                         <el-form :model="search" label-width="120px" :inline="true" size="small" label-suffix="：" class="moc-form-search">
 
                             <el-form-item label="审批人">
@@ -310,7 +315,13 @@
                 console.log( params, this.search );
 
 
+                let diei = null
 
+                console.log( this.$lodash.isArray(diei) );
+
+                let diei2 = Object.create(null);
+
+                console.log( diei2 );
 
 
             }
