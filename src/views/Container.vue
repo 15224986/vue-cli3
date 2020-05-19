@@ -236,7 +236,11 @@
                     date: '',
                     datetime: '',
                     checkTime: '',
-                    arr:[1,2,3]
+                    arr:[1,2,3],
+                    obj:{
+                        a:1,
+                        b:22222
+                    }
                 },
                 /**
                  * 表格
@@ -249,6 +253,11 @@
                     current: 1,         // 当前页
                     size: 20,           // 每页显示条数
                     total: 1200,        // 总条数
+                    oages: undefined,
+                    obj:{
+                        b:2,
+                        c:3
+                    }
                 },
 
                 selectOptions:{
@@ -293,10 +302,13 @@
                  */
                 // let params = this.$merge( this.$deepCopy(this.search), this.pagination);
                 // let params = {...this.$deepCopy(this.search), ...this.pagination};
-                let params = {...this.$lodash.cloneDeep(this.search), ...this.pagination};
+                // let params = {...this.$lodash.cloneDeep(this.search), ...this.pagination};
+                // let params = this.$lodash.assign(this.$lodash.cloneDeep(this.search), this.pagination);
+                let params = this.$lodash.merge(this.$lodash.cloneDeep(this.search), this.pagination);
                 delete params.total;
                 params.arr.push('a','b','c');
                 console.log( params, this.search );
+
 
 
 
