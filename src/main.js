@@ -58,6 +58,7 @@ Vue.prototype.$FileSaver= FileSaver;
 /**
  * 全局lodash
  * Lodash 是一个一致性、模块化、高性能的 JavaScript 实用工具库
+ * Lodash 通过降低 array、number、objects、string 等等的使用难度从而让 JavaScript 变得更简单。
  * https://www.lodashjs.com
  */
 import * as lodash from "lodash";
@@ -93,6 +94,9 @@ Vue.prototype.$baseSrc = process.env.VUE_APP_URL;
  */
 import merge from "@/utils/merge.js";
 Vue.prototype.$merge = merge;
+import deepCopy from "@/utils/deepCopy.js";
+Vue.prototype.$deepCopy = deepCopy;
+
 import toBoolean from "@/utils/toBoolean.js";
 Vue.prototype.$toBoolean = toBoolean;
 import axiosError from '@/utils/axiosError.js'
