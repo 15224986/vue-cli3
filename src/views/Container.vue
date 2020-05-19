@@ -87,7 +87,7 @@
 
 
                     <section class="moc-search">
-                        <el-form :model="search" label-width="120px" :inline="true" size="small" class="moc-form-search">
+                        <el-form :model="search" label-width="120px" :inline="true" size="small" label-suffix="：" class="moc-form-search">
 
                             <el-form-item label="审批人">
                                 <el-input v-model="search.user" placeholder="审批人"></el-input>
@@ -235,7 +235,8 @@
                     region: '',
                     date: '',
                     datetime: '',
-                    checkTime: ''
+                    checkTime: '',
+                    arr:[1,2,3]
                 },
                 /**
                  * 表格
@@ -285,7 +286,21 @@
         },
         methods:{
             onSearch(){
-                console.log( this.pagination );
+                /**
+                 * 合并参数的时候，如果被合并的对象里面存在arr、obj等，需要使用深层复制，才可以对参数进行修改
+                 *
+                 * 如果项目中引用了 lodash 插件库，则不需要自己写的 深层复制等，合并等方法
+                 */
+                // let params = this.$merge( this.$deepCopy(this.search), this.pagination);
+                // let params = {...this.$deepCopy(this.search), ...this.pagination};
+                let params = {...this.$lodash.cloneDeep(this.search), ...this.pagination};
+                delete params.total;
+                params.arr.push('a','b','c');
+                console.log( params, this.search );
+
+
+
+
             }
         }
     }
