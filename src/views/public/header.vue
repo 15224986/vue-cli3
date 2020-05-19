@@ -25,7 +25,7 @@
                 <router-link :to="{path:'/400'}">400</router-link>
             </li>
             <li>
-                <router-link :to="{path:'/container'}">页面布局</router-link>
+                <router-link :to="{ name: 'container', params: {id:sysUserName, name:sysUserAvatar }}">页面布局</router-link>
             </li>
         </ul>
         <div class="user">
