@@ -65,7 +65,7 @@ const router = new Router({
 			name: 'page400'
 		},
 		{
-			path: '/container',
+			path: '/container/:id',
 			component: () => import(/* webpackChunkName: "login" */ '@/views/Container'),
 			name: 'container'
 		}
