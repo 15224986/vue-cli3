@@ -45,6 +45,8 @@ export default {
             },
             /**
              * 选择月份范围 带快捷选项
+             *
+             * 做项目的时候，这个不需要放到公共文件里（保持公共的mixins要小）
              */
             datePickerMonth: {
                 shortcuts: [{
@@ -90,6 +92,10 @@ export default {
          * @return {o} 最终字段所在的obj
          * @return {k} 最终字段所在的obj的key
          * @return {v} 获取值
+         *
+         *
+         *
+         * 做项目的时候，这个不需要放到公共文件里（保持公共的mixins要小）
          */
         getPropByPath(obj, path, strict) {
             let tempObj = obj;
