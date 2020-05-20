@@ -36,7 +36,7 @@
 
 
             <section class="section">
-                <h3 class="section-title">select组件 全选、联动 功能</h3>
+                <h3 class="section-title" @click="clearChooseData">select组件 全选、联动 功能</h3>
                 <el-form :model="search" ref="neuForm" label-width="180px" class="form-horizontal">
                     <el-form-item label="下拉多选（全选）">
                         <moc-all-select v-model="search.chooseData" :selectOptions="searchOptions.selectOptions"
@@ -47,10 +47,12 @@
                         <moc-all-select v-model="search.selectLinkage" :selectOptions="searchOptions.selectOptions"
                             @change="changeValue"></moc-all-select>
                     </el-form-item>
+                    <p>{{ search.selectLinkage }}</p>
 
                     <el-form-item label="下拉多选（联动）">
                         <moc-all-select v-model="search.selectLinkage1" :selectOptions="searchOptions.selectLinkage"></moc-all-select>
                     </el-form-item>
+                    <p>{{ search.selectLinkage1 }}</p>
                 </el-form>
             </section>
 
@@ -128,9 +130,9 @@
                     selectLinkage1: []
                 },
                 search: {
-                    chooseData: [1, 2],
-                    selectLinkage: [],
-                    selectLinkage1: []
+                    chooseData: [1, 2, 3],
+                    selectLinkage: '',
+                    selectLinkage1: ''
                 },
                 searchOptions: {
                     selectOptions: [{
@@ -255,8 +257,12 @@
             };
         },
         methods: {
+            clearChooseData(){
+                this.search.chooseData = [];
+            },
             changeValue(val) {
                 this.searchOptions.selectLinkage = [];
+                this.search.selectLinkage1 = [];
                 if (Array.isArray(val)) {
                     val.forEach((key) => {
                         if (this.optionsObj.selectLinkage.hasOwnProperty(key)) {
