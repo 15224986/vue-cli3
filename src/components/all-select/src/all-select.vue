@@ -34,7 +34,7 @@ export default {
             default: () => []
         },
         selectData: {
-            type: Array,
+            type: [Array, String, Number, Boolean],
             default: () => []
         },
         clearable:{
@@ -70,8 +70,12 @@ export default {
     },
     watch: {
         selectData:function (nData, oData) {
-            this.chooseData = nData
+            this.chooseData = nData;
+            this.oldChooseData = nData.length > 0 ? nData : [];
         }
+    },
+    mounted() {
+        this.selectAll(this.chooseData);
     },
     methods: {
 		selectAll (val) {
@@ -109,7 +113,7 @@ export default {
 
 			// 全选未选，但是其他选项都全部选上了，则全选选上
 			if (!oldVal.includes('all-selected-neusoft') && !val.includes('all-selected-neusoft')) {
-				if (val.length === allValues.length - 1) {
+				if ( allValues.length > 1 && val.length === allValues.length - 1 ) {
 					this.chooseData = ['all-selected-neusoft'].concat(val);
 				}
 			}
