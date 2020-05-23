@@ -29,7 +29,7 @@ import jurisdiction from './modules/jurisdiction'
 
 
 const router = new Router({
-	mode: 'history',
+	// mode: 'history',
 	linkActiveClass: "active",
 	routes: [
 		{
@@ -65,7 +65,7 @@ const router = new Router({
 			name: 'page400'
 		},
 		{
-			path: '/container/:id',
+			path: '/container/anextUntil',
 			component: () => import(/* webpackChunkName: "login" */ '@/views/Container'),
 			name: 'container'
 		}
