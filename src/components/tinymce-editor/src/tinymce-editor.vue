@@ -27,7 +27,7 @@
     import 'tinymce/plugins/autoresize'     // 编辑器自适应
     import 'tinymce/plugins/charmap'       // 自动存稿
 
-    
+
     let pluginsData = 'lists advlist image media table wordcount link autolink preview fullscreen hr charmap';
     export default {
         name: 'mocTinymceEditor',
@@ -85,12 +85,12 @@
                      * 4、参考文档2    https://aaron-bird.github.io/2019/06/09/在%20Vue%20中使用%20TinyMCE/
                      * 5、中文文档     http://tinymce.ax-z.cn/general/basic-setup.php
                      */
-                    language_url: "/tinymce/langs/zh_CN.js",
+                    language_url: "/static/tinymce/langs/zh_CN.js",
                     language: 'zh_CN',
-                    skin_url: '/tinymce/skins/ui/oxide',
-                    content_css: '/tinymce/skins/content/default/content.css',
-                    // skin_url: '/tinymce/skins/ui/oxide-dark', // 暗色系
-                    // content_css: '/tinymce/skins/content/dark/content.css', // 暗色系
+                    skin_url: '/static/tinymce/skins/ui/oxide',
+                    content_css: '/static/tinymce/skins/content/default/content.css',
+                    // skin_url: '/static/tinymce/skins/ui/oxide-dark', // 暗色系
+                    // content_css: '/static/tinymce/skins/content/dark/content.css', // 暗色系
                     width: this.width,
                     height: this.height,
                     min_height: this.autoresize ? this.height:false,
