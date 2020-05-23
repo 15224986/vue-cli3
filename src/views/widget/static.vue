@@ -1,7 +1,7 @@
 <template>
     <div id="wrapper">
         <div class="widget">
-            
+
             <section class="section">
                 <h3 class="widget-tit">图片的引入1</h3>
                 <p class="widget-txt">将图片放在“src\assets”这个路径下，当图片小于4kb的时候，会被编译成base64编码减少http请求。但是每次加载都要加载相关的资源，会出现重复请求的情况。</p>
@@ -13,7 +13,7 @@
                         <div class="diagram-map-train"></div>
                         <div class="echarts-pie-bg"></div>
                         <div class="login-body-2"></div>
-                        
+
                         <P class="widget-txt">通过src引入的。</P>
                         <div class="login-logo"></div>
                         <div class="logo"></div>
@@ -25,12 +25,12 @@
                         <img src="@/assets/images/diagram-map-train.png" alt="">
                         <img src="@/assets/images/echarts-pie-bg.png" alt="">
                         <img src="@/assets/images/login-body_02.png" alt="">
-                        
+
                         <P class="widget-txt">通过src引入的。</P>
                         <img src="@/assets/images/login-logo.png" alt="">
                         <img src="@/assets/images/logo.png" alt="">
                     </div>
-                </div> 
+                </div>
             </section>
 
             <section class="section">
@@ -44,10 +44,10 @@
                     </div>
                     <h5 class="widget-title">2.在标签中引入。</h5>
                     <div class="public">
-                        <img src="/images/icon-camera.png" alt="">
-                        <img src="/images/diagram-map-train.png" alt="">
+                        <img src="/static/images/icon-camera.png" alt="">
+                        <img src="/static/images/diagram-map-train.png" alt="">
                     </div>
-                </div> 
+                </div>
             </section>
 
             <section class="section">
@@ -57,7 +57,7 @@
                     <div class="public">
                         <p v-for="(item,index) in list" :key="index">{{ index+1 }}: {{item.title }}</p>
                     </div>
-                </div> 
+                </div>
             </section>
 
             <section class="section">
@@ -67,7 +67,7 @@
                     <div class="public">
                         <p v-for="(item,index) in numbers" :key="index">{{ item }}</p>
                     </div>
-                </div> 
+                </div>
             </section>
 
         </div>
@@ -90,16 +90,16 @@ export default {
         };
     },
     created(){
-        
-        // this.$http.get('/json/service.json', {}, { baseURL: '' }).then((response)=> {
-        this.$http.get('/json/service.json').then((response)=> {
+
+        // this.$http.get('/static/json/service.json', {}, { baseURL: '' }).then((response)=> {
+        this.$http.get('/static/json/service.json').then((response)=> {
                 console.log(response.data);
                 this.list = response.data.content;
             }).catch((error)=> {
                 console.log(error);
             });
-        // this.$axios.get('/json/service.json', { params: {}, baseURL: '' }).then((response)=> {
-        this.$axios.get('/json/service.json').then((response)=> {
+        // this.$axios.get('/static/json/service.json', { params: {}, baseURL: '' }).then((response)=> {
+        this.$axios.get('/static/json/service.json').then((response)=> {
                 console.log(response.data);
             }).catch((error)=> {
                 console.log(error);
