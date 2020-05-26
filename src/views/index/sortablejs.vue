@@ -5,7 +5,7 @@
             <section class="section-breadcrumb">
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
-   
+
             <section class="section">
                 <h3 class="section-title">拖拽 Table</h3>
                 <ul class="section-subhead">
@@ -16,7 +16,7 @@
                     <el-table
                         :data="dataset"
                         border
-                        stripe 
+                        stripe
                         class="text-center"
                         ref="dragTable"
                         :row-key="handleGetRowKeys"
@@ -36,7 +36,7 @@
                         layout="prev, pager, next, jumper"
                         background>
                     </el-pagination>
-                </div> 
+                </div>
             </section>
 
             <section class="section">
@@ -62,12 +62,12 @@
                 <el-row :gutter="20">
                     <el-col :span="12">
                         <ul class="sortable-group exampleLeft" ref="exampleLeft1">
-                            <li v-for="item in list3" :key="item.id" class="moc-cover-clone">{{item.id}} {{item.text}} <span>left</span></li>
+                            <li v-for="(item, index) in list3" :key="index" class="moc-cover-clone" :class="{'filtered':index==4}">{{item.id}} {{item.text}} <span>left</span></li>
                         </ul>
                     </el-col>
                     <el-col :span="12">
                         <ul class="sortable-group exampleRight" ref="exampleRight1" style="height: 300px; background-color: #eee">
-                            <li v-for="item in list4" :key="item.id">{{item.id}} {{item.text}} <span>right</span></li>
+                            <li v-for="(item, index) in list4" :key="index">{{item.id}} {{item.text}} <span>right</span></li>
                         </ul>
                     </el-col>
                 </el-row>
@@ -91,8 +91,8 @@
      * 引入排序插件
      */
     import Sortable from 'sortablejs'
-    
-    
+
+
     export default {
         name: "tableDrag",
         mixins: [calcIndex, sexText, controlClass, deepCopy],
@@ -172,7 +172,7 @@
                     }
                 ],
                 list4:[
-                    
+
                 ]
             };
         },
@@ -256,6 +256,7 @@
                         pull: 'clone',
                         put: false      // 不允许拖拽进这个列表
                     },
+                    filter: '.filtered', // 'filtered' class is not draggable
                     sort: false,        // 设为false，禁止sort
                     onEnd: evt => {
                         const targetRow = this.setDeepCopy(this.list3[evt.oldIndex]);
@@ -355,5 +356,9 @@
     }
     .exampleLeft{
         background-color: #fff6b2;
+    }
+
+    .moc-cover-clone.filtered{
+        background-color: red;
     }
 </style>
