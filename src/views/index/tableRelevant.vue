@@ -74,18 +74,23 @@
                 <h3 class="section-title">状态排序</h3>
                 <div class="table-box">
                     <el-table
-                        :data="dataset"
+                        :data="tableData"
                         height="390px"
                         border
                         stripe
                         class="text-center"
                         @sort-change="sortTable"
-                        :default-sort="{ prop:'text', order:'descending'}"
+                        :default-sort="{ prop:'date', order:'descending'}"
+                        row-key="id"
+                        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+                        lazy
+                        :load="load"
                     >
                         <el-table-column label="排序" type="index" width="50"></el-table-column>
-                        <el-table-column label="ID" property="tenantID" sortable="custom" width="80"></el-table-column>
-                        <el-table-column label="内容" property="text" sortable="custom" :sort-orders="['ascending', 'descending']" show-overflow-tooltip min-width="350"></el-table-column>
-                        <el-table-column label="状态" property="checked" width="80" :formatter="handleFormatBoolean" min-width="110"></el-table-column>
+                        <el-table-column label="ID" prop="id" sortable="custom" width="80"></el-table-column>
+                        <el-table-column label="日期" prop="date" sortable :sort-orders="['ascending', 'descending']" width="180"></el-table-column>
+                        <el-table-column label="姓名" prop="name" sortable="custom" width="180"></el-table-column>
+                        <el-table-column label="地址" prop="address" show-overflow-tooltip min-width="350"></el-table-column>
                     </el-table>
                 </div>
             </section>
@@ -113,6 +118,46 @@
                  */
                 sort: 1,
                 dataset :[],
+                tableData: [
+                    {
+                        id: 1,
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    },
+                    {
+                        id: 2,
+                        date: '2016-05-04',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1517 弄'
+                    },
+                    {
+                        id: 3,
+                        date: '2016-05-01',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1519 弄',
+                        children: [
+                            {
+                                id: 31,
+                                date: '2019-05-01',
+                                name: '王老虎',
+                                address: '上海市普陀区金沙江路 1519 弄'
+                            }, {
+                                id: 32,
+                                date: '2019-05-01',
+                                name: '王老虎',
+                                address: '上海市普陀区金沙江路 1519 弄'
+                            },
+                        ]
+                    },
+                    {
+                        id: 4,
+                        date: '2016-05-03',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1516 弄',
+                        hasChildren: true
+                    },
+                ],
                 pagination: {
                     current: 1,     // 当前页
                     size: 15,       // 页面显示条数
@@ -193,6 +238,61 @@
              */
             sortTable(params){
                 console.log(params, '初始化排序');
+            },
+            // 树形结构，加载数据
+            load(tree, treeNode, resolve) {
+                setTimeout(() => {
+                    resolve([
+                        {
+                            id: 41,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 42,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 43,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 44,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 45,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 46,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 47,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        },
+                        {
+                            id: 48,
+                            date: '2020-05-01',
+                            name: '赵大国',
+                            address: '上海市普陀区金沙江路 1519 弄'
+                        }
+                    ])
+                }, 1000)
             },
 
 
