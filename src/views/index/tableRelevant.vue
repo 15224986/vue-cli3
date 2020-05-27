@@ -5,7 +5,7 @@
             <section class="section-breadcrumb">
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
-   
+
             <section class="section">
                 <h3 class="section-title">状态排序
                     <el-button @click="onSort()" type="primary" circle>
@@ -22,7 +22,7 @@
                         :data="dataset"
                         height="390px"
                         border
-                        stripe 
+                        stripe
                         class="text-center"
                         header-row-class-name="el-table-th"
                         :row-key="handleGetRowKeys"
@@ -68,8 +68,27 @@
                         layout="prev, pager, next, jumper"
                         background>
                     </el-pagination>
-                </div> 
-            </section>           
+                </div>
+            </section>
+            <section class="section">
+                <h3 class="section-title">状态排序</h3>
+                <div class="table-box">
+                    <el-table
+                        :data="dataset"
+                        height="390px"
+                        border
+                        stripe
+                        class="text-center"
+                        @sort-change="sortTable"
+                        :default-sort="{ prop:'text', order:'descending'}"
+                    >
+                        <el-table-column label="排序" type="index" width="50"></el-table-column>
+                        <el-table-column label="ID" property="tenantID" sortable="custom" width="80"></el-table-column>
+                        <el-table-column label="内容" property="text" sortable="custom" :sort-orders="['ascending', 'descending']" show-overflow-tooltip min-width="350"></el-table-column>
+                        <el-table-column label="状态" property="checked" width="80" :formatter="handleFormatBoolean" min-width="110"></el-table-column>
+                    </el-table>
+                </div>
+            </section>
         </div>
 
     </article>
@@ -82,7 +101,7 @@
      */
     import calcIndex from "@/mixins/calcIndex.js";
     import sexText from "@/mixins/sexText.js";
-    
+
     export default {
         name: "tableRelevant",
         mixins: [calcIndex, sexText],
@@ -167,6 +186,16 @@
                 this.pagination.current = val ? val : 1;
                 this.initTableData();
             },
+
+
+            /**
+             * 排序
+             */
+            sortTable(params){
+                console.log(params, '初始化排序');
+            },
+
+
             /**
              * 初始化获取页面数据
              */
@@ -183,6 +212,8 @@
                             this.loading = false;
                             this.dataset = res.data.dataset;
                             this.pagination = res.data.pagination;
+
+                            this.handleExpandAll();
                         })
                         .catch((err)=>{
                             console.log(err);
