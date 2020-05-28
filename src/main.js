@@ -55,6 +55,7 @@ import FileSaver from "file-saver";
 Vue.prototype.$XLSX = XLSX;
 Vue.prototype.$FileSaver= FileSaver;
 
+
 /**
  * 全局lodash
  * Lodash 是一个一致性、模块化、高性能的 JavaScript 实用工具库
@@ -63,6 +64,31 @@ Vue.prototype.$FileSaver= FileSaver;
  */
 import * as lodash from "lodash";
 Vue.prototype.$lodash = lodash;
+
+
+/**
+ * vue 可拖拽可缩放 vue-draggable-resizable
+ */
+import VueDraggableResizable from 'vue-draggable-resizable';
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
+Vue.component('vue-draggable-resizable', VueDraggableResizable);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
