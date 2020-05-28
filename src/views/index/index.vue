@@ -90,6 +90,11 @@
                     <span slot="title">拖拽排序</span>
                 </el-menu-item>
 
+                <el-menu-item index="/home/draggableResizable">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">可拖拽可缩放</span>
+                </el-menu-item>
+
                 <el-menu-item index="/home/mockjsData">
                     <i class="el-icon-menu"></i>
                     <span slot="title">mock.js测试</span>
