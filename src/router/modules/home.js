@@ -200,6 +200,18 @@ export default {
 				affix: false
 			}
 		},
+        {
+        	path: 'draggableResizable',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/draggableResizable'),
+        	name: 'draggableResizable',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "可拖拽可缩放",
+        		path: '/home/draggableResizable',
+        		affix: false
+        	}
+        },
 		{
 			path: 'mockjsData',
 			component: () => import(/* webpackChunkName: "home" */ '@/views/index/mockjsData'),
