@@ -8,9 +8,21 @@
                 @close="handleClose"
                 router
             >
+                <el-menu-item index="/home/jQuery">
+                    <i class="el-icon-menu"></i>
+                    <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
+                        <span>jQuery、Array、String</span>
+                    </el-tooltip>
+                </el-menu-item>
+
                 <el-menu-item index="/home/anchor">
                     <i class="el-icon-menu"></i>
                     <span slot="title">Anchor锚点、Affix图钉</span>
+                </el-menu-item>
+
+                <el-menu-item index="/home/verify">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">验证码</span>
                 </el-menu-item>
 
                 <el-menu-item index="/home/directiveFilters">
@@ -26,13 +38,6 @@
                 <el-menu-item index="/home/tinymce">
                     <i class="el-icon-menu"></i>
                     <span slot="title">tinymce5富文本编辑器</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/jQuery">
-                    <i class="el-icon-menu"></i>
-                    <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
-                        <span>jQuery、Array、String</span>
-                    </el-tooltip>
                 </el-menu-item>
 
                 <el-menu-item index="/home/sector">
