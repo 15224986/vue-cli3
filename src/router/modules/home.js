@@ -8,6 +8,18 @@ export default {
 		path: '/home/jQuery'
 	},
     children: [
+        {
+        	path: 'jQuery',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/jQuery'),
+        	name: 'jQuery',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "jQuery 引用",
+        		path: '/home/jQuery',
+        		affix: true
+        	}
+        },
     	{
 			path: 'anchor',
 			component: () => import(/* webpackChunkName: "home" */ '@/views/index/anchor'),
@@ -20,6 +32,18 @@ export default {
 				affix: false //
 			}
 		},
+        {
+        	path: 'verify',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/verify'),
+        	name: 'verify',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,	// 是否使用keep-alive缓存页面
+        		title: "验证码",
+        		path: '/home/verify',
+        		affix: false //
+        	}
+        },
     	{
 			path: 'directiveFilters',
 			component: () => import(/* webpackChunkName: "home" */ '@/views/index/directive-filters'),
@@ -53,18 +77,6 @@ export default {
 				keepAlive: true,
 				title: "tinymce5富文本编辑器",
 				path: '/home/tinymce',
-				affix: true
-			}
-		},
-		{
-			path: 'jQuery',
-			component: () => import(/* webpackChunkName: "home" */ '@/views/index/jQuery'),
-			name: 'jQuery',
-			meta: {
-				loginRrquired: false,
-				keepAlive: true,
-				title: "jQuery 引用",
-				path: '/home/jQuery',
 				affix: false
 			}
 		},
