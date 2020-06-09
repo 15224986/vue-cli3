@@ -1,6 +1,6 @@
 <template>
     <div class="drag-verify-container">
-        <div :style="dragVerifyImgStyle">
+        <div ref="dragContent" class="drag_content" :style="dragVerifyImgStyle">
             <img ref="checkImg" crossOrigin="anonymous" :src="imgsrc" @load="checkimgLoaded" style="width:100%" alt="">
             <canvas ref="maincanvas" class="main-canvas"></canvas>
             <canvas ref="movecanvas" :class="{goFirst:isOk, goKeep:isKeep}" class="move-canvas"></canvas>
@@ -125,6 +125,10 @@
             diffWidth: {
                 type: Number,
                 default: 20
+            },
+            imgShow:{
+                type: Boolean,
+                default: true
             }
         },
         mounted: function() {
@@ -158,11 +162,24 @@
                 };
             },
             dragVerifyImgStyle: function() {
-                return {
-                    width: this.width + "px",
-                    position: 'relative',
-                    overflow: 'hidden'
-                };
+                var dragContent = {};
+                if( this.imgShow ){
+                    dragContent = {
+                        width: this.width + "px",
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }
+                }else{
+                    dragContent = {
+                        width: this.width + "px",
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: 0,
+                        overflow: 'hidden',
+                        display: 'none'
+                    }
+                }
+                return dragContent;
             },
             progressBarStyle: function() {
                 return {
@@ -255,6 +272,10 @@
                 this.showBar = true;
                 this.showErrorTip = false;
                 this.$emit("handlerMove");
+
+                if( !this.imgShow ){
+                    this.$refs.dragContent.style.display = "block";
+                }
             },
             dragMoving: function(e) {
                 if (this.isMoving && !this.isPassing) {
@@ -276,10 +297,17 @@
                             that.$refs.progressBar.style.width = "0";
                             that.$refs.movecanvas.style.left = "0";
                             that.isOk = false;
+
+                            that.reset();
                         }, 500);
                         this.showErrorTip = true;
+
                     } else {
                         this.passVerify();
+
+                        if( !this.imgShow ){
+                            this.$refs.dragContent.style.display = "none";
+                        }
                     }
                     this.isMoving = false;
                 }
