@@ -33,6 +33,12 @@
                                 <ul>
                                     <li>{{ scope.row.text }}</li>
                                 </ul>
+                                <div class="demo-images-list">
+                                  <el-image
+                                    :src="url"
+                                    :preview-src-list="srcList">
+                                  </el-image>
+                                </div>
                             </template>
                         </el-table-column>
 
@@ -70,6 +76,7 @@
                     </el-pagination>
                 </div>
             </section>
+
             <section class="section">
                 <h3 class="section-title">状态排序</h3>
                 <div class="table-box">
@@ -113,6 +120,16 @@
         data() {
             return {
                 loading: false,
+
+                /**
+                 * 图片路径
+                 */
+                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                srcList: [
+                    'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+                    'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                    'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
+                ],
                 /**
                  * sort 排序 表格数据
                  */
@@ -341,5 +358,12 @@
     }
     .section-title + .section-subhead{
         margin-top: -6px;
+    }
+
+    .demo-images-list{
+        .el-image{
+            width: 100px;
+            height: 120px;
+        }
     }
 </style>
