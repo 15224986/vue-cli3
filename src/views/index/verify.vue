@@ -126,6 +126,7 @@
                     </el-tab-pane>
 
                     <el-tab-pane label="图片滑块组件（拼图）" name="third">
+                        <p>显示图片</p>
                         <drag-verify-img-chip
                             ref="dragVerify9"
                             :imgsrc="imgsrc"
@@ -136,6 +137,38 @@
                         >
                         </drag-verify-img-chip>
                         <el-button type="primary" @click="reset2">还原</el-button>
+
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <drag-verify-img-chip
+                            ref="dragVerify91"
+                            :imgsrc="imgsrc"
+                            :isPassing.sync="isPassing91"
+                            :showRefresh="true"
+                            :imgShow="false"
+                            @refresh="reimg"
+                            @passcallback="passcallback"
+                        >
+                        </drag-verify-img-chip>
+
+
+
+
+
                     </el-tab-pane>
 
                     <el-tab-pane label="旋转图片滑块组件" name="fourth">
@@ -180,7 +213,7 @@
         data() {
             return {
                 loading: false,
-                activeName: 'third',
+                activeName: 'first',
 
                 /**
                  * 验证码
@@ -211,6 +244,7 @@
                  * 图片滑块组件（拼图）
                  */
                 isPassing9: false,
+                isPassing91: false,
                 /**
                  * 旋转图片滑块组件
                  */
@@ -265,7 +299,9 @@
             },
             reset2(){
                 this.isPassing9 = false;
+                this.isPassing91 = false;
                 this.$refs.dragVerify9.reset();
+                this.$refs.dragVerify91.reset();
             },
             reset3(){
                 this.isPassing10 = false;
