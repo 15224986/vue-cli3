@@ -18,7 +18,23 @@
                     v-model="transferValue"
                     :data="transferData">
                 </el-transfer>
-            </section>            
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">图片放大缩小</h3>
+
+                <div class="demo-images-list">
+                  <el-image
+                    :src="url"
+                    :preview-src-list="srcList">
+                  </el-image>
+                </div>
+
+
+
+            </section>
+
+
         </div>
     </article>
 </template>
@@ -68,6 +84,16 @@
                         key: 7,
                         pinyin: 'chengdu'
                     }
+                ],
+
+                /**
+                 * 图片路径
+                 */
+                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                srcList: [
+                    'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+                    'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                    'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
                 ]
             };
         },
@@ -99,5 +125,17 @@
     }
     .section-title + .section-subhead{
         margin-top: -6px;
+    }
+
+
+    .section{
+        position: relative;
+    }
+
+    .demo-images-list{
+        .el-image{
+            width: 100px;
+            height: 120px;
+        }
     }
 </style>
