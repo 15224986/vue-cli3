@@ -67,7 +67,9 @@
 
                 <el-menu-item index="/home/transferSearch">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">穿梭框自定义搜索</span>
+                    <el-tooltip slot="title" content="穿梭框自定义搜索、图片放大" placement="right">
+                        <span>穿梭框自定义搜索、图片放大</span>
+                    </el-tooltip>
                 </el-menu-item>
 
                 <el-menu-item index="/home/requiredType">
@@ -77,7 +79,7 @@
 
                 <el-menu-item index="/home/fuzzySearch">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">模糊搜索</span>
+                    <span slot="title">模糊搜索、文字滚动</span>
                 </el-menu-item>
 
                 <el-menu-item index="/home/tableRelevant">
@@ -149,7 +151,7 @@
         }
     };
 </script>
-<style>
+<style lang="scss">
     #content{
         overflow: hidden
     }
@@ -172,6 +174,11 @@
 
     .el-menu-item{
         overflow: hidden;
-        white-space: pre-wrap;
+        white-space:nowrap;
+        .el-tooltip{
+            display: inline-block;
+            width: calc(100% - 30px);
+            overflow: hidden;
+        }
     }
 </style>
