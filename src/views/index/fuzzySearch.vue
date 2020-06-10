@@ -7,6 +7,27 @@
             </section>
 
             <section class="section">
+                <h3 class="section-title">文字滚动</h3>
+                <div class="marquee">
+                    <div class="marquee_title">
+                        <span>最新公告</span>
+                    </div>
+                    <div class="marquee_box">
+                        <ul class="marquee_list" :class="{marquee_top:animate}">
+                            <li v-for="(item, index) in marqueeList">
+                                <span>{{item.name}}</span>
+                                <span>-</span>
+                                <span class="red"> {{item.city}}</span>
+                                <span>销售</span>
+                                <span class="red"> {{item.amount}}</span>
+                                <span>万</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
                 <h3 class="section-title">模糊搜索</h3>
                 <ul class="section-subhead">
                     <li>1.根据input的value值筛选originLists中的数据</li>
@@ -16,17 +37,43 @@
                     <li v-for="(item,index) in searchLists" :key="index">{{item.content}}</li>
                 </ul>
             </section>
-               
+
         </div>
     </article>
 </template>
 <script>
-    
+
     export default {
         name: "fuzzySearch",
         data() {
             return {
                 loading: false,
+                /**
+                 * 文字滚动
+                 */
+                animate: false,
+                marqueeList: [
+                    {
+                        name: '开心果',
+                        city: '北京',
+                        amount: '320'
+                    },
+                    {
+                        name: '芒果干',
+                        city: '上海',
+                        amount: '470'
+                    },
+                    {
+                        name: '草莓干',
+                        city: '广州',
+                        amount: '970'
+                    },
+                    {
+                        name: '无核白葡萄干 ',
+                        city: '重庆',
+                        amount: '10'
+                    }
+                ],
                 /**
                  * 模糊搜索的相关数据
                  */
@@ -53,6 +100,9 @@
         created() {
             this.initData()
         },
+        mounted(){
+            setInterval(this.showMarquee, 2000)
+        },
         methods: {
             /**
              * 初始化获取页面数据
@@ -74,7 +124,18 @@
                             console.log(err);
                         });
                 }, 1350);
-            }
+            },
+            /**
+             * 动画
+             */
+            showMarquee: function () {
+                this.animate = true;
+                setTimeout(()=>{
+                    this.marqueeList.push(this.marqueeList[0]);
+                    this.marqueeList.shift();
+                    this.animate = false;
+                }, 500)
+            },
         }
     };
 </script>
@@ -106,4 +167,58 @@
             margin-top: -1px
         }
     }
+</style>
+<style>
+.marquee {
+	width: 100%;
+	height: 50px;
+	align-items: center;
+	color: #3A3A3A;
+	background-color: #ffe4ca;
+	display: flex;
+	box-sizing: border-box;
+    line-height: 30px;
+}
+.marquee_title {
+	padding: 0 20px;
+	height: 30px;
+	font-size: 14px;
+	border-right: 1px solid #fff;
+	align-items: center;
+}
+
+.marquee_box {
+	display: block;
+	position: relative;
+	width: 60%;
+	height: 30px;
+	overflow: hidden;
+}
+
+.marquee_list {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.marquee_top {
+	transition: all 0.5s;
+	margin-top: -30px
+}
+
+.marquee_list li {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	padding-left: 20px;
+}
+
+.marquee_list li span {
+	padding: 0 2px;
+}
+
+.red {
+	color: #FF0101;
+}
+
 </style>
