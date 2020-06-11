@@ -80,7 +80,7 @@ export default {
 		 */
 		"pagination.current": function (newVal, oldVal) {
 			let num = (this.pagination.current * this.pagination.size + '').toString().length;
-			this.tableIndexWidth = (num*9+20) > 40 ? (num*9+20) : 40;
+			this.tableIndexWidth = num*10+20;
 		}
 	},
 	methods: {
@@ -136,33 +136,33 @@ export default {
             /**
              * 预定义变量
              */
-            let _this = this;
             let minuend = Height || 0;
             let $ = document.querySelector.bind(document);
             let $dom = dom || $('.moc-table');
             /**
              * 初始化设置table的高度
              */
-            _this.tableHeight = 100;
-            _this.$nextTick( ()=>{
+            this.tableHeight = 100;
+            this.$nextTick( ()=>{
                 if( $dom ){
-                    _this.tableHeight = $dom.offsetHeight - minuend;
+                    this.tableHeight = $dom.offsetHeight - minuend;
                     /**
-                     * 循环检测高度，每隔200毫秒从新获取 $('.neu-container-bd') 的高度
-                     * 判断这个div的高度是否和table的高度相等，如果相等执行计数，如果连续25次相等，则停止循环
+                     * 循环检测高度，每隔200毫秒从新获取 $dom 的高度
+                     * 判断这个div的高度是否和table的高度相等，如果相等执行计数，如果连续runNumber次(每次1s钟)相等，则停止循环
                      * 如果不相等，则将div的高度 赋值给table，并从新开始计数
                      */
-                    let timesRun = 0;
+                    let timesRun = 0,
+                        runNumber= 20;  // 多少秒之后停止算
                     let interval = setInterval( ()=>{
                         let containerH = $dom.clientHeight - minuend;
-                        if( _this.tableHeight === containerH ){
+                        if( this.tableHeight === containerH ){
                             timesRun++;
-                            if( timesRun > 300 ){
+                            if( timesRun > runNumber*5 ){
                                 clearInterval(interval);
                             }
                         }else{
-                            _this.tableHeight = containerH;
                             timesRun = 0;
+                            this.tableHeight = containerH;
                         }
                     }, 200);
                 }
