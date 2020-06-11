@@ -54,10 +54,7 @@
 				</el-menu>
 			</el-aside>
 			<el-main>
-				<div class="moc-container">
-
-
-
+				<main class="moc-container">
                     <section class="moc-breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/user' }">首页</el-breadcrumb-item>
@@ -92,7 +89,7 @@
                         <h3>{{$route.params.id}}</h3>
                         <h3>{{$route.params.name}}</h3>
                         <p>params 传参 不建议</p>
-                        <el-form :model="search" label-width="120px" :inline="true" size="small" label-suffix="：" class="moc-form-search">
+                        <el-form :model="search" label-width="120px" :inline="true" size="small" label-suffix="：" class="moc-search-form">
 
                             <el-form-item label="审批人">
                                 <el-input v-model="search.user" placeholder="审批人"></el-input>
@@ -137,33 +134,34 @@
                                 </el-date-picker>
                             </el-form-item>
 
-                            <el-form-item class="neu-time-slot" label="时间段选择">
-                                    <!-- <el-date-picker
-                                        v-model="search.createTime"
-                                        type="datetimerange"
-                                        value-format="yyyyMMddHHmmss"
-                                        range-separator="至"
-                                        start-placeholder="开始时间"
-                                        end-placeholder="结束时间"
-                                    > -->
-                                    <!--
-                                        隐藏底部清空按钮
-                                        popper-class="no-has-clearable"
-                                     -->
-                                    <el-date-picker
-                                        v-model="search.checkTime"
-                                        type="datetimerange"
-                                        :clearable="false"
-                                        value-format="yyyyMMddHHmmss"
-                                        range-separator="至"
-                                        start-placeholder="开始时间"
-                                        end-placeholder="结束时间"
-                                        :default-time="['00:00:00', '23:59:59']"
-                                        :picker-options="datePickerOptions"
-                                    >
-                                    </el-date-picker>
-                                </el-form-item>
-                            <el-form-item>
+                            <el-form-item label="时间段选择">
+                                <!-- <el-date-picker
+                                    v-model="search.createTime"
+                                    type="datetimerange"
+                                    value-format="yyyyMMddHHmmss"
+                                    range-separator="至"
+                                    start-placeholder="开始时间"
+                                    end-placeholder="结束时间"
+                                > -->
+                                <!--
+                                    隐藏底部清空按钮
+                                    popper-class="no-has-clearable"
+                                 -->
+                                <el-date-picker
+                                    v-model="search.checkTime"
+                                    type="datetimerange"
+                                    :clearable="false"
+                                    value-format="yyyyMMddHHmmss"
+                                    range-separator="至"
+                                    start-placeholder="开始时间"
+                                    end-placeholder="结束时间"
+                                    popper-class="no-has-clearable"
+                                    :default-time="['00:00:00', '23:59:59']"
+                                    :picker-options="datePickerOptions"
+                                >
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item class="moc-search-btns">
                                 <el-button type="primary" @click="onSearch()">查询</el-button>
                             </el-form-item>
                         </el-form>
@@ -193,7 +191,7 @@
                         </el-pagination>
 					</section>
 
-				</div>
+				</main>
 			</el-main>
 		</el-container>
     </el-container>
@@ -223,14 +221,6 @@
                 form:{
                     name:''
                 },
-
-
-
-
-
-
-
-
 
                 /**
                  * 搜索条件
@@ -359,7 +349,11 @@
         height: 100%;
         @include displayFlex;
         @include boxOrient;
+        overflow: auto;
         background-color: #f2f2f2;
+        >section{
+            margin: 0 20px;
+        }
     }
     .moc-bodier{
         margin: 20px;
@@ -392,9 +386,15 @@
 
     }
     // 表格的搜索条件
-    .moc-form-search{
+    .moc-search-form{
         .el-form-item{
             margin-bottom: 6px;
+        }
+        .moc-search-btns{
+            .el-button--small{
+                position: relative;
+                top: -1px;
+            }
         }
     }
     // 典型表单
