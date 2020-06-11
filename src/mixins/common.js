@@ -1,6 +1,11 @@
 export default {
 	data() {
 		return {
+            /**
+             * loading
+             */
+            mainLoading: true,              // 页面的加载状态
+            tableLoading: false,            // 表格的加载状态
 			/**
              * 表格相关
 			 */
