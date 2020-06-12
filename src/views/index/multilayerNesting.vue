@@ -44,6 +44,8 @@
      */
     import common from '@/mixins/common.js';            // 通用  每个页面都需要引入
 
+    import { getPropByPath, toBoolean } from '@/utils/utils.js';
+
     export default {
         name: "multilayerNesting",
         mixins:[ common ],
@@ -85,14 +87,18 @@
                     costTimeS:{
                         tine: 1111
                     }
-                }
+                },
+
+                isBoolean: 'true'
             };
         },
         created(){
+
+            console.log( toBoolean(this.isBoolean) );
         },
         methods: {
             onChangeObj(keys){
-                let prop = this.getPropByPath(this, keys, false);
+                let prop = getPropByPath(this, keys, false);
                 prop.o[prop.k] = prop.v+1;
 
 
@@ -103,8 +109,8 @@
                  */
 
 
-                // let prop = this.getPropByPath(this, keys, true);
-                // let val = this.getPropByPath(this, keys, true).v;
+                // let prop = getPropByPath(this, keys, true);
+                // let val = getPropByPath(this, keys, true).v;
                 // prop.o[prop.k] = val+1;
             },
 
