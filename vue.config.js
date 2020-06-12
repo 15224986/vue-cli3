@@ -81,7 +81,7 @@ module.exports = {	// webpack-dev-server 相关配置
 		        .loader('sass-resources-loader')
 		        .options({
 		          	// 提供文件的路径数组
-		          	resources: ['./src/assets/styles/components/_mixin.scss', './src/assets/styles/components/_variables.scss']
+		          	resources: ['./src/styles/components/_mixin.scss', './src/styles/components/_variables.scss']
 		        })
 		        .end()
 		});
