@@ -38,7 +38,7 @@
             });
         },
         computed:{
-            ...mapGetters({ 
+            ...mapGetters({
                 renderSrc: 'toFullPath/renderSrc',    // toFullPath 模块下，getters里面的renderSrc方法
                 userInfo: 'userInfo/renderUser'
             })
@@ -52,5 +52,5 @@
 </script>
 <style lang="scss">
     // 引入公共的css
-    @import './assets/styles/global.scss';
+    @import './styles/global.scss';
 </style>
