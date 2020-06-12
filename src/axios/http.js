@@ -1,7 +1,13 @@
 import Axios from 'axios';
 import Qs from 'qs';
+import Vue from 'vue';
 
 
+/**
+ * 引入路径
+ * 不同服务器的ip地址
+ */
+import { baseURL } from '@/config/ip.js'
 
 
 /**
