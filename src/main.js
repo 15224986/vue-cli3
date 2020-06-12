@@ -33,7 +33,7 @@ Vue.prototype.$axios = instance;
 /**
  * 引入ui模板 element-ui
  */
-import '@/assets/scripts/ElementUI'
+import '@/scripts/ElementUI'
 
 
 /**
@@ -98,14 +98,17 @@ Vue.component('vue-draggable-resizable', VueDraggableResizable);
 /**
  * 引入项目的公共方法
  */
-import commonJs from '@/assets/scripts/common.js'
+import commonJs from '@/scripts/common.js'
 Vue.prototype.$common = commonJs
+
+import Global from '@/config/global.js'
+Vue.prototype.$global = Global
 
 
 /**
  * 引入项目的公共配置
  */
-import '@/assets/scripts/prototype'
+import '@/scripts/prototype'
 
 
 /**
