@@ -1,9 +1,9 @@
 <template>
     <div class="drag-verify-container">
-        <div :style="dragVerifyImgStyle">
+        <div :style="dragVerifyImgStyle" ref="dragContent">
             <img ref="checkImg" :src="imgsrc" @load="checkimgLoaded" style="width:100%" alt="">
             <div class="move-bar" :class="{goFirst:isOk, goKeep:isKeep}" :style="movebarStyle" ref="moveBar" v-show="showBar"></div>
-            <div class="clip-bar" :style="clipbarStyle" ref="clipBar"></div>
+            <div class="clip-bar" v-show="clipBarShow" :style="clipbarStyle" ref="clipBar"></div>
             <div class="refresh" v-if="showRefresh && !this.isPassing">
                 <i :class="refreshIcon" @click="refreshimg"></i>
             </div>
@@ -29,7 +29,7 @@
 </template>
 <script>
     export default {
-        name: "dragVerify",
+        name: "dragVerifyImg",
         props: {
             isPassing: {
                 type: Boolean,
@@ -96,11 +96,11 @@
             },
             barWidth: {
                 type: Number,
-                default: 70
+                default: 54
             },
             barHeight: {
                 type: Number,
-                default: 40
+                default: 57
             },
             barRadius: {
                 type: Number,
@@ -128,7 +128,11 @@
             },
             diffWidth: {
                 type: Number,
-                default: 20
+                default: 6
+            },
+            dragContentShow:{
+                type: Boolean,
+                default: true
             }
         },
         mounted: function() {
@@ -163,11 +167,24 @@
                 };
             },
             dragVerifyImgStyle: function() {
-                return {
-                    width: this.width + "px",
-                    position: 'relative',
-                    overflow: 'hidden'
-                };
+                var dragContent = {};
+                if( this.dragContentShow ){
+                    dragContent = {
+                        width: this.width + "px",
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }
+                }else{
+                    dragContent = {
+                        width: this.width + "px",
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: 0,
+                        overflow: 'hidden',
+                        display: 'none'
+                    }
+                }
+                return dragContent;
             },
             progressBarStyle: function() {
                 return {
@@ -196,7 +213,8 @@
                 clipbarStyle: {},
                 showBar: false,
                 clipBarx: 0,
-                showErrorTip: false
+                showErrorTip: false,
+                clipBarShow: true
             };
         },
         methods: {
@@ -236,13 +254,14 @@
                 if (!this.isPassing) {
                     this.isMoving = true;
                     var handler = this.$refs.handler;
-                    this.x =
-                        (e.pageX || e.touches[0].pageX) -
-                        parseInt(handler.style.left.replace("px", ""), 10);
+                    this.x = (e.pageX || e.touches[0].pageX) - parseInt( handler.style.left.replace("px", ""), 10);
                 }
                 this.showBar = true;
                 this.showErrorTip = false;
                 this.$emit("handlerMove");
+                if( !this.dragContentShow && !this.isPassing ){
+                    this.$refs.dragContent.style.display = "block";
+                }
             },
             dragMoving: function(e) {
                 if (this.isMoving && !this.isPassing) {
@@ -260,14 +279,16 @@
                         this.isOk = true;
                         var that = this;
                         setTimeout(function() {
-                            that.$refs.handler.style.left = "0";
-                            that.$refs.progressBar.style.width = "0";
-                            that.$refs.moveBar.style.left = "0";
                             that.isOk = false;
+                            that.reset();
                         }, 500);
                         this.showErrorTip = true;
                     } else {
+                        this.clipBarShow = false;
                         this.passVerify();
+                        if( !this.dragContentShow ){
+                            this.$refs.dragContent.style.display = "none";
+                        }
                     }
                     this.isMoving = false;
                 }
@@ -334,31 +355,26 @@
         text-align: center;
         overflow: hidden;
     }
-
     .drag_verify .dv_handler {
         position: absolute;
         top: 0px;
         left: 0px;
         cursor: move;
     }
-
     .drag_verify .dv_handler i {
         color: #666;
         padding-left: 0;
         font-size: 16px;
     }
-
     .drag_verify .dv_handler .el-icon-circle-check {
         color: #6c6;
         margin-top: 9px;
     }
-
     .drag_verify .dv_progress_bar {
         position: absolute;
         height: 34px;
         width: 0px;
     }
-
     .drag_verify .dv_text {
         position: absolute;
         top: 0px;
@@ -381,40 +397,35 @@
         -webkit-text-size-adjust: none;
         animation: slidetounlock 3s infinite;
     }
-
     .drag_verify .dv_text * {
         -webkit-text-fill-color: var(--textColor);
     }
-
     .goFirst {
         left: 0px !important;
         transition: left 0.5s;
     }
-
     .goKeep {
         transition: left 0.2s;
     }
-
     .goFirst2 {
         width: 0px !important;
         transition: width 0.5s;
     }
-
     .drag-verify-container {
         position: relative;
         line-height: 0;
     }
-
     .move-bar {
         position: absolute;
         z-index: 100;
+        -webkit-mask-image: url('/static/images/mask-image.png');
+        mask-image: url('/static/images/mask-image.png');
     }
-
     .clip-bar {
         position: absolute;
-        background: rgba(255, 255, 255, 0.8);
+        /* background: rgba(255, 255, 255, 0.8); */
+        background-image: url('/static/images/mask-image.png');
     }
-
     .refresh {
         position: absolute;
         right: 5px;
@@ -423,7 +434,6 @@
         font-size: 20px;
         z-index: 200;
     }
-
     .tips {
         position: absolute;
         bottom: 0;
@@ -434,12 +444,10 @@
         font-size: 12px;
         z-index: 200;
     }
-
     .tips.success {
         background: rgba(255, 255, 255, 0.6);
         color: green;
     }
-
     .tips.danger {
         background: rgba(0, 0, 0, 0.6);
         color: yellow;
@@ -450,17 +458,14 @@
         0% {
             background-position: var(--pwidth) 0;
         }
-
         100% {
             background-position: var(--width) 0;
         }
     }
-
     @-webkit-keyframes slidetounlock2 {
         0% {
             background-position: var(--pwidth) 0;
         }
-
         100% {
             background-position: var(--pwidth) 0;
         }
