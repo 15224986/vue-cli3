@@ -120,9 +120,36 @@
                             :showRefresh="true"
                             @refresh="reimg"
                             @passcallback="passcallback"
-                          >
-                          </drag-verify-img>
-                          <el-button type="primary" @click="reset1">还原</el-button>
+                        >
+                        </drag-verify-img>
+
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <p>拖动后显示图片</p>
+                        <drag-verify-img
+                            ref="dragVerify81"
+                            :imgsrc="imgsrc"
+                            :isPassing.sync="isPassing81"
+                            :showRefresh="true"
+                            :dragContentShow="false"
+                            @refresh="reimg"
+                            @passcallback="passcallback"
+                        >
+                        </drag-verify-img>
+                        <el-button type="primary" @click="reset1">还原</el-button>
                     </el-tab-pane>
 
                     <el-tab-pane label="图片滑块组件（拼图）" name="third">
@@ -240,6 +267,7 @@
                  * 图片滑块组件
                  */
                 isPassing8: false,
+                isPassing81: false,
                 /**
                  * 图片滑块组件（拼图）
                  */
@@ -295,7 +323,9 @@
             },
             reset1(){
                 this.isPassing8 = false;
+                this.isPassing81 = false;
                 this.$refs.dragVerify8.reset();
+                this.$refs.dragVerify81.reset();
             },
             reset2(){
                 this.isPassing9 = false;
