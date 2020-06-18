@@ -47,6 +47,39 @@
                 </ul>
             </section>
 
+
+            <section class="section">
+                <h3 class="section-title">mask动画</h3>
+                <div class="mask-animation"></div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">mask按需显示</h3>
+                <div class="mask-image-box">
+                    <div class="mask-image">
+                    	<div class="clip-bar"></div>
+                    	<div class="move-bar"></div>
+                    </div>
+                    <div class="mask-image2">
+                    	<img src="/static/images/card.jpg" width="300">
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">图片的模糊处理</h3>
+                <div class="filter-image">
+                    <img src="/static/images/image.jpg" class="filter-layer">
+                    <div class="filter-cover">
+                        <img src="/static/images/image.jpg" class="filter-blur">
+                        <p class="filter-mask">美女</p>
+                    </div>
+                </div>
+            </section>
+
+
+
+
         </div>
     </article>
 </template>
@@ -203,5 +236,139 @@
     }
     .card-item:hover {
         box-shadow: rgba(1,130,150,.2) 0 0 30px
+    }
+
+
+    @keyframes maskAnimation {
+        0% {
+            -webkit-mask-position: 0px 0px;
+        }
+
+        25% {
+            -webkit-mask-position: 619px 0px;
+        }
+
+        50% {
+            -webkit-mask-position: 0px 0px;
+        }
+
+        75% {
+            -webkit-mask-position: 308px 0px;
+            -webkit-mask-size: 100%;
+        }
+
+        100% {
+            -webkit-mask-size: 1000%;
+        }
+    }
+    .mask-animation {
+        width: 700px;
+        height: 392px;
+        background: url("/static/images/1534750163.jpg");
+        mask-image: url("/static/images/1534750222.jpg");
+        -webkit-mask-image: url("/static/images/1534750222.jpg");
+        animation: maskAnimation 5s linear infinite forwards;
+    }
+
+    /**
+     * mask按需显示
+     */
+    .mask-image-box{
+        padding: 30px;
+        overflow: hidden;
+        background: linear-gradient(red, magenta, blue, aqua, lime, yellow, red);
+        background: radial-gradient(closest-side, gray, transparent), conic-gradient(red, magenta, blue, aqua, lime, yellow, red);
+        text-align: center;
+    }
+    .mask-image2,
+    .mask-image{
+        float: left;
+        margin-right: 20px;
+    }
+    .mask-image{
+        width: 256px;
+        height: 192px;
+        background-image: url('/static/images/image.jpg');
+        position: relative;
+    }
+    .clip-bar{
+        width: 54px;
+        height: 57px;
+        background-image: url('/static/images/mask-image.png');
+        position: absolute;
+        left: 100px;
+        top: 40px;
+    }
+    .move-bar{
+        width: 54px;
+        height: 57px;
+        background-image: url('/static/images/image.jpg');
+        background-position: 156px 152px;
+        mask-image: url("/static/images/mask-image.png");
+        -webkit-mask-image: url("/static/images/mask-image.png");
+        position: absolute;
+        left: 10px;
+        top: 40px;
+    }
+    .mask-image2 img{
+        --mask-url: url('/static/images/card-mask.png');
+        -webkit-mask-image: var(--mask-url);
+        mask-image: var(--mask-url);
+        -webkit-mask-size: 300px;
+        mask-size: 300px;
+    }
+
+    /**
+     * 毛玻璃处理
+     */
+    .filter-image {
+        width: 256px;
+        position: relative;
+    }
+    .filter-image img{
+        display: block;
+    }
+    .filter-cover {
+        width: 100%;
+        height: 34px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        line-height: 34px;
+    }
+    .filter-blur {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        filter: blur(5px);
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false);
+        *left: -5px;
+        left: -5px\0;
+    }
+
+    .filter-mask {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,.2);
+        filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#34000000,endColorStr=#34000000);
+        color: #fff;
+        font-size: 14px;
+        text-indent: 10px;
+        padding: 0;
+        margin: 0;
+    }
+    .list:hover .filter-layer,
+    .list:hover .filter-blur {
+    	-webkit-transform: scale(1.05) translateZ(0);
+    	-ms-transform: scale(1.05);
+    	transform: scale(1.05) translateZ(0);
+    	/* IE6-IE8 */
+    	zoom: 1.05;
     }
 </style>
