@@ -2,8 +2,12 @@
     <div class="drag-verify-container">
         <div :style="dragVerifyImgStyle" ref="dragContent">
             <img ref="checkImg" :src="imgsrc" @load="checkimgLoaded" style="width:100%" alt="">
-            <div class="move-bar" :class="{goFirst:isOk, goKeep:isKeep}" :style="movebarStyle" ref="moveBar" v-show="showBar"></div>
+
+            <div class="move-bar" :class="{goFirst:isOk, goKeep:isKeep}" v-show="isBarShow" :style="movebarStyle" ref="moveBar">
+                <span :style="movebarSpanStyle"></span>
+            </div>
             <div class="clip-bar" v-show="clipBarShow" :style="clipbarStyle" ref="clipBar"></div>
+
             <div class="refresh" v-if="showRefresh && !this.isPassing">
                 <i :class="refreshIcon" @click="refreshimg"></i>
             </div>
@@ -104,7 +108,7 @@
             },
             barRadius: {
                 type: Number,
-                default: 2
+                default: 0
             },
             showRefresh: {
                 type: Boolean,
@@ -117,6 +121,10 @@
             showTips: {
                 type: Boolean,
                 default: true
+            },
+            showBar: {
+                type: Boolean,
+                default: false
             },
             successTip: {
                 type: String,
@@ -134,6 +142,21 @@
                 type: Boolean,
                 default: true
             }
+        },
+        data() {
+            return {
+                isMoving: false,
+                x: 0,
+                isOk: false,
+                isKeep: false,
+                movebarStyle: {},
+                movebarSpanStyle: {},
+                clipbarStyle: {},
+                clipBarx: 0,
+                showErrorTip: false,
+                clipBarShow: true,
+                isBarShow: this.showBar
+            };
         },
         mounted: function() {
             const dragEl = this.$refs.dragVerify;
@@ -203,20 +226,6 @@
                 };
             }
         },
-        data() {
-            return {
-                isMoving: false,
-                x: 0,
-                isOk: false,
-                isKeep: false,
-                movebarStyle: {},
-                clipbarStyle: {},
-                showBar: false,
-                clipBarx: 0,
-                showErrorTip: false,
-                clipBarShow: true
-            };
-        },
         methods: {
             checkimgLoaded: function() {
                 //生成图片缺失位置
@@ -240,14 +249,16 @@
                 var imgsrc = this.imgsrc
                 var width = this.width;
                 this.movebarStyle = {
-                    background: `url(${imgsrc})`,
-                    "background-position": `-${x}px -${y}px`,
-                    "background-size": `${width}px`,
                     width: barWidth + 'px',
                     height: barHeight + 'px',
                     top: y + 'px',
                     left: '0px',
                     "border-radius": this.barRadius + 'px'
+                }
+                this.movebarSpanStyle = {
+                    background: `url(${imgsrc})`,
+                    "background-position": `-${x}px -${y}px`,
+                    "background-size": `${width}px`,
                 }
             },
             dragStart: function(e) {
@@ -256,7 +267,7 @@
                     var handler = this.$refs.handler;
                     this.x = (e.pageX || e.touches[0].pageX) - parseInt( handler.style.left.replace("px", ""), 10);
                 }
-                this.showBar = true;
+                this.isBarShow = true;
                 this.showErrorTip = false;
                 this.$emit("handlerMove");
                 if( !this.dragContentShow && !this.isPassing ){
@@ -286,6 +297,10 @@
                     } else {
                         this.clipBarShow = false;
                         this.passVerify();
+
+
+                        this.isBarShow = false;
+                        this.clipBarShow = false;
                         if( !this.dragContentShow ){
                             this.$refs.dragContent.style.display = "none";
                         }
@@ -418,13 +433,19 @@
     .move-bar {
         position: absolute;
         z-index: 100;
-        -webkit-mask-image: url('/static/images/mask-image.png');
-        mask-image: url('/static/images/mask-image.png');
+        background-image: url('./images/mask-image.png');
+    }
+    .move-bar span{
+        display: block;
+        width: 100%;
+        height: 100%;
+        -webkit-mask-image: url('./images/mask-image-content.png');
+        mask-image: url('./images/mask-image-content.png');
     }
     .clip-bar {
         position: absolute;
         /* background: rgba(255, 255, 255, 0.8); */
-        background-image: url('/static/images/mask-image.png');
+        background-image: url('./images/mask-image.png');
     }
     .refresh {
         position: absolute;
