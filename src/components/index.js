@@ -7,6 +7,11 @@ import mocBreadcrumb from './breadcrumb/index.js';
 import mocTinymceEditor from './tinymce-editor/index.js';
 
 
+// 布局
+import mocContainer from './container/index.js';
+import mocContainerSection from './container-section/index.js';
+
+
 // 按钮组件
 import mocBtn from './btn/index.js';
 
@@ -72,6 +77,8 @@ import mocSmartMenu from './smart-menu/smart-menu.js';
 const components = [
 	mocBreadcrumb,
 	mocTinymceEditor,
+    mocContainer,
+    mocContainerSection,
     mocBtn,
 	mocCheckbox,
 	mocCheckboxGroup,
@@ -121,6 +128,8 @@ export default install;
 export {
 	mocBreadcrumb,
 	mocTinymceEditor,
+    mocContainer,
+    mocContainerSection,
 	mocBtn,
 	mocCheckbox,
 	mocCheckboxGroup,
