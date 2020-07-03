@@ -53,17 +53,19 @@
 					</el-submenu>
 				</el-menu>
 			</el-aside>
-			<el-main>
-				<main class="moc-container" v-loading="mainLoading">
-                    <section class="moc-breadcrumb">
+
+            <el-main>
+				<moc-container v-loading="mainLoading">
+                    <moc-container-section class="moc-breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/user' }">首页</el-breadcrumb-item>
                             <el-breadcrumb-item><a href="/user">活动管理</a></el-breadcrumb-item>
                             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
                             <el-breadcrumb-item>活动详情</el-breadcrumb-item>
                         </el-breadcrumb>
-                    </section>
-                    <!-- <section class="moc-bodier moc-form">
+                    </moc-container-section>
+
+                    <!-- <moc-container-section class="moc-form" bodier>
                         <p>典型表单</p>
                         <el-form ref="form" :model="form" label-width="80px" class="moc-form-horizontal">
                             <el-form-item v-for="item in conts" :key="item" label="活动名称">
@@ -76,22 +78,20 @@
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
                         </el-form>
-                    </section>
-                    <section class="moc-footer">
+                    </moc-container-section>
+                    <moc-container-section class="moc-btns">
                         <el-button type="primary">立即创建</el-button>
                         <el-button>取消</el-button>
-                    </section> -->
+                    </moc-container-section> -->
 
-                    <section class="moc-search">
+                    <moc-container-section class="moc-search">
                         <h3>{{$route.params.id}}</h3>
                         <h3>{{$route.params.name}}</h3>
                         <p>params 传参 不建议</p>
                         <el-form :model="search" label-width="120px" :inline="true" size="small" label-suffix="：" class="moc-search-form">
-
                             <el-form-item label="审批人">
                                 <el-input v-model="search.user" placeholder="审批人"></el-input>
                             </el-form-item>
-
                             <el-form-item label="活动区域">
                                 <el-select
                                     v-model="search.region"
@@ -109,14 +109,12 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-
                             <el-form-item label="日期选择">
                                 <el-date-picker
                                     v-model="search.date"
                                     placeholder="任意日期">
                                 </el-date-picker>
                             </el-form-item>
-
                             <el-form-item label="日期时间选择">
                                 <el-date-picker
                                     v-model="search.datetime"
@@ -130,7 +128,6 @@
                                     placeholder="任意时间">
                                 </el-date-picker>
                             </el-form-item>
-
                             <el-form-item label="时间段选择">
                                 <el-date-picker
                                     v-model="search.checkTime"
@@ -150,8 +147,8 @@
                                 <el-button type="primary" @click="testAssignCloneDeep()">测试扩展运算符和复杂数据深层复制</el-button>
                             </el-form-item>
                         </el-form>
-                    </section>
-                    <section class="moc-bodier moc-table">
+                    </moc-container-section>
+                    <moc-container-section class="moc-table" bodier>
                         <el-table
                             :data="tableData"
                             :height="tableHeight"
@@ -163,8 +160,8 @@
                             <el-table-column prop="name" label="姓名" width="186"></el-table-column>
                             <el-table-column prop="address" label="地址" min-width="256"></el-table-column>
                         </el-table>
-                    </section>
-                    <section class="moc-pagination">
+                    </moc-container-section>
+                    <moc-container-section class="moc-pagination">
                         <el-pagination
                             :current-page.sync="pagination.current"
                             :page-size.sync="pagination.size"
@@ -177,9 +174,9 @@
                             @size-change="initTableData()"
                         >
                         </el-pagination>
-					</section>
+                    </moc-container-section>
 
-				</main>
+				</moc-container>
 			</el-main>
 		</el-container>
     </el-container>
@@ -399,12 +396,12 @@
         @include boxOrient;
         overflow: auto;
         background-color: #f2f2f2;
-        >section{
+        >.moc-container-section{
             margin-left: 20px;
             margin-right: 20px;
         }
     }
-    .moc-bodier{
+    .moc-container-bodier{
         margin: 20px;
         position: relative;
         @include displayFlexNumber;
