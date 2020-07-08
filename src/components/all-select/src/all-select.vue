@@ -75,7 +75,9 @@ export default {
         }
     },
     mounted() {
-        this.selectAll(this.chooseData);
+        if( this.chooseData.length > 0 ){
+			this.selectAll(this.chooseData);
+		}
     },
     methods: {
 		selectAll (val) {
