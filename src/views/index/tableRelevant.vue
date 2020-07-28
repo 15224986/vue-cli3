@@ -322,20 +322,21 @@
                 /**
                  * 模拟ajax获取表格数据
                  */
-                setTimeout(()=>{
-                    this.$http.get('/mock/tableData')
-                        .then((res)=>{
+                this.$http.get('/mock/tableData')
+                    .then((res)=>{
+                        setTimeout(()=>{
                             // 去除加载中
                             this.loading = false;
-                            this.dataset = res.data.dataset;
-                            this.pagination = res.data.pagination;
+                            this.dataset = res.dataset;
+                            this.pagination = res.pagination;
 
                             this.handleExpandAll();
-                        })
-                        .catch((err)=>{
-                            console.log(err);
-                        });
-                }, 1350);
+                        }, 1350);
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    });
+
             }
         }
     };
