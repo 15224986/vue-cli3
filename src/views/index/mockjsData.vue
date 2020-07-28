@@ -77,17 +77,18 @@
                 /**
                  * 模拟ajax获取表格数据
                  */
-                setTimeout(()=>{
-                    this.$http.get('/mock/tableData', {}, {baseURL: ''})
-                        .then((res)=>{
+                this.$http.get('/mock/tableData', {}, {baseURL: ''})
+                    .then((res)=>{
+                        setTimeout(()=>{
                             // 去除加载中
                             this.loading = false;
-                            this.table = res.data.table;
-                        })
-                        .catch((err)=>{
-                            console.log(err);
-                        });
-                }, 1350);
+                            this.table = res.table;
+                        }, 1350);
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    });
+
             }
         }
     };
