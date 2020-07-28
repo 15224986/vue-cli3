@@ -9,6 +9,18 @@ export default {
 	},
     children: [
         {
+        	path: 'elementCustomParams',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/elementCustomParams'),
+        	name: 'elementCustomParams',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,	// 是否使用keep-alive缓存页面
+        		title: "Element 自定义参数",
+        		path: '/home/elementCustomParams',
+        		affix: false //
+        	}
+        },
+        {
         	path: 'jQuery',
         	component: () => import(/* webpackChunkName: "home" */ '@/views/index/jQuery'),
         	name: 'jQuery',
