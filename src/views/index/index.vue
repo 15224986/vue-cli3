@@ -8,6 +8,11 @@
                 @close="handleClose"
                 router
             >
+                <el-menu-item index="/home/elementCustomParams">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">Element 自定义参数</span>
+                </el-menu-item>
+
                 <el-menu-item index="/home/jQuery">
                     <i class="el-icon-menu"></i>
                     <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
@@ -52,7 +57,9 @@
 
                 <el-menu-item index="/home/multilayerNesting">
                     <i class="el-icon-menu"></i>
-                    <span slot="title">Vue多层嵌套</span>
+                    <el-tooltip slot="title" content="Vue多层嵌套、utils公共方法" placement="right">
+                        <span>Vue多层嵌套、utils公共方法</span>
+                    </el-tooltip>
                 </el-menu-item>
 
                 <el-menu-item index="/home/selectRelevant">
