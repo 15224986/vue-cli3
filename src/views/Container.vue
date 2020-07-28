@@ -55,7 +55,7 @@
 			</el-aside>
 
             <el-main>
-				<moc-container v-loading="mainLoading">
+				<moc-container>
                     <moc-container-section class="moc-breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/user' }">首页</el-breadcrumb-item>
@@ -175,7 +175,6 @@
                         >
                         </el-pagination>
                     </moc-container-section>
-
 				</moc-container>
 			</el-main>
 		</el-container>
@@ -207,6 +206,7 @@
 				address: '上海市普陀区金沙江路 1518 弄'
 			};
 			return {
+                tableLoading: false,
                 /**
                  * 表单
                  */
@@ -228,7 +228,7 @@
                     obj:{
                         a:1,
                         b:22222
-                    }
+                    },
                 },
                 /**
                  * 表格
@@ -313,7 +313,7 @@
                  */
                 setTimeout(()=>{
                     this.tableLoading = false;
-                },3000);
+                }, 1000);
 
                 // let params = { ...this.$lodash.cloneDeep(this.search), ...this.pagination };
                 // this.$http.get(`sys/user/list`, params).then( response => {
@@ -337,28 +337,22 @@
              * 下拉框 options 的数据
              */
             initSelectOptions(){
-                // 正在加载中
-                this.mainLoading = true;
 
-                setTimeout(()=>{
-                    this.mainLoading = false;
-                }, 1500)
+                this.$http.get(`/mock/tableData`, {}, {baseURL:''}).then( response => {
+                        console.log( response );
+                    // if( response.result === 1 ){
 
-                // this.$http.get(`sys/user/list`).then( response => {
-                //     if( response.result === 1 ){
-                //         // console.log( response );
-                //         this.mainLoading = false;
-                //         this.searchOptions = { ...this.searchOptions, ...response.options};
-                //     }else{
-                //         this.$alert( response.message, '系统提示', {
-                //             type: 'error',
-                //             callback: action => {}
-                //         });
-                //     }
-                // })
-                // .catch( error => {
-                //     this.$message(error);
-                // });
+                    //     // this.searchOptions = { ...this.selectOptions, ...response.options};
+                    // }else{
+                    //     this.$alert( response.message, '系统提示', {
+                    //         type: 'error',
+                    //         callback: action => {}
+                    //     });
+                    // }
+                })
+                .catch( error => {
+                    this.$message(error);
+                });
             },
         }
     }
