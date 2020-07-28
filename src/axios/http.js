@@ -17,9 +17,9 @@ var instance = Axios.create({
     baseURL: process.env.VUE_APP_URL,
     timeout: 15000,  //超时响应
     withCredentials: true,  // Axios 默认不发送cookie，需要全局设置true发送cookie
-    headers: {
-        'Content-Type' : 'application/x-www-form-urlencoded'
-    }
+    // headers: {
+    //     'Content-Type' : 'application/x-www-form-urlencoded'
+    // }
 });
 
 
@@ -32,7 +32,7 @@ var instance = Axios.create({
 const http = ( params = {} ) => {
     return new Promise((resolve, reject) => {
         instance(params).then(response => {
-                resolve(response);
+                resolve(response.data);
             }).catch(err => {
                 reject(err)
             })
@@ -99,7 +99,7 @@ http.get = (url, params = {}, obj = {} ) => {
     return new Promise((resolve, reject) => {
         obj.params = params;
         instance.get(url, obj ).then(response => {
-                resolve(response);
+                resolve(response.data);
             }).catch(err => {
                 reject(err)
             })
@@ -117,7 +117,7 @@ http.delete = (url, params = {}, obj = {}) => {
     return new Promise((resolve, reject) => {
         obj.params = params;
         instance.delete(url, obj ).then(response => {
-                resolve(response);
+                resolve(response.data);
             }).catch(err => {
                 reject(err)
             })
@@ -136,7 +136,7 @@ http.head = (url, params = {}, obj = {}) => {
     return new Promise((resolve, reject) => {
         obj.params = params;
         instance.head(url, obj).then(response => {
-                resolve(response);
+                resolve(response.data);
             }).catch(err => {
                 reject(err)
             })
@@ -155,7 +155,7 @@ http.head = (url, params = {}, obj = {}) => {
 http.post = (url, data = {}, obj = {}) => {
     return new Promise((resolve, reject) => {
         instance.post(url, data, obj).then(response => {
-                resolve(response);
+                resolve(response.data);
             }, err => {
                 reject(err)
             })
@@ -173,7 +173,7 @@ http.post = (url, data = {}, obj = {}) => {
 http.put = (url, data = {}, obj = {}) => {
     return new Promise((resolve, reject) => {
         instance.put(url, data, obj).then(response => {
-            resolve(response);
+            resolve(response.data);
         }, err => {
             reject(err)
         })
@@ -191,7 +191,7 @@ http.put = (url, data = {}, obj = {}) => {
 http.patch = (url, data = {}, obj = {}) => {
     return new Promise((resolve, reject) => {
         instance.patch(url, data, obj).then(response => {
-            resolve(response);
+            resolve(response.data);
         }, err => {
             reject(err)
         })
@@ -209,17 +209,61 @@ import router from '@/router';   // vue-router
 import store from '@/store/index';
 
 
+// 引入loading
+import { Loading } from 'element-ui';
+// 定义loading变量
+let loading
+// 使用Element loading-start 方法
+function startLoading() {
+    loading = Loading.service({
+        lock: false,
+        body: true,
+        text: '加载中……',
+        background: 'rgba(0, 0, 0, 0.7)'
+    })
+}
+// 使用Element loading-close 方法
+function endLoading() {
+    loading.close()
+}
+/**
+ * 那么 showFullScreenLoading() tryHideFullScreenLoading() 要干的事儿就是将同一时刻的请求合并。
+ * 声明一个变量 needLoadingRequestCount，每次调用showFullScreenLoading方法 needLoadingRequestCount + 1。
+ * 调用tryHideFullScreenLoading()方法，needLoadingRequestCount - 1。needLoadingRequestCount为 0 时，结束 loading。
+ */
+let needLoadingRequestCount = 0
+function showFullScreenLoading() {
+    if (needLoadingRequestCount === 0) {
+        startLoading()
+    }
+    needLoadingRequestCount++
+}
+function tryHideFullScreenLoading() {
+    if (needLoadingRequestCount <= 0) return
+    needLoadingRequestCount--
+    if (needLoadingRequestCount === 0) {
+        endLoading()
+    }
+}
+
+
+
 // 请求拦截器
 instance.interceptors.request.use((config) => {
 
     // console.log(config);
 
+
+
+
+
+
     // 在发送请求之前转换post传过去时的参数格式
     // 安装插件 querystring 进行转化
     // 通过querystring 将json格式的请求数据转换为form-data格式
-    if (config.method === 'post' || config.method === 'put' ) {
-        config.data = Qs.stringify(config.data);
-    }
+    // if (config.method === 'post' || config.method === 'put' ) {
+    //     config.data = Qs.stringify(config.data);
+    // }
 
 
     /**
@@ -232,10 +276,25 @@ instance.interceptors.request.use((config) => {
     // }
 
 
+    /**
+     * 是否开启 loading
+     * 如果参数中携带了 closeFullScreenLoading = true 则关闭本次的加载中调用
+     */
+    let closeFullScreenLoading = '';
+    if (config.method === 'get' || config.method === 'delete' ) {
+        closeFullScreenLoading = config.params.closeFullScreenLoading;
+    }else{
+        closeFullScreenLoading = config.data.closeFullScreenLoading;
+    }
+    if( !closeFullScreenLoading ){
+    	showFullScreenLoading();
+    }
+
+
     return config;
 }, error =>{
     // 对请求错误做些什么
-    Promise.reject(error)
+    return Promise.reject(error)
 });
 
 // 添加响应拦截器
@@ -247,11 +306,33 @@ instance.interceptors.response.use(response =>{
     }else if( response.data && response.data.code == 400 ){
         router.push({ path: "/400" });
     }
+
+
+    /**
+     * 是否开启了 loading
+     * 如果参数中携带了 closeFullScreenLoading = true 则本次加载了loading，
+     * 关闭本次开启的FullScreenLoading()
+     */
+    let closeFullScreenLoading = '';
+    if (response.config.method === 'get' || response.config.method === 'delete' ) {
+        closeFullScreenLoading = response.config.params.closeFullScreenLoading;
+    }else{
+        closeFullScreenLoading = JSON.parse(response.config.data).closeFullScreenLoading;
+    }
+    if( !closeFullScreenLoading ){
+        tryHideFullScreenLoading();
+    }
+
     // 对响应数据做点什么
     return response
 }, error =>{
+    /**
+     * 关闭本次开启的FullScreenLoading()
+     */
+    tryHideFullScreenLoading();
+
     // 对响应错误做点什么
-	Promise.reject(error)
+	return Promise.reject(error)
 });
 
 export {instance, http};
