@@ -7,14 +7,14 @@ import Vue from 'vue';
  * 引入路径
  * 不同服务器的ip地址
  */
-import { baseURL } from '@/config/ip.js'
+import { axiosBaseURL } from '@/config/ip.js'
 
 
 /**
  * 使用自定义配置新建一个 axios 实例
  */
 var instance = Axios.create({
-    baseURL: process.env.VUE_APP_URL,
+    baseURL: axiosBaseURL.ip1,
     timeout: 15000,  //超时响应
     withCredentials: true,  // Axios 默认不发送cookie，需要全局设置true发送cookie
     // headers: {
