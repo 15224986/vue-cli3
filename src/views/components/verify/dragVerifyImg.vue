@@ -433,19 +433,19 @@
     .move-bar {
         position: absolute;
         z-index: 100;
-        background-image: url('./images/mask-image.png');
+        background-image: url('/static/images/mask-image.png');
     }
     .move-bar span{
         display: block;
         width: 100%;
         height: 100%;
-        -webkit-mask-image: url('./images/mask-image-content.png');
-        mask-image: url('./images/mask-image-content.png');
+        -webkit-mask-image: url('/static/images/mask-image-content.png');
+        mask-image: url('/static/images/mask-image-content.png');
     }
     .clip-bar {
         position: absolute;
         /* background: rgba(255, 255, 255, 0.8); */
-        background-image: url('./images/mask-image.png');
+        background-image: url('/static/images/mask-image.png');
     }
     .refresh {
         position: absolute;
