@@ -118,7 +118,7 @@
                         .then((res)=>{
                             // 去除加载中
                             this.loading = false;
-                            this.originLists = res.data.originLists;
+                            this.originLists = res.originLists;
                         })
                         .catch((err)=>{
                             console.log(err);
