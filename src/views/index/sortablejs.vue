@@ -309,7 +309,7 @@
                         .then((res)=>{
                             // 去除加载中
                             this.loading = false;
-                            this.dataset = res.data.dataset;
+                            this.dataset = res.dataset;
                         })
                         .catch((err)=>{
                             console.log(err);
