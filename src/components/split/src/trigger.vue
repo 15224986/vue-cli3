@@ -25,13 +25,13 @@
             classes () {
                 return [
                     this.prefix,
-                    this.isVertical ? `${this.prefix}-vertical` : `${this.prefix}-horizontal`
+                    // this.isVertical ? `${this.prefix}-vertical` : `${this.prefix}-horizontal`
                 ];
             },
             barConClasses () {
                 return [
                     `${this.prefix}-bar-con`,
-                    this.isVertical ? 'vertical' : 'horizontal'
+                    // this.isVertical ? 'vertical' : 'horizontal'
                 ];
             }
         }
