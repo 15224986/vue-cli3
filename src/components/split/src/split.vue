@@ -1,6 +1,6 @@
 <template>
     <div ref="outerWrapper" :class="wrapperClasses">
-        <div v-if="isHorizontal" :class="`${prefix}-horizontal`">
+        <div v-if="isHorizontal" :class="`moc-split-wrapper ${prefix}-horizontal`">
             <div :style="{right: `${anotherOffset}%`}" class="moc-split-left" :class="paneClasses">
                 <slot name="left"/>
             </div>
@@ -13,7 +13,7 @@
                 <slot name="right"/>
             </div>
         </div>
-        <div v-else :class="`${prefix}-vertical`">
+        <div v-else :class="`moc-split-wrapper ${prefix}-vertical`">
             <div :style="{bottom: `${anotherOffset}%`}" class="moc-split-top" :class="paneClasses">
                 <slot name="top"/>
             </div>
@@ -76,7 +76,7 @@
         computed: {
             wrapperClasses () {
                 return [
-                    `${this.prefix}-wrapper`,
+                    `${this.prefix}`,
                     this.isMoving ? 'no-select' : ''
                 ];
             },
