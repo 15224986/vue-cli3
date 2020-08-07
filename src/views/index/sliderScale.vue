@@ -84,6 +84,107 @@
                         </div>
                     </moc-split>
                 </div>
+
+                <div class="api">
+                    <h3>API</h3>
+                    <p>Split props</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>属性</th>
+                                <th>说明</th>
+                                <th>类型</th>
+                                <th>默认值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>value</td>
+                                <td>面板位置，可以是 0~1 代表百分比，或具体数值的像素，可用 v-model 双向绑定</td>
+                                <td>Number | String</td>
+                                <td>0.5</td>
+                            </tr>
+                            <tr>
+                                <td>mode</td>
+                                <td>类型，可选值为 horizontal 或 vertical</td>
+                                <td>String</td>
+                                <td>horizontal</td>
+                            </tr>
+                            <tr>
+                                <td>min</td>
+                                <td>最小阈值</td>
+                                <td>Number | String</td>
+                                <td>40px</td>
+                            </tr>
+                            <tr>
+                                <td>max</td>
+                                <td>最大阈值</td>
+                                <td>Number | String</td>
+                                <td>40px</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Split events</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>事件名</th>
+                                <th>说明</th>
+                                <th>返回值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>on-move-start</td>
+                                <td>拖拽开始</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>on-moving</td>
+                                <td>拖拽中</td>
+                                <td>event</td>
+                            </tr>
+                            <tr>
+                                <td>on-move-end</td>
+                                <td>拖拽结束</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Split slot</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>left</td>
+                                <td>mode 为 horizontal 时可用，左边面板</td>
+                            </tr>
+                            <tr>
+                                <td>right</td>
+                                <td>mode 为 horizontal 时可用，右边面板</td>
+                            </tr>
+                            <tr>
+                                <td>top</td>
+                                <td>mode 为 vertical 时可用，上边面板</td>
+                            </tr>
+                            <tr>
+                                <td>bottom</td>
+                                <td>mode 为 vertical 时可用，下边面板</td>
+                            </tr>
+                            <tr>
+                                <td>trigger</td>
+                                <td>自定义分割拖拽节点</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
             </section>
 
