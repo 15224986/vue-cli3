@@ -3,9 +3,10 @@
         v-model="chooseData"
         multiple
         :clearable="clearable"
-        :placeholder="placeholder"
         :filterable="filterable"
         :size="size"
+        :collapse-tags="collapseTags"
+        :placeholder="placeholder"
         @change='selectAll'
     >
         <el-option label="全选" value="all-selected-neusoft"></el-option>
@@ -41,11 +42,15 @@ export default {
             type: Boolean,
             default: false
         },
+        filterable:{
+            type: Boolean,
+            default: false
+        },
         placeholder:{
             type: String,
             default: '请选择'
         },
-        filterable:{
+        collapseTags:{
             type: Boolean,
             default: false
         },
@@ -82,11 +87,13 @@ export default {
     methods: {
 		selectAll (val) {
             // 保留所有值
-            const allValues = this.selectOptions.map(item => {
-                return item.value;
+            const allValues = [];
+            this.selectOptions.forEach(item => {
+                if( !item.disabled ){
+                    allValues.push( item.value );
+                }
             });
             allValues.unshift('all-selected-neusoft');
-
 			// 用来储存上一次选择的值，可进行对比
 			const oldVal = this.oldChooseData.length > 0 ? this.oldChooseData : [];
 
