@@ -6,8 +6,8 @@
 
 <script>
 	export default{
-		name: 'mocContainerSection',
-		componentName: 'mocContainerSection',
+		name: 'mocSection',
+		componentName: 'mocSection',
 		data() {
 			return{
 			}
