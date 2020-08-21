@@ -26,6 +26,9 @@ import project from './modules/project'
 import charts from './modules/charts'
 import widget from './modules/widget'
 import jurisdiction from './modules/jurisdiction'
+import container from './modules/container'
+
+
 
 
 const router = new Router({
@@ -64,11 +67,19 @@ const router = new Router({
 			component: () => import(/* webpackChunkName: "login" */ '@/views/400'),
 			name: 'page400'
 		},
-		{
-			path: '/container/anextUntil',
-			component: () => import(/* webpackChunkName: "login" */ '@/views/Container'),
-			name: 'container'
-		}
+        {
+            path: '/container',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/Container'),
+            name: 'container',
+            redirect: '/container/anextUntil',
+            meta: {
+        		title: "结构页面",
+        		path: '/container/anextUntil'
+        	},
+            children: [
+                container
+            ],
+        }
 	],
 	// 解决使用keep-alive时，滚动条的问题
 	scrollBehavior (to, from, savedPosition) {
