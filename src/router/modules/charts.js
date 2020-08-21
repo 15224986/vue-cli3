@@ -17,7 +17,7 @@ export default {
 		{
 			path: 'vue-echarts',
 			component: () => import(/* webpackChunkName: "charts" */ '@/views/charts/vue-echarts'),
-			name: 'vueEcharts',
+			name: 'vueEchartsPage',
 			meta: {
 				loginRrquired: false,
 				name: "vue-echarts图表",
