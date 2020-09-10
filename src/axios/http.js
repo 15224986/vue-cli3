@@ -253,7 +253,10 @@ const whiteList = ['/mock/table']
 // 请求拦截器
 instance.interceptors.request.use((config) => {
     const timestamp = new Date().getTime();
-    const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
+    // const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
+    const tokenExpire = store.getters.tokenExpire;
+
+
     if( timestamp >= tokenExpire && whiteList.indexOf(config.url) !== -1 ){
         return new Promise((resolve, reject) => {
             //刷新token
