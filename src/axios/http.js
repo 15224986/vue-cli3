@@ -246,21 +246,50 @@ function tryHideFullScreenLoading() {
     }
 }
 
-
-
+/**
+ * 设置白名单接口
+ */
+const whiteList = ['/mock/table']
 // 请求拦截器
 instance.interceptors.request.use((config) => {
+    const timestamp = new Date().getTime();
+    const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
+    if( timestamp >= tokenExpire && whiteList.indexOf(config.url) !== -1 ){
+        return new Promise((resolve, reject) => {
+            //刷新token
+            store.dispatch('userInfo/RefreshToken', refreshToken).then(() => {
+                axiosRequestUse(config)  // 拦截操作
+                resolve(config)
+            }).catch(() => {
+                store.dispatch('userInfo/LogOut').then(() => {
+                    location.reload() // 为了重新实例化vue-router对象 避免bug
+                })
+            })
 
-    // console.log(config);
+            setTimeout(() => {
+              console.log('获取token');
+              resolve(config)
+            }, 3000);
+        });
+    }
+
+    console.log( tokenExpire );
+
+    axiosRequestUse(config)
 
 
+    return config;
+}, error =>{
+    // 对请求错误做些什么
+    return Promise.reject(error)
+});
+function axiosRequestUse(config){
 
-
-
-
-    // 在发送请求之前转换post传过去时的参数格式
-    // 安装插件 querystring 进行转化
-    // 通过querystring 将json格式的请求数据转换为form-data格式
+    /**
+     * 在发送请求之前转换post传过去时的参数格式
+     * 安装插件 querystring 进行转化
+     * 通过querystring 将json格式的请求数据转换为form-data格式
+     */
     // if (config.method === 'post' || config.method === 'put' ) {
     //     config.data = Qs.stringify(config.data);
     // }
@@ -268,13 +297,12 @@ instance.interceptors.request.use((config) => {
 
     /**
      * 发送请求携带 token
-     * 判断本地是否存在accessToken，如果存在的话，则每个http header都加上token
+     * 判断本地是否存在token，如果存在的话，则每个http header都加上token
      */
-    // const accessToken = window.localStorage.getItem("accessToken");
-    // if (accessToken) {
-    //     config.headers['token'] = accessToken;
+    // const token = window.localStorage.getItem("token");
+    // if (token) {
+    //     config.headers['token'] = token;
     // }
-
 
     /**
      * 是否开启 loading
@@ -289,13 +317,7 @@ instance.interceptors.request.use((config) => {
     if( !closeFullScreenLoading ){
     	showFullScreenLoading();
     }
-
-
-    return config;
-}, error =>{
-    // 对请求错误做些什么
-    return Promise.reject(error)
-});
+}
 
 // 添加响应拦截器
 instance.interceptors.response.use(response =>{
