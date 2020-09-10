@@ -40,22 +40,22 @@ const getters = {
 };
 // mutation 非常类似于事件
 const mutations = {
-    changeUser(state, items) {
+    CHANGE_USER(state, items) {
         state.user = items; // 修改user
     },
-    changeToken(state, token) {
+    CHANGE_TOKEN(state, token) {
         state.token = token; // 修改user
     },
-    changeRefreshToken(state, refreshToken) {
+    CHANGE_REFRESHTOKEN(state, refreshToken) {
         state.refreshToken = refreshToken; // 修改user
     },
-    changeTokenExpire(state, tokenExpire) {
+    CHANGE_TOKENEXPIRE(state, tokenExpire) {
         state.tokenExpire = tokenExpire; // 修改user
     },
-    changeMenus(state, menus) {
+    CHANGE_MENUS(state, menus) {
         state.menus = menus; // 修改user
     },
-    changeElements(state, elements) {
+    CHANGE_ELEMENTS(state, elements) {
         state.elements = elements; // 修改user
     },
 };
@@ -65,17 +65,17 @@ const mutations = {
  * Action 可以包含任意异步操作。
  */
 const actions = {
-    invokechangeUser(context, item) { // 触发mutations里面的changeUser ,传入数据形参item 对应到items
-        context.commit('changeUser', item);
+    invokeCHANGE_User(context, item) { // 触发mutations里面的CHANGE_User ,传入数据形参item 对应到items
+        context.commit('CHANGE_USER', item);
     },
     /**
      * 用户名登录
      */
     LoginByUsername({commit}, userInfo) {
-        commit('changeToken', '')
-        commit('changeRefreshToken', '')
-        commit('changeTokenExpire', '')
-        commit('changeMenus', undefined)
+        commit('CHANGE_TOKEN', '')
+        commit('CHANGE_REFRESHTOKEN', '')
+        commit('CHANGE_TOKENEXPIRE', '')
+        commit('CHANGE_MENUS', undefined)
         removeToken()
         removeTokenExpire()
         removeRefreshToken()
@@ -84,9 +84,9 @@ const actions = {
             //     /**
             //      * 给vuex赋值
             //      */
-            //     commit('changeToken', response.token)
-            //     commit('changeTokenExpire', response.refreshToken)
-            //     commit('changeRefreshToken', response.tokenExpire)
+            //     commit('CHANGE_TOKEN', response.token)
+            //     commit('CHANGE_TOKENEXPIRE', response.refreshToken)
+            //     commit('CHANGE_REFRESHTOKEN', response.tokenExpire)
 
             //     /**
             //      * 给本地赋值
@@ -114,9 +114,9 @@ const actions = {
                 /**
                  * 给vuex赋值
                  */
-                commit('changeToken', response.token)
-                commit('changeTokenExpire', response.refreshToken)
-                commit('changeRefreshToken', response.tokenExpire)
+                commit('CHANGE_TOKEN', response.token)
+                commit('CHANGE_TOKENEXPIRE', response.refreshToken)
+                commit('CHANGE_REFRESHTOKEN', response.tokenExpire)
 
                 /**
                  * 给本地赋值
@@ -136,15 +136,15 @@ const actions = {
      * 获取用户信息
      */
     GetUserInfo({commit, state}) {
-        commit('changeMenus', '')
-        commit('changeElements', '')
+        commit('CHANGE_MENUS', '')
+        commit('CHANGE_ELEMENTS', '')
         return new Promise((resolve, reject) => {
             // http.get('sys/user/userInfo', state.token ).then((response) => {
             //     /**
             //      * 给vuex赋值
             //      */
-            //     commit('changeMenus', response.menus)
-            //     commit('changeElements', response.elements)
+            //     commit('CHANGE_MENUS', response.menus)
+            //     commit('CHANGE_ELEMENTS', response.elements)
             //     /**
             //      * 其他操作
             //      */
@@ -169,9 +169,9 @@ const actions = {
                 /**
                  * 给vuex赋值
                  */
-                commit('changeUser', response.name)
-                commit('changeMenus', response.menus)
-                commit('changeElements', response.elements)
+                commit('CHANGE_USER', response.name)
+                commit('CHANGE_MENUS', response.menus)
+                commit('CHANGE_ELEMENTS', response.elements)
                 /**
                  * 其他操作
                  */
@@ -185,12 +185,12 @@ const actions = {
     LogOut({commit, state}) {
         return new Promise((resolve, reject) => {
             setTimeout(()=>{
-                commit('changeUser', '')
-                commit('changeToken', '')
-                commit('changeRefreshToken', '')
-                commit('changeTokenExpire', '')
-                commit('changeMenus', '')
-                commit('changeElements', '')
+                commit('CHANGE_USER', '')
+                commit('CHANGE_TOKEN', '')
+                commit('CHANGE_REFRESHTOKEN', '')
+                commit('CHANGE_TOKENEXPIRE', '')
+                commit('CHANGE_MENUS', '')
+                commit('CHANGE_ELEMENTS', '')
                 removeToken()
                 removeTokenExpire()
                 removeRefreshToken()
@@ -198,11 +198,11 @@ const actions = {
             }, 2000);
 
             // http.get('sys/user/logout', state.token ).then((response) => {
-            //     commit('changeToken', '')
-            //     commit('changeRefreshToken', '')
-            //     commit('changeTokenExpire', '')
-            //     commit('changeMenus', '')
-            //     commit('changeElements', '')
+            //     commit('CHANGE_TOKEN', '')
+            //     commit('CHANGE_REFRESHTOKEN', '')
+            //     commit('CHANGE_TOKENEXPIRE', '')
+            //     commit('CHANGE_MENUS', '')
+            //     commit('CHANGE_ELEMENTS', '')
             //     removeToken()
             //     removeTokenExpire()
             //     removeRefreshToken()
@@ -213,20 +213,35 @@ const actions = {
             // });
         })
     },
+    // 前端 登出
+    FedLogOut({ commit }) {
+        return new Promise(resolve => {
+            commit('CHANGE_USER', '')
+            commit('CHANGE_TOKEN', '')
+            commit('CHANGE_REFRESHTOKEN', '')
+            commit('CHANGE_TOKENEXPIRE', '')
+            commit('CHANGE_MENUS', '')
+            commit('CHANGE_ELEMENTS', '')
+            removeToken()
+            removeTokenExpire()
+            removeRefreshToken()
+            resolve()
+        })
+    },
     /**
      * 前端刷新Token
      */
     RefreshToken({commit,state}) {
-        commit('changeToken', '')
+        commit('CHANGE_TOKEN', '')
         removeToken()
         return new Promise((resolve, reject) => {
             http.get('sys/user/refreshToken', state.refreshToken ).then((response) => {
                 /**
                  * 给vuex赋值
                  */
-                commit('changeToken', response.token)
-                commit('changeTokenExpire', response.refreshToken)
-                commit('changeRefreshToken', response.tokenExpire)
+                commit('CHANGE_TOKEN', response.token)
+                commit('CHANGE_TOKENEXPIRE', response.refreshToken)
+                commit('CHANGE_REFRESHTOKEN', response.tokenExpire)
 
                 /**
                  * 给本地赋值
