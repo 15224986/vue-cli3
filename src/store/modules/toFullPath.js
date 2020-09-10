@@ -7,13 +7,13 @@ const getters = {
     }
 };
 const mutations = {
-    changeSrc(state, items) {
+    CHANGE_SRC(state, items) {
         state.src = items;
     }
 };
 const actions = {
     invokeChangeSrc(context, item) {
-        context.commit('changeSrc', item);
+        context.commit('CHANGE_SRC', item);
     }
 };
 export default {
