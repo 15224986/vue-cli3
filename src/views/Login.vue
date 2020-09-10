@@ -11,85 +11,51 @@
           ]">
             <el-input type="password" v-model="ruleForm2.password" placeholder="密码"></el-input>
         </el-form-item>
-        <el-checkbox v-model="checked" class="remember" @change="checkboxChange">记住密码</el-checkbox>
-        <el-form-item style="width:100%;">
-            <el-button type="primary" style="width:100%;" @click="handleSubmit('loginName')" :loading="logining">登录</el-button>
+        <el-form-item>
+            <el-button @click="handleSubmit('loginName')" :loading="logining" type="primary" class="btn-block">登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 <script>
 
-import {mapState,mapGetters,mapActions} from 'vuex';
-import toBoolean from '@/utils/toBoolean.js'
-
+import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
-    name: "login",
     data() {
         return {
             logining: false,
             ruleForm2: {
                 username: '',
                 password: ''
-            },
-            checked: false
+            }
         };
     },
     created() {
-        // 获取密码状态
-        this.checked = toBoolean( localStorage.getItem('rememberPassword') );
-        if ( this.checked ) { 
-            this.ruleForm2.username = localStorage.getItem('username');
-            this.ruleForm2.password = localStorage.getItem('password');
-        } else {
-            this.ruleForm2.username = '';
-            this.ruleForm2.password = '';
-        }
+    },
+    mounted() {
+        console.log(this.renderSrc, this.maxNumber, this.$store.state)
     },
     computed:{
-        ...mapGetters({ 
-            fullPath: 'toFullPath/renderSrc',       // toFullPath 模块下，getters里面的renderSrc方法
-            userInfo: 'userInfo/renderUser'         // userInfo 模块下，getters里面的renderUser方法
-        })
+        ...mapGetters([
+            'renderSrc',
+            'maxNumber',
+            'user'
+        ])
     },
     methods: {
-        ...mapActions({
-            changeUser: 'userInfo/invokeChangeUser',
-            changeSrc: 'toFullPath/invokeChangeSrc'
-        }),
-        checkboxChange(){
-            localStorage.setItem('rememberPassword', this.checked);
-        },
         handleSubmit(loginName) {
             this.$refs[loginName].validate((valid) => {
                 if (valid) {
                     this.logining = true;
-                    this.$http.get('sys/user/login', this.ruleForm2 ).then((response) => {
-                        if (response.data.msg === '登入成功') {
-                            // 本地永久存储账号密码
-                            if (this.checked) {
-                                localStorage.setItem('username', this.ruleForm2.username);
-                                localStorage.setItem('password', this.ruleForm2.password);
-                            }
-                            // 绑定个人信息
-                            this.changeUser(this.ruleForm2);
-                            // 跳转到目标页面
-                            this.$router.push({ path: this.fullPath || '/' });
-                            // 还原存储的跳转路径
-                            this.changeSrc(false);
-                        } else {
-                            // 关闭加载中
-                            this.logining = false;
-                            // 提示错误
-                            const { msg, code } = response.data;
-                            this.$message({
-                                message: msg,
-                                type: 'error',
-                            });
-                        }
-                    }).catch((error) => {
+                    /**
+                     * 通过vuex的方法进行登录
+                     */
+                    this.$store.dispatch('userInfo/LoginByUsername', this.ruleForm2).then(() => {
+                        this.$router.push({ path: '/home' })
+                        this.logining = false;
+                    }).catch(() => {
                         this.logining = false;
                         console.log(error);
-                    });
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -99,3 +65,10 @@ export default {
     },
 };
 </script>
+
+<style>
+    .btn-block{
+        display: block;
+        width: 100%;
+    }
+</style>
