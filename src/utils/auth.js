@@ -4,33 +4,33 @@ const TokenExpire = 'Admin-Token-expire'
 
 
 export function setToken(token) {
-    sessionStorage.setItem(TokenKey, token);
+    localStorage.setItem(TokenKey, token);
 }
 export function getToken() {
-    return sessionStorage.getItem(TokenKey)
+    return localStorage.getItem(TokenKey)
 }
 export function removeToken() {
-    sessionStorage.removeItem(TokenKey)
-}
-
-
-export function setTokenExpire(tokenExpire) {
-    sessionStorage.setItem(TokenExpire, tokenExpire);
-}
-export function getTokenExpire() {
-    return sessionStorage.getItem(TokenExpire)
-}
-export function removeTokenExpire() {
-    sessionStorage.removeItem(TokenExpire)
+    localStorage.removeItem(TokenKey)
 }
 
 
 export function setRefreshToken(refreshToken) {
-    sessionStorage.setItem(RefreshTokenKey, refreshToken);
+    localStorage.setItem(RefreshTokenKey, refreshToken);
 }
 export function getRefreshToken() {
-    return sessionStorage.getItem(RefreshTokenKey)
+    return localStorage.getItem(RefreshTokenKey)
 }
 export function removeRefreshToken() {
-    sessionStorage.removeItem(RefreshTokenKey)
+    localStorage.removeItem(RefreshTokenKey)
+}
+
+
+export function setTokenExpire(tokenExpire) {
+    localStorage.setItem(TokenExpire, tokenExpire);
+}
+export function getTokenExpire() {
+    return localStorage.getItem(TokenExpire)
+}
+export function removeTokenExpire() {
+    localStorage.removeItem(TokenExpire)
 }
