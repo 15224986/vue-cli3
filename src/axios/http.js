@@ -246,6 +246,7 @@ function tryHideFullScreenLoading() {
     }
 }
 
+import { getToken, getTokenExpire } from '@/utils/auth'
 /**
  * 设置白名单接口
  */
@@ -254,8 +255,7 @@ const whiteList = ['/mock/table']
 instance.interceptors.request.use((config) => {
     const timestamp = new Date().getTime();
     // const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
-    const tokenExpire = store.getters.tokenExpire;
-
+    const tokenExpire = getTokenExpire()-0;
 
     if( timestamp >= tokenExpire && whiteList.indexOf(config.url) !== -1 ){
         return new Promise((resolve, reject) => {
@@ -302,7 +302,7 @@ function axiosRequestUse(config){
      * 发送请求携带 token
      * 判断本地是否存在token，如果存在的话，则每个http header都加上token
      */
-    // const token = window.localStorage.getItem("token");
+    // const token = getToken();
     // if (token) {
     //     config.headers['token'] = token;
     // }
