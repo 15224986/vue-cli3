@@ -44,7 +44,7 @@ const router = new Router({
             	path: '/',
                 loginRrquired: false
             },
-            redirect: '/home',
+            redirect: '/login',
             children: [
 				home,
                 user,
@@ -105,7 +105,16 @@ const router = new Router({
 	}
 });
 
-
+/**
+ * 引入获取token的方法
+ * 设置白名单页面
+ */
+import { getToken } from '@/utils/auth' // getToken from cookie
+const whiteList = ['/login', '/authredirect']
+import {
+    Message,
+    MessageBox
+} from 'element-ui'
 /**
  * 检测是否已经登录
  */
@@ -126,17 +135,35 @@ router.beforeEach((to, from, next) => {
 	 * 1.获取登陆状态、获取页面是否需要登录
 	 * 2.执行操作
 	 */
-    let logged_in = store.state.userInfo.user;
-	const loginType = to.matched.some(function(item){
-		return item.meta.loginRrquired;
-    });
-	if( !logged_in && loginType ){
-        // 存储即将跳转到的页面的路径
-        store.dispatch('toFullPath/invokeChangeSrc', to.fullPath);
-		next('/login');
-	}else{
-		next();
-	}
+    if (getToken()) { // 判断是否有token
+        if (to.path === '/login') {
+            next()
+            NProgress.done() // router在hash模式下 手动改变hash 重定向回来 不会触发afterEach 暂时hack方案 ps：history模式下无问题，可删除该行！
+        } else {
+            if (store.getters.menus === undefined) { // 判断当前用户是否已拉取完user_info信息
+                store.dispatch('userInfo/GetUserInfo').then(info => { // 拉取user_info
+                    Message.success('获取权限成功')
+                    next()
+                }).catch(() => {
+                    store.dispatch('userInfo/FedLogOut').then(() => {
+                        Message.error('获取权限失败')
+                        next({
+                            path: '/login'
+                        })
+                    })
+                })
+            } else {
+                next()
+            }
+        }
+    } else {
+        if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+            next()
+        } else {
+            next('/login') // 否则全部重定向到登录页
+            NProgress.done() // router在hash模式下 手动改变hash 重定向回来 不会触发afterEach 暂时hack方案 ps：history模式下无问题，可删除该行！
+        }
+    }
 });
 
 //当路由进入后：关闭进度条
