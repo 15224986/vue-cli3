@@ -16,7 +16,13 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {})
 
 
+/**
+ * 引入所有的Getters属性
+ */
+import getters from './getters'
+
 export default new Vuex.Store({
     modules,
+    getters,
     strict: process.env.NODE_ENV !== 'production'  // 开启严格模式，在发布环境下关闭严格模式
 });
