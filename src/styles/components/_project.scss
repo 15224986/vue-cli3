@@ -70,10 +70,31 @@ $headerHight: 60px;
     left: 0;
     top: $headerHight + 1px;
     bottom: 0;
+	border-right: solid 1px #e6e6e6;
 	background-color: #fff;
+	-webkit-transition: all .3s;
+	transition: all .3s;
 	.el-menu{
-		height: 100%;
+		height: calc(100% - 35px);
 		overflow: auto;
+		border-right: 0 none;
+	}
+	.neu-menu-tools{
+		height: 30px;
+		position: relative;
+	}
+	.hamburger{
+		display: block;
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		right: 20px;
+		top: 10px;
+		cursor: pointer;
+		&.neu-active {
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
 	}
     + #content{
     	margin-left: 250px;
@@ -86,8 +107,17 @@ $headerHight: 60px;
 #content{
 	margin-top: $headerHight + 1px;
 	padding: 20px;
+	-webkit-transition: all .3s;
+	transition: all .3s;
 }
-
+.neu-sidebar-opened{
+	#sidebar{
+		width: 64px;
+	    + #content{
+	    	margin-left: 64px;
+	    }
+	}
+}
 
 
 /*
