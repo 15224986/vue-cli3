@@ -13,6 +13,8 @@ const getters = {
         return state.userInfo.number.filter(function(item, index) {
             return item >= 5;
         });
-    }
+    },
+
+    sidebar: state => state.app.sidebar,
 }
 export default getters
