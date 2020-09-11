@@ -2,6 +2,8 @@ const TokenKey = 'Admin-Token'
 const RefreshTokenKey = 'Admin-Token-Refresh'
 const TokenExpire = 'Admin-Token-expire'
 
+const SidebarOpened = 'App-sidebar-opened'
+
 
 export function setToken(token) {
     localStorage.setItem(TokenKey, token);
@@ -33,4 +35,12 @@ export function getTokenExpire() {
 }
 export function removeTokenExpire() {
     localStorage.removeItem(TokenExpire)
+}
+
+
+export function setSidebarOpened(sidebarOpened) {
+    localStorage.setItem(SidebarOpened, sidebarOpened);
+}
+export function getSidebarOpened() {
+    return localStorage.getItem(SidebarOpened)
 }
