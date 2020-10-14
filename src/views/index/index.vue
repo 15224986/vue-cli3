@@ -170,7 +170,8 @@
         },
         computed: {
             key() {
-                return this.$route.name !== undefined ? this.$route.name : this.$route.fullPath.replace(/\//g, '')
+                return this.$route.fullPath
+                // return this.$route.fullPath.replace(/[/?=]/g, '')
             },
             ...mapGetters([
                 'sidebar'
