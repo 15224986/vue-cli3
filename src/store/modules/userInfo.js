@@ -23,6 +23,7 @@ const state = {
     token: getToken(),
     refreshToken: getRefreshToken(),
     tokenExpire: getTokenExpire(),
+    addRouters: undefined,          // 动态路由
     menus: undefined,               // 菜单权限
     elements: undefined,            // 非菜单权限
     number: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
@@ -51,6 +52,9 @@ const mutations = {
     },
     CHANGE_TOKENEXPIRE(state, tokenExpire) {
         state.tokenExpire = tokenExpire; // 修改user
+    },
+    CHANGE_ADDROUTERS(state, addRouters) {
+        state.addRouters = addRouters; // 修改user
     },
     CHANGE_MENUS(state, menus) {
         state.menus = menus; // 修改user
@@ -133,11 +137,14 @@ const actions = {
         })
     },
     /**
-     * 获取用户信息
+     * 获取用户信息,
+     * 生成菜单
      */
     GetUserInfo({commit, state}) {
+        commit('CHANGE_USER', '')
         commit('CHANGE_MENUS', '')
         commit('CHANGE_ELEMENTS', '')
+        commit('CHANGE_ADDROUTERS', '')
         return new Promise((resolve, reject) => {
             // http.get('sys/user/userInfo', state.token ).then((response) => {
             //     /**
@@ -163,7 +170,53 @@ const actions = {
                     'name': true,
                     'age': true,
                 },
-                name:'小茗同学'
+                name:'小茗同学',
+                addRouters:[
+                    {
+                        title: '404',   // 导航名称
+                        path: '404',        // 导航路径
+                        name: 'PAGE404',    // 路由的名称
+                        component: '404',   // 资源所在的位置
+                        children:[]         // 子路由
+                    },
+                    {
+                        title: '500',
+                        path: '500',
+                        name: 'PAGE500',
+                        component: '500',
+                        children:[]
+                    },
+                    {
+                        title: 'Layout',
+                        path: 'layout',
+                        name: 'layout',
+                        component: 'Container',
+                        children:[
+                            {
+                                title: 'CONTAINER',
+                                path: 'container',
+                                name: 'container',
+                                component: 'layout/index',
+                                children:[
+                                    {
+                                        title: '表格页面',
+                                        path: 'table',
+                                        name: 'table',
+                                        component: 'layout/table',
+                                        children:[]
+                                    },
+                                    {
+                                        title: '表单页面',
+                                        path: 'form',
+                                        name: 'form',
+                                        component: 'layout/form',
+                                        children:[]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
             setTimeout(()=>{
                 /**
@@ -172,6 +225,13 @@ const actions = {
                 commit('CHANGE_USER', response.name)
                 commit('CHANGE_MENUS', response.menus)
                 commit('CHANGE_ELEMENTS', response.elements)
+
+                /**
+                 * 动态路由的添加
+                 */
+                let routers = createdRouters(response.addRouters, 1, null)
+                commit('CHANGE_ADDROUTERS', routers)
+
                 /**
                  * 其他操作
                  */
@@ -261,6 +321,40 @@ const actions = {
         })
     }
 };
+
+/**
+ * 创建菜单数组的方法
+ * @param {Object} menus    后台请求的菜单数据
+ * @param {Object} level    菜单等级
+ * @param {Object} parentRoute  父路由
+ */
+function createdRouters(menus, level, parentRoute) {
+    const accessedRouters = [];
+    if (menus && menus.length>0) {
+        menus.forEach( menu=>{
+            const parentRouteFullPath = parentRoute==null ? '' : parentRoute.meta.fullPath
+            const parentRouteName = parentRoute==null ? '' : parentRoute.name
+            let itemlevel = level;
+            let route = {
+                name: parentRouteName ? parentRouteName + '_' + menu.name : menu.name,
+                path: level === 1 ? '/' +  menu.path : menu.path,
+                component: () => import('@/views/'+menu.component+'.vue'),
+                meta:{
+                    title: menu.title,
+                    fullPath: parentRouteFullPath + '/' + menu.path
+                }
+            }
+            if (menu.children && menu.children.length) {
+                itemlevel++
+                route.children = createdRouters(menu.children, itemlevel, route)
+            }
+            accessedRouters.push(route)
+        });
+    }
+    return accessedRouters
+}
+
+
 export default {
     namespaced: true, //用于在全局引用此文件里的方法时标识这一个的文件名
     state,
