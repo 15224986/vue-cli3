@@ -143,7 +143,14 @@ router.beforeEach((to, from, next) => {
             if (store.getters.menus === undefined) { // 判断当前用户是否已拉取完user_info信息
                 store.dispatch('userInfo/GetUserInfo').then(info => { // 拉取user_info
                     Message.success('获取权限成功')
-                    next()
+
+                    // next()
+                    /**
+                     * 添加动态路由
+                     */
+                    console.log(store.getters.addRouters)
+                    router.addRoutes(store.getters.addRouters)  // 动态添加可访问路由表
+                    next({ ...to, replace: true })              // hack方法 确保addRoutes已完成 ,replace: true so the navigation will not leave a history record
                 }).catch(() => {
                     store.dispatch('userInfo/FedLogOut').then(() => {
                         Message.error('获取权限失败')
