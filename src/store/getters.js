@@ -7,6 +7,7 @@ const getters = {
     token: state => state.userInfo.token,
     refreshToken: state => state.userInfo.refreshToken,
     tokenExpire: state => state.userInfo.tokenExpire,
+    addRouters: state => state.userInfo.addRouters,
     menus: state => state.userInfo.menus,
     elements: state => state.userInfo.elements,
     maxNumber: state => {
