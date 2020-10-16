@@ -28,7 +28,7 @@
                 <router-link :to="{ name: 'container', params: {id:sysUserName, name:sysUserAvatar }}">页面布局</router-link>
             </li>
             <li>
-                <router-link :to="{ path:'/layout/container/table' }">动态路由</router-link>
+                <router-link :to="{ path:'/layout/container/container1/table' }">动态路由</router-link>
             </li>
         </ul>
         <div class="user">
