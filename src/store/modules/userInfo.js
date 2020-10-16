@@ -176,7 +176,7 @@ const actions = {
                         title: '404',   // 导航名称
                         path: '404',        // 导航路径
                         name: 'PAGE404',    // 路由的名称
-                        component: '404',   // 资源所在的位置
+                        component: '404',   // 资源路径 Layout、Container、SubLayout 为导航的层级关系
                         children:[]         // 子路由
                     },
                     {
@@ -190,27 +190,35 @@ const actions = {
                         title: 'Layout',
                         path: 'layout',
                         name: 'layout',
-                        component: 'Container',
+                        component: 'Layout',
                         children:[
                             {
                                 title: 'CONTAINER',
                                 path: 'container',
                                 name: 'container',
-                                component: 'layout/index',
+                                component: 'Container',
                                 children:[
                                     {
-                                        title: '表格页面',
-                                        path: 'table',
-                                        name: 'table',
-                                        component: 'layout/table',
-                                        children:[]
-                                    },
-                                    {
-                                        title: '表单页面',
-                                        path: 'form',
-                                        name: 'form',
-                                        component: 'layout/form',
-                                        children:[]
+                                        title: 'CONTAINER1',
+                                        path: 'container1',
+                                        name: 'container1',
+                                        component: 'SubLayout',
+                                        children:[
+                                            {
+                                                title: '表格页面',
+                                                path: 'table',
+                                                name: 'table',
+                                                component: 'container/table',
+                                                children:[]
+                                            },
+                                            {
+                                                title: '表单页面',
+                                                path: 'form',
+                                                name: 'form',
+                                                component: 'container/form',
+                                                children:[]
+                                            }
+                                        ]
                                     }
                                 ]
                             }
@@ -335,10 +343,22 @@ function createdRouters(menus, level, parentRoute) {
             const parentRouteFullPath = parentRoute==null ? '' : parentRoute.meta.fullPath
             const parentRouteName = parentRoute==null ? '' : parentRoute.name
             let itemlevel = level;
+
+            // 资源路径
+            let componentPath = menu.component
+            if( componentPath === 'Layout' ){
+                componentPath = 'layout/Layout'
+            }else if(componentPath === 'Container'){
+                componentPath = 'layout/Container'
+            }else if(componentPath === 'SubLayout'){
+                componentPath = 'layout/SubLayout'
+            }
+
+            // 拼接路由
             let route = {
                 name: parentRouteName ? parentRouteName + '_' + menu.name : menu.name,
                 path: level === 1 ? '/' +  menu.path : menu.path,
-                component: () => import('@/views/'+menu.component+'.vue'),
+                component: () => import('@/views/'+componentPath+'.vue'),
                 meta:{
                     title: menu.title,
                     fullPath: parentRouteFullPath + '/' + menu.path
