@@ -22,6 +22,12 @@ Vue.config.productionTip = false;
 require('./assets/mock');
 
 
+
+/**
+ * 自定义图标
+ */
+import './icons' // icon
+
 /**
  * 引入定义的axios
  */
