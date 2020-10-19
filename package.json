@@ -19,7 +19,7 @@
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
     "sortablejs": "1.8.4",
-    "tinymce": "^5.0.3",
+    "tinymce": "^5.4.1",
     "vue": "^2.6.6",
     "vue-draggable-resizable": "^2.2.0",
     "vue-echarts": "^4.0.1",
