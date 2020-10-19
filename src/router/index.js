@@ -62,24 +62,6 @@ const router = new Router({
 				title:'登录页'
 			}
 		},
-		{
-			path: '/400',
-			component: () => import(/* webpackChunkName: "login" */ '@/views/400'),
-			name: 'page400'
-		},
-        {
-            path: '/container',
-        	component: () => import(/* webpackChunkName: "home" */ '@/views/Container'),
-            name: 'container',
-            redirect: '/container/anextUntil',
-            meta: {
-        		title: "结构页面",
-        		path: '/container/anextUntil'
-        	},
-            children: [
-                container
-            ],
-        }
 	],
 	// 解决使用keep-alive时，滚动条的问题
 	scrollBehavior (to, from, savedPosition) {
@@ -180,3 +162,25 @@ router.afterEach(() => {
 })
 
 export default router;
+
+// 其他非菜单路由
+export const otherMenuRouterMap = [
+    {
+    	path: '/400',
+    	component: () => import(/* webpackChunkName: "login" */ '@/views/400'),
+    	name: 'page400'
+    },
+    {
+        path: '/container',
+    	component: () => import(/* webpackChunkName: "home" */ '@/views/Container'),
+        name: 'container',
+        redirect: '/container/anextUntil',
+        meta: {
+    		title: "结构页面",
+    		path: '/container/anextUntil'
+    	},
+        children: [
+            container
+        ],
+    }
+]
