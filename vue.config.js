@@ -1,5 +1,15 @@
 const webpack = require('webpack');
 
+
+
+const path = require('path')
+
+function resolve(dir) {
+  return path.join(__dirname, './', dir)
+}
+
+
+
 module.exports = {	// webpack-dev-server 相关配置
   	/**
 	 * 1.安装@vue/cli-plugin-eslint后生效。为true时将检查错误输出为编译警告输出到命令行，编译不会失败。
@@ -85,6 +95,29 @@ module.exports = {	// webpack-dev-server 相关配置
 		        })
 		        .end()
 		});
+
+        /**
+         * 加载svg图标
+         */
+        // set svg-sprite-loader
+        // 第一步：让其他svg loader不要对src/icons/svg进行操作
+        config.module
+          .rule("svg")
+          .exclude.add(resolve("src/icons"))
+          .end();
+        // 第二步：使用svg-sprite-loader 对 src/icons下的svg进行操作
+        config.module
+          .rule("icons")
+          .test(/\.svg$/)
+          .include.add(resolve("src/icons"))
+          .end()
+          .use("svg-sprite-loader")
+          .loader("svg-sprite-loader")
+          //定义规则 使用时 <svg class="icon"> <use xlink:href="#icon-svg文件名"></use>  </svg>
+          .options({
+            symbolId: "icon-[name]"
+          })
+          .end();
 	},
 	configureWebpack: {	// 引入jquery
 	    plugins: [
