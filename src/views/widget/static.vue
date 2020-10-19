@@ -3,6 +3,53 @@
         <div class="widget">
 
             <section class="section">
+                <h3 class="widget-tit">svg的图标</h3>
+                <p class="widget-txt"></p>
+                <div class="widget-demo">
+                    <h5 class="widget-title">1.使用svg的图标</h5>
+                    <div class="static">
+                        <div style="font-size: 72px;">
+                            <svg-icon icon-class="404" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="bug" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="chart" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="clipboard" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="component" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="dashboard" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="documentation" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="drag" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="email" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="example" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="excel" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="eye" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="fa-user" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="form" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="icon" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="international" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="language" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="lock" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="message" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="money" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="people" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="peoples" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="qq" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="setting" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="shoppingCard" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="star" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="tab" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="table" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="theme" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="trendChart1" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="trendChart2" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="trendChart3" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="user" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="wechat" style="margin-right: 30px;"></svg-icon>
+                            <svg-icon icon-class="zip" style="margin-right: 30px;"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
                 <h3 class="widget-tit">图片的引入1</h3>
                 <p class="widget-txt">将图片放在“src\assets”这个路径下，当图片小于4kb的时候，会被编译成base64编码减少http请求。但是每次加载都要加载相关的资源，会出现重复请求的情况。</p>
                 <div class="widget-demo">
