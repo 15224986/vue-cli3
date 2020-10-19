@@ -16,6 +16,9 @@ import {
     removeRefreshToken
 } from '@/utils/auth'
 
+import { otherMenuRouterMap } from '@/router'
+
+
 
 // 数据源
 const state = {
@@ -219,8 +222,43 @@ const actions = {
                                                 children:[]
                                             }
                                         ]
+                                    },
+                                    {
+                                        title: 'CONTAINER-2',
+                                        path: 'container-2',
+                                        name: 'container-2',
+                                        component: 'SubLayout',
+                                        children:[]
+                                    },
+                                    {
+                                        title: 'CONTAINER-3',
+                                        path: 'container-3',
+                                        name: 'container-3',
+                                        component: 'SubLayout',
+                                        children:[]
                                     }
                                 ]
+                            },
+                            {
+                                title: 'CONTAINER2',
+                                path: 'container2',
+                                name: 'container2',
+                                component: 'Container',
+                                children:[]
+                            },
+                            {
+                                title: 'CONTAINER3',
+                                path: 'container3',
+                                name: 'container3',
+                                component: 'Container',
+                                children:[]
+                            },
+                            {
+                                title: 'CONTAINER4',
+                                path: 'container4',
+                                name: 'container4',
+                                component: 'Container',
+                                children:[]
                             }
                         ]
                     }
@@ -237,8 +275,11 @@ const actions = {
                 /**
                  * 动态路由的添加
                  */
-                let routers = createdRouters(response.addRouters, 1, null)
-                commit('CHANGE_ADDROUTERS', routers)
+                let accessedRouters = (response.addRouters && response.addRouters.length > 0) ? createdRouters(response.addRouters, 1, null) : otherMenuRouterMap // 数据库配置的菜单转router
+                if (accessedRouters && accessedRouters.length) {
+                    accessedRouters = accessedRouters.concat(otherMenuRouterMap)
+                }
+                commit('CHANGE_ADDROUTERS', accessedRouters)
 
                 /**
                  * 其他操作
@@ -346,7 +387,13 @@ function createdRouters(menus, level, parentRoute) {
 
             // 资源路径
             let componentPath = menu.component
-            if( componentPath === 'Layout' ){
+            if (level==1 && menu.children && menu.children.length>0) {
+                componentPath = 'layout/Layout'
+            }else if (level==2 && menu.children && menu.children.length>0) {
+                componentPath = 'layout/Container'
+            }else if (level>2 && menu.children && menu.children.length>0) {
+                componentPath = 'layout/SubLayout'
+            }else if( componentPath === 'Layout' ){
                 componentPath = 'layout/Layout'
             }else if(componentPath === 'Container'){
                 componentPath = 'layout/Container'
