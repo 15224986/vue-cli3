@@ -23,11 +23,24 @@ if( istest ){
 
 
 function getHeadUrl() {
-	var reg = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
-	var protocol = window.location.protocol;		// 获取http 还是 https
-	var ip = reg.exec(window.location.href)[0];		// 获取ip
-	var port = location.port;						// 获取端口号
-	var protocolIp = protocol + '//' + ip + ':' + port;			// 拼接
+	// 获取当前网址，如： http://localhost:8280/#/anextUntil/table
+	let href = window.document.location.href
+	// 获取主机地址，如： http://localhost:8280
+	let origin = window.document.location.origin
+	// 获取主机地址之后的目录，如： /
+	let pathname = window.document.location.pathname
+	// 如果是hash模式获取hash，如： #/anextUntil/table
+	let hash = window.document.location.hash
+	// 获取请求类型 ，如： http:
+	let protocol = window.document.location.protocol
+	// 获取host，如： localhost:8280
+	let host = window.document.location.host
+	// 获取hostname，如： localhost
+	let hostname = window.document.location.hostname
+	// 获取端口号，如： 8280
+	let port = window.document.location.port
+    // 拼接
+	var protocolIp = protocol + '//' + hostname + ':' + port;
 	return protocolIp
 
     /**
@@ -45,6 +58,9 @@ function getHeadUrl() {
     // js获取项目根路径，如： http://localhost:8083/uimcardprj
     let baseURL = localhostPaht + projectName
     return baseURL
+
+
+
 }
 
 
