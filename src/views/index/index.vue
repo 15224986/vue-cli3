@@ -152,11 +152,11 @@
         </aside>
         <main id="content">
             <moc-tags-view></moc-tags-view>
-            <keep-alive>
-                <transition name="fade-transform" mode="out-in">
+            <transition name="fade-transform" mode="out-in">
+                <keep-alive>
                     <router-view :key="key"></router-view>
-                </transition>
-            </keep-alive>
+                </keep-alive>
+            </transition>
         </main>
     </article>
 </template>
