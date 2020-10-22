@@ -8,7 +8,7 @@
 
             <section class="section">
                 <h3 class="section-title">tinymce富文本编辑器</h3>
-                
+
                 <ul class="section-subhead">
                     <li>1、中文文档：<a href="http://tinymce.ax-z.cn/quick-start.php" target="_blank">http://tinymce.ax-z.cn/quick-start.php</a></li>
                     <li>2、参考文章：<a href="https://liubing.me/vue-tinymce-5.html" target="_blank">https://liubing.me/vue-tinymce-5.html</a></li>
@@ -18,6 +18,7 @@
                 <div class="tinymce-box">
                     {{ msg }}
                     <moc-tinymce-editor
+                        v-if="isShow"
                         ref="editor"
                         v-model="msg"
                         :disabled="disabled"
@@ -25,6 +26,7 @@
                     </moc-tinymce-editor>
                     <button @click="clear">清空内容</button>
                     <button @click="disabled = true">禁用</button>
+                    <button @click="disabled = false">启用</button>
                 </div>
             </section>
 
@@ -36,13 +38,23 @@
         name: "Tinymce",
         data() {
             return {
+                isShow: false,
                 loading: false,
                 msg: `<h2>Welcome to Use Tinymce Editor</h2>`,
                 disabled: false
             };
         },
         mounted(){
-            
+
+        },
+        /**
+         * 使用keep-alive缓存时，修改不可以编辑的问题
+         */
+        activated(){
+            this.isShow = true;
+        },
+        deactivated(){
+            this.isShow = false;
         },
         methods: {
             // 鼠标单击的事件
