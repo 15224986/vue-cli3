@@ -41,7 +41,7 @@
                     <span slot="title">orgchart组织架构图</span>
                 </el-menu-item>
 
-                <el-menu-item index="/home/tinymce">
+                <el-menu-item index="/home/tinymce" :route="{'path':'/home/tinymce', query:{'title':'富文本编辑器', id:'151'}}">
                     <i class="el-icon-menu"></i>
                     <span slot="title">tinymce5富文本编辑器</span>
                 </el-menu-item>
@@ -127,8 +127,6 @@
                             <span>穿梭框自定义搜索、图片放大</span>
                         </el-tooltip>
                     </el-menu-item>
-
-
                 </el-submenu>
 
 
@@ -152,7 +150,7 @@
         </aside>
         <main id="content">
             <moc-tags-view></moc-tags-view>
-            <transition name="fade-transform" mode="out-in">
+            <transition  name="fade-transform" mode="out-in">
                 <keep-alive>
                     <router-view :key="key"></router-view>
                 </keep-alive>
@@ -170,8 +168,13 @@
         },
         computed: {
             key() {
-                return this.$route.fullPath
-                // return this.$route.fullPath.replace(/[/?=]/g, '')
+                console.log(this.$route)
+                if(this.$route.meta.keepAlive){
+                    return this.$route.fullPath
+                }else{
+                    return this.$route.fullPath + new Date().getTime()
+                }
+                // return this.$route.fullPath.replace(/[/?=&]/g, '')
             },
             ...mapGetters([
                 'sidebar'
