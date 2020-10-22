@@ -31,7 +31,7 @@ import container from './modules/container'
 
 
 
-const router = new Router({
+const createRouter = () => new Router({
 	// mode: 'history',
 	linkActiveClass: "active",
 	routes: [
@@ -87,6 +87,12 @@ const router = new Router({
 	}
 });
 
+const router = createRouter()
+function resetRouter() {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher
+}
+
 /**
  * 引入获取token的方法
  * 设置白名单页面
@@ -130,7 +136,7 @@ router.beforeEach((to, from, next) => {
                     /**
                      * 添加动态路由
                      */
-                    console.log(store.getters.addRouters)
+                    resetRouter()
                     router.addRoutes(store.getters.addRouters)  // 动态添加可访问路由表
                     next({ ...to, replace: true })              // hack方法 确保addRoutes已完成 ,replace: true so the navigation will not leave a history record
                 }).catch(() => {
@@ -160,7 +166,6 @@ router.afterEach(() => {
     // 在即将进入新的页面组件前，关闭掉进度条
     NProgress.done()
 })
-
 export default router;
 
 // 其他非菜单路由
