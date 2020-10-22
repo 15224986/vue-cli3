@@ -8,8 +8,8 @@
                 <div class="widget-demo">
                     <h5 class="widget-title">1.使用svg的图标</h5>
                     <div class="static">
-                        <div style="font-size: 72px;">
-                            <svg-icon icon-class="404" style="margin-right: 30px;"></svg-icon>
+                        <div style="font-size: 72px; color: #0000FF;">
+                            <svg-icon icon-class="404" class-name="icon-404" style="margin-right: 30px;"></svg-icon>
                             <svg-icon icon-class="bug" style="margin-right: 30px;"></svg-icon>
                             <svg-icon icon-class="chart" style="margin-right: 30px;"></svg-icon>
                             <svg-icon icon-class="clipboard" style="margin-right: 30px;"></svg-icon>
@@ -137,21 +137,13 @@ export default {
         };
     },
     created(){
-
         // this.$http.get('/static/json/service.json', {}, { baseURL: '' }).then((response)=> {
         this.$http.get('/static/json/service.json').then((response)=> {
-                console.log(response.data);
-                this.list = response.data.content;
+                // console.log(response);
+                this.list = response.content;
             }).catch((error)=> {
                 console.log(error);
             });
-        // this.$axios.get('/static/json/service.json', { params: {}, baseURL: '' }).then((response)=> {
-        this.$axios.get('/static/json/service.json').then((response)=> {
-                console.log(response.data);
-            }).catch((error)=> {
-                console.log(error);
-            });
-
     },
     mounted(){
     },
