@@ -130,7 +130,7 @@ const actions = {
                  */
                 setToken(response.token)
                 setRefreshToken(response.refreshToken)
-                const expire = response.expire * 1000 + new Date().getTime()
+                const expire = response.tokenExpire * 1000 + new Date().getTime()
                 setTokenExpire(expire)
                 /**
                  * 其他操作
@@ -357,7 +357,7 @@ const actions = {
                  */
                 setToken(response.token)
                 setRefreshToken(response.refreshToken)
-                const expire = response.expire * 1000 + new Date().getTime()
+                const expire = response.tokenExpire * 1000 + new Date().getTime()
                 setTokenExpire(expire)
                 /**
                  * 其他操作
