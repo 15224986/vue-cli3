@@ -13,13 +13,9 @@
 			@mousemove="pan && panning && panHandler($event)"
 		>
 			<moc-orgchart-node :datasource="datasource" :deletebtn="deleteBtn" :datapid="datapid" :handle-delete="handleDelete" :handle-click="handleClick">
-				<template
-					v-for="slot in Object.keys($scopedSlots)"
-					:slot="slot"
-					slot-scope="scope"
-				>
-					<slot :name="slot" v-bind="scope"/>
-				</template>
+                <template v-slot="{nodeData}">
+                    <slot :node-data="nodeData"/>
+                </template>
 			</moc-orgchart-node>
 		</div>
 	</div>
@@ -186,5 +182,3 @@
 		}
 	};
 </script>
-
-
