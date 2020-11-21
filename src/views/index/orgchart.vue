@@ -16,7 +16,11 @@
                         </li>
                     </ul>
                     <div class="orgChart-box">
-                        <moc-orgchart :datasource="orgchartData" pan zoom deleteBtn datapid @node-delete="nodeDeletefn"></moc-orgchart>
+                        <moc-orgchart :datasource="orgchartData" pan zoom deleteBtn datapid @node-delete="nodeDeletefn">
+                            <template v-slot="{nodeData}">
+                                <p>{{nodeData.id}}</p>
+                            </template>
+                        </moc-orgchart>
                     </div>
                 </div>
             </section>
@@ -186,7 +190,7 @@
             });
         },
         methods:{
-            
+
             /**
              * 被拖动的节点的开始拖动
              */
@@ -327,7 +331,7 @@
             delOrgchartNode( json ){
                 /**
                  * 删除列表中的id
-                 */                
+                 */
                 for(var i = 0 ; i < json.length ; i++){
                     let item = json[i];
                     /**
@@ -406,7 +410,7 @@
 
     .orgChart-section{
         height: 360px;
-        
+
     }
     .orgChart-list{
         width: 175px;
