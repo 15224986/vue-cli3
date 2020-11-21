@@ -30,9 +30,9 @@
 			<tr class="nodes">
 				<td colspan="2" v-for="child in datasource.children" :key="child.id">
 					<moc-orgchart-node :datasource="child" :pid="datasource.id" :deletebtn="deletebtn" :datapid="datapid" :handle-delete="handleDelete" :handle-click="handleClick">
-						<template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
-							<slot :name="slot" v-bind="scope"/>
-						</template>
+						<template v-slot="{nodeData}">
+                            <slot :node-data="nodeData"/>
+                        </template>
 					</moc-orgchart-node>
 				</td>
 			</tr>
@@ -54,7 +54,7 @@
 		mounted(){
 			if( this.datapid && this.pid ){
 				this.datasource.pid = this.pid;
-			}			
+			}
 		},
 		methods: {
 		}
