@@ -78,7 +78,9 @@
             </section>
 
             <section class="section">
-                <h3 class="section-title">状态排序</h3>
+                <h3 class="section-title">状态排序
+                    <table-column-config :show-column="tableColumnConfigShow" :data="tableColumnConfigData" @closed-callback="showColumnCallback"></table-column-config>
+                </h3>
                 <div class="table-box">
                     <el-table
                         :data="tableData"
@@ -94,14 +96,16 @@
                         :load="load"
                     >
                         <el-table-column label="排序" type="index" width="50"></el-table-column>
-                        <el-table-column label="ID" prop="id" sortable="custom" width="80"></el-table-column>
-                        <el-table-column label="日期" prop="date" sortable :sort-orders="['ascending', 'descending']" width="180"></el-table-column>
-                        <el-table-column label="姓名" prop="name" sortable="custom" width="180"></el-table-column>
-                        <el-table-column label="地址" prop="address" show-overflow-tooltip min-width="350"></el-table-column>
+                        <el-table-column label="ID" prop="id" v-if="setTableColumn('id')" sortable="custom" width="80"></el-table-column>
+                        <el-table-column label="日期" prop="date" v-if="setTableColumn('date')" sortable :sort-orders="['ascending', 'descending']" width="180"></el-table-column>
+                        <el-table-column label="姓名" prop="name" v-if="setTableColumn('name')" sortable="custom" width="180"></el-table-column>
+                        <el-table-column label="地址" prop="address" v-if="setTableColumn('address')" min-width="350" show-overflow-tooltip></el-table-column>
                     </el-table>
                 </div>
             </section>
         </div>
+
+
 
     </article>
 </template>
@@ -116,6 +120,9 @@
 
     export default {
         name: "tableRelevant",
+        components: {
+            tableColumnConfig:()=>import('@/views/components/table-column-config/table-column-config.vue')
+        },
         mixins: [calcIndex, sexText],
         data() {
             return {
@@ -180,13 +187,51 @@
                     size: 15,       // 页面显示条数
                     pages: 0,       // 总页数
                 },
-                expands: []         // 要展开的行，数值的元素是row的key值
+                /**
+                 * 展开关闭
+                 */
+                expands: [],         // 要展开的行，数值的元素是row的key值
+                /**
+                 * 列显示
+                 */
+                tableColumnConfigShow: ['id'],
+                tableColumnConfigData: [
+                    {
+                        label: "ID",
+                        key: "id"
+                    },
+                    {
+                        label: "日期",
+                        key: "date"
+                    },
+                    {
+                        label: "姓名",
+                        key: "name"
+                    },
+                    {
+                        label: "地址",
+                        key: "address"
+                    }
+                ],
             };
+        },
+        computed: {
+            /**
+             * 计算列是否显示
+             */
+            setTableColumn() {
+                return function (prop) {
+                    return this.tableColumnConfigShow.includes( prop );
+                }
+            }
         },
         created() {
             this.initData()
         },
         methods: {
+            showColumnCallback(value){
+                this.tableColumnConfigShow = value;
+            },
             /**
              * 获取表格需要展开的row的key值
              */
