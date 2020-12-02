@@ -6,8 +6,8 @@
 // **************************** scrollbar 导航相关的样式 **********************************
 @import 'components/scrollbar';
 
-// **************************** project 页面框架 **********************************
-@import 'components/project';
+// **************************** icons 自定义图标 **********************************
+@import 'components/icons';
 
 // **************************** btn 文字按钮样式 **********************************
 @import 'components/btn';
@@ -48,6 +48,10 @@
 // **************************** Split 面板分割 **********************************
 @import 'components/split';
 
+
+
+// **************************** project 页面框架 **********************************
+@import 'components/project';
 
 
 // **************************** Affix 图钉 **********************************
@@ -97,7 +101,6 @@
 		text-align: left
 	}
 }
-
 
 
 
@@ -181,6 +184,28 @@
         margin: 0px 0px 35px 0px;
     }
 }
+
+
+// **************************** svg-icons 图标展示 **********************************
+.section-svg-icons{
+	@include clearfix;
+	padding-left: 1px;
+	li{
+		width: 25%;
+		line-height: 40px;
+		float: left;
+		border: #CCCCCC 1px solid;
+		margin-left: -1px;
+		margin-top: -1px;
+		box-sizing: border-box;
+		padding-left: 16px;
+		>span{
+			margin-left: 6px;
+		}
+	}
+	
+}
+
 
 // **************************** 组件页面的样式 **********************************
 .widget{
