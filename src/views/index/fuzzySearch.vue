@@ -8,6 +8,19 @@
 
             <section class="section">
                 <h3 class="section-title">文字滚动</h3>
+                <ul class="section-subhead">
+                    <li>1.官网： <el-link href="https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others" type="primary">https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others</el-link></li>
+                </ul>
+                <seamless-scroll :data="listData" class="seamless-warp">
+                    <p v-for="item in listData">
+                        <span class="title">{{item.title}}</span>
+                        <span class="date">{{item.date}}</span>
+                    </p>
+                </seamless-scroll>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">文字滚动</h3>
                 <div class="marquee">
                     <div class="marquee_title">
                         <span>最新公告</span>
@@ -45,6 +58,9 @@
 
     export default {
         name: "fuzzySearch",
+        components: {
+            seamlessScroll:()=>import('./components/seamlessScroll/seamlessScroll.vue')
+        },
         data() {
             return {
                 loading: false,
@@ -78,8 +94,39 @@
                  * 模糊搜索的相关数据
                  */
                 searchTxt: "",
-                originLists:[]
-            };
+                originLists:[],
+
+                listData: [
+                    {
+                        'title': '无缝滚动第一行无缝滚动第一行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第二行无缝滚动第二行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第三行无缝滚动第三行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第四行无缝滚动第四行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第五行无缝滚动第五行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第六行无缝滚动第六行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第七行无缝滚动第七行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第八行无缝滚动第八行',
+                        'date': '2017-12-16'
+                    }, {
+                        'title': '无缝滚动第九行无缝滚动第九行',
+                        'date': '2017-12-16'
+                    },
+                ]
+            }
         },
         computed:{
             /**
@@ -166,6 +213,13 @@
             border: #eee 1px solid;
             margin-top: -1px
         }
+    }
+
+
+
+    .seamless-warp {
+        height: 168px;
+        overflow: hidden;
     }
 </style>
 <style>
