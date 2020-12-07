@@ -9,9 +9,18 @@
             <section class="section">
                 <h3 class="section-title">文字滚动</h3>
                 <ul class="section-subhead">
-                    <li>1.官网： <el-link href="https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others" type="primary">https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others</el-link></li>
+                    <li>1.官网： <el-link href="https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others" type="primary" target="_blank">https://chenxuan1993.gitee.io/component-document/index_prod#/component/seamless-others</el-link></li>
                 </ul>
+
+                <h5>垂直</h5>
                 <seamless-scroll :data="listData" class="seamless-warp">
+                    <p v-for="item in listData">
+                        <span class="title">{{item.title}}</span>
+                        <span class="date">{{item.date}}</span>
+                    </p>
+                </seamless-scroll>
+                <h5>水平</h5>
+                <seamless-scroll :data="listData" :class-option="listOption" class="seamless-warp-horizontal">
                     <p v-for="item in listData">
                         <span class="title">{{item.title}}</span>
                         <span class="date">{{item.date}}</span>
@@ -96,6 +105,9 @@
                 searchTxt: "",
                 originLists:[],
 
+                listOption:{
+                    direction: 2
+                },
                 listData: [
                     {
                         'title': '无缝滚动第一行无缝滚动第一行',
@@ -214,15 +226,27 @@
             margin-top: -1px
         }
     }
-
-
-
-    .seamless-warp {
-        height: 168px;
-        overflow: hidden;
-    }
 </style>
-<style>
+<style lang="scss">
+.seamless-warp{
+    padding: 10px;
+    background-color: #f0f0f0;
+    height: 126px;
+    overflow: hidden;
+}
+.seamless-warp-horizontal {
+    padding: 10px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    .moc-seamless-scroll-slot{
+        white-space:nowrap;
+        p{
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+}
+
 .marquee {
 	width: 100%;
 	height: 50px;
