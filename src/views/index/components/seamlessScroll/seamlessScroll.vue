@@ -1,17 +1,16 @@
 <template>
-	<div ref="wrap">
-		<div :style="leftSwitch" v-if="navigation" :class="leftSwitchClass" @click="leftSwitchClick">
+	<div ref="wrap" class="moc-seamless-scroll">
+		<div :style="leftSwitch" v-if="navigation" :class="leftSwitchClass" @click="leftSwitchClick" class="moc-seamless-scroll-left">
 			<slot name="left-switch"></slot>
 		</div>
-		<div :style="rightSwitch" v-if="navigation" :class="rightSwitchClass" @click="rightSwitchClick">
+		<div :style="rightSwitch" v-if="navigation" :class="rightSwitchClass" @click="rightSwitchClick" class="moc-seamless-scroll-right">
 			<slot name="right-switch"></slot>
 		</div>
-		<div ref="realBox" :style="pos" @mouseenter="enter" @mouseleave="leave" @touchstart="touchStart" @touchmove="touchMove"
-		 @touchend="touchEnd">
-			<div ref="slotList" :style="float">
+		<div ref="realBox" :style="pos" @mouseenter="enter" @mouseleave="leave" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd" class="moc-seamless-scroll-content">
+			<div ref="slotList" :style="float" class="moc-seamless-scroll-slot">
 				<slot></slot>
 			</div>
-			<div v-html="copyHtml" :style="float"></div>
+			<div v-html="copyHtml" :style="float" class="moc-seamless-scroll-slot"></div>
 		</div>
 	</div>
 </template>
@@ -89,21 +88,21 @@
 			},
 			defaultOption() {
 				return {
-					step: 1, //步长
-					limitMoveNum: 5, 	// 启动无缝滚动最小数据数
-					hoverStop: true, 	// 是否启用鼠标hover控制
-					direction: 1, 		// 0 往下 1 往上 2 向左 3 向右
-					openTouch: true, 	// 开启移动端touch
-					singleHeight: 0, 	// 单条数据高度有值hoverStop关闭
-					singleWidth: 0, 	// 单条数据宽度有值hoverStop关闭
-					waitTime: 1000, 	// 单步停止等待时间
-					switchOffset: 30,
-					autoPlay: true,
-					navigation: false,
-					switchSingleStep: 134,
-					switchDelay: 400,
-					switchDisabledClass: 'disabled',
-					isSingleRemUnit: false // singleWidth/singleHeight 是否开启rem度量
+					step: 1,                                // 步长
+					limitMoveNum: 5, 	                    // 启动无缝滚动最小数据数
+					hoverStop: true, 	                    // 是否启用鼠标hover控制
+					direction: 1, 		                    // 0 往下 1 往上 2 向左 3 向右
+					openTouch: true, 	                    // 开启移动端touch
+					singleHeight: 0, 	                    // 单条数据高度有值hoverStop关闭
+					singleWidth: 0, 	                    // 单条数据宽度有值hoverStop关闭
+					waitTime: 1000, 	                    // 单步停止等待时间
+					autoPlay: true,                         // 是否自动开始滚动
+					navigation: false,                      // 是否显示切换按钮
+					switchOffset: 30,                       // 切换按钮的距离
+					switchSingleStep: 134,                  // 步数大小
+					switchDelay: 400,                       // 切换时间
+					switchDisabledClass: 'is-disabled',     // 不可点击的类名
+					isSingleRemUnit: false                  // singleWidth/singleHeight 是否开启rem度量
 				}
 			},
 			options() {
@@ -371,9 +370,9 @@
 				if (this.singleWaitTime) clearTimeout(this.singleWaitTime)
 				this._cancle()
 			},
-			
-			
-			
+
+
+
 			/**
 			 * 判断两个数组是否相同
 			 */
@@ -392,7 +391,7 @@
 		watch: {
 			data(newData, oldData) {
 				this._dataWarm(newData)
-				
+
 				//监听data是否有变更
 				if (!this.arrayEqual(newData, oldData)) {
 					this._cancle()
