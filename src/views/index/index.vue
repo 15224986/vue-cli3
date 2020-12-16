@@ -119,7 +119,7 @@
                     </el-menu-item>
 
                     <el-menu-item index="/home/requiredType">
-                        <span slot="title">切换必填状态</span>
+                        <span slot="title">切换必填状态、tooltip使用</span>
                     </el-menu-item>
 
                     <el-menu-item index="/home/transferSearch">
