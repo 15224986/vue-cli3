@@ -43,7 +43,38 @@
                     </el-form-item>
                 </el-form>
             </section>
-            
+
+            <section class="section">
+                <h3 class="section-title">tooltip使用</h3>
+                <ul class="section-subhead">
+                    <li>1.通过方法。</li>
+                    <li>2.二次封装组件。</li>
+                </ul>
+
+
+                <ul class="m-b-20">
+                    <el-tooltip
+                        v-for="(item, index) in list"
+                        :key="index"
+                        :content="item.text"
+                        :disabled="item.showTooltip"
+                    >
+                        <li @mouseenter="showTips($event, item.text, item)">
+                            <span>{{item.text}}</span>
+                        </li>
+                    </el-tooltip>
+                </ul>
+
+                <moc-tooltip
+                    v-for="(item, index) in list" :key="index"
+                    :content="item.text"
+                >
+                    {{item.text}}
+                </moc-tooltip>
+
+
+            </section>
+
         </div>
     </article>
 </template>
@@ -59,11 +90,25 @@
                 ruleForm: {
                     name: "",
                     region: "1"
-                }
+                },
+                list:[
+                    {
+                        text:"将参数添加到原数组中。"
+                    },
+                    {
+                        text:"将参数添加到原数组中。"
+                    },
+                    {
+                        text:"这个方法会先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。"
+                    },
+                    {
+                        text:"这个方法会先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。"
+                    }
+                ]
             };
         },
         computed:{
-            /** 
+            /**
              * 计算是否为必填
              */
             isHaveTo: function() {
@@ -74,6 +119,27 @@
             }
         },
         methods:{
+            /**
+             * 公共方法
+             */
+            showTips($event, text, obj, minuend = 0){
+                /*currentWidth 为文本在页面中所占的宽度，创建标签，加入到页面，获取currentWidth ,最后在移除*/
+                let TemporaryTag = document.createElement('span');
+                TemporaryTag.innerText = text;
+                TemporaryTag.className = 'getTextWidth';
+                document.querySelector('body').appendChild(TemporaryTag);
+                let currentWidth = document.querySelector('.getTextWidth').offsetWidth;
+                document.querySelector('.getTextWidth').remove();
+                /*cellWidth为表格容器的宽度*/
+                const cellWidth = $event.target.offsetWidth - minuend
+                /*当文本宽度小于||等于容器宽度两倍时，代表文本显示未超过两行*/
+                if(currentWidth >= cellWidth){
+                    this.$set(obj, 'showTooltip', false)
+                }else{
+                    this.$set(obj, 'showTooltip', true)
+                }
+            },
+
             onSubmit(formRef){
                 // 数据提交
                 this.$refs[formRef].validate(valid => {
@@ -83,7 +149,7 @@
                         console.log("error submit!!");
                         return false;
                     }
-                });   
+                });
             },
         }
     };
@@ -106,5 +172,10 @@
     }
     .section-title + .section-subhead{
         margin-top: -6px;
+    }
+
+    .el-tooltip{
+        width: 256px;
+        @include text-overflow;
     }
 </style>
