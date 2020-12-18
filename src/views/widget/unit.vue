@@ -6,15 +6,15 @@
                 <h3 class="widget-tit">路径导航</h3>
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
-            
+
             <section class="section">
                 <h3 class="widget-tit">btn组件的封装</h3>
                 <p class="widget-txt">在main.js里引入后全局注册。</p>
                 <div class="widget-demo">
                     <moc-btn native-type="button">封装组件，调用插件</moc-btn>
-                </div> 
+                </div>
             </section>
-            
+
             <section class="section">
                 <h3 class="widget-tit">Checkbox组件的封装</h3>
                 <p class="widget-txt">在main.js里引入后全局注册。</p>
@@ -31,7 +31,7 @@
                 </div>
                 <p class="widget-txt">{{checkboxValue1}}</p>
             </section>
-            
+
             <section class="section">
                 <h3 class="widget-tit">Radio组件的封装</h3>
                 <p class="widget-txt">在main.js里引入后全局注册。</p>
@@ -53,15 +53,7 @@
                 <h3 class="widget-tit">Select组件的封装</h3>
                 <p class="widget-txt">在main.js里引入后全局注册。</p>
                 <div class="widget-demo">
-                    <mocSelect :options="selectOptions" v-model="selectedValue" @change="selectChange" clearable :placeholder="placeholder"/>
-                    <!--
-                      options: 传给子组件下拉列表的数据；    格式:  :options="selectOptions"
-                      v-model: 绑定选中的值   格式: v-model="selectedValue"
-                      change: 自定义选值改变事件 格式：@change="onChangeOption"
-                      clearable: 包含清空按钮，可将选择器清空为初始状态        格式：clearable || clearable="true"
-                      placeholder:  占位符 类型:string  格式：:placeholder="placeholder"
-                      disabled: 是否禁用        类型:boolean  格式：disabled || disabled="true"
-                    -->
+                    <moc-select v-model="selectedValue" :options="selectOptions"/>
                 </div>
             </section>
 
@@ -180,33 +172,73 @@ export default {
                 }
             ],
             // 下拉组件
-            selectedValue: 'view', //默认选中的是第几个
-            placeholder: "你叫什么名字",
+            selectedValue: 'zujian-basic', //默认选中的是第几个
             selectOptions: [ // 下拉框中的数据 name这样的参数，看项目是否有需求，可自行修改
                 {
-                    value: 'time',
-                    label: 'timetimetime',
-                    disabled: true
+                    value: 'zhinan',
+                    label: '指南',
+                    children: [
+                        {
+                            value: 'shejiyuanze',
+                            label: '设计原则'
+                        },
+                        {
+                            value: 'daohang',
+                            label: '导航'
+                        }
+                    ]
                 },
                 {
-                    value: 'view',
-                    label: 'viewviewview',
-                    disabled: false
+                    value: 'zujian',
+                    label: '组件',
+                    children: [
+                        {
+                            value: 'basic',
+                            label: 'Basic'
+                        },
+                        {
+                            value: 'form',
+                            label: 'Form'
+                        },
+                        {
+                            value: 'data',
+                            label: 'Data'
+                        },
+                        {
+                            value: 'notice',
+                            label: 'Notice'
+                        },
+                        {
+                            value: 'navigation',
+                            label: 'Navigation'
+                        },
+                        {
+                            value: 'others',
+                            label: 'Others'
+                        }
+                    ]
                 },
                 {
-                    value: 'like',
-                    label: 'likelikelike',
-                    disabled: false
+                    value: 'ziyuan',
+                    label: '资源',
+                    children: [
+                        {
+                            value: 'axure',
+                            label: 'Axure Components'
+                        },
+                        {
+                            value: 'sketch',
+                            label: 'Sketch Templates'
+                        },
+                        {
+                            value: 'jiaohu',
+                            label: '组件交互文档'
+                        }
+                    ]
                 },
                 {
-                    value: 'reply',
-                    label: 'replyreplyreply',
-                    disabled: false
-                },
-                {
-                    value: 'reward',
-                    label: 'rewardrewardreward',
-                    disabled: false
+                    value: 'zhuti',
+                    label: '主题'
                 }
             ],
             tabActive: 0,
@@ -223,10 +255,6 @@ export default {
         },
         radioChange(val){
             console.log("您选中了:"+val);
-        },
-        selectChange(item,index){
-            // 子组件通过一个事件来触发onChangeOption方法，从而传递一系列参数，这里的index,val就是传过来的
-            console.log("index:"+index+", val:"+item.value);
         },
         tabsChange(val){
             console.log("您选中了:"+val);
