@@ -181,7 +181,7 @@
             ])
         },
         mounted() {
-           console.log(this.sidebar.opened)
+           console.log(this.sidebar.opened, this.$store.getters.sidebar.opened)
         },
         methods: {
             toggleSideBar() {
