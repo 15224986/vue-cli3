@@ -5,8 +5,151 @@ import echarts from 'echarts'
 import HighCharts from 'highcharts'
 import highcharts3d from 'highcharts/highcharts-3d'
 highcharts3d(HighCharts);
+import highchartsAnnotations from 'highcharts/modules/annotations';
+highchartsAnnotations(HighCharts);
 
 const myCharts = {
+    /**
+     * 二次封装的highcharts的3D饼图
+     * @param  {'string'}   id   		调用插件的dom的ID
+     * @param  {[Array]}   	data  		插件需要的数据
+     * @param  {Function} 	fn   	 	修改options的属性，调用传过来的方法
+     */
+    makeAreaspline: function(id, data, fn) {
+    	var options = {
+            chart: {
+                type: 'areaspline',
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                x: -200,
+                borderWidth: 0
+            },
+            tooltip: {
+                shared: true,
+                crosshairs: true,
+                borderWidth: 0,
+                shadow: false,
+                backgroundColor:"rgba(0,0,0, 0.4)"
+            },
+            yAxis: {
+                lineWidth: 1,
+                lineColor: "#b6b6b8",
+                gridLineColor: "#3b3a40",
+                labels: {
+                    format: '{value} m'
+                }
+            },
+            xAxis: {
+                lineWidth: 1,
+                lineColor: "#b6b6b8",
+                categories: [
+                    '2020-01-01',
+                    '2020-01-02',
+                    '2020-01-03',
+                    '2020-01-04',
+                    '2020-01-05',
+                    '2020-01-06',
+                    '2020-01-07',
+                    '2020-01-08',
+                    '2020-01-09',
+                    '2020-01-10',
+                    '2020-01-11',
+                ]
+            },
+            annotations: [
+                {
+                    labelOptions: {
+                        align: 'right',
+                        justify: false,
+                        crop: true,
+
+                        borderColor: "#00ffde",
+                        borderWidth:  1,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+
+                        x: -20,
+                        y: 0,
+                        style: {
+                            color: '#fff',
+                            fontSize: '1em',
+                            textOutline: "none"
+                        }
+                    },
+                    labels: [
+                        {
+                            point: {
+                                xAxis: 0,
+                                yAxis: 0,
+                                x: 3,
+                                y: 208
+                            },
+                            text: '这是什么东西'
+                        },
+                        {
+                            point: {
+                                xAxis: 0,
+                                yAxis: 0,
+                                x: 9,
+                                y: 136
+                            },
+                            text: '诈骗犯罪较高'
+                        },
+                    ]
+                },
+            ],
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.5
+                }
+            },
+            series: [
+                {
+                    name: 'John',
+                    lineColor: "#00ffde",
+                    lineWidth: 1,
+                    color: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, "rgba(0, 255, 222, .7)"],
+                            [1, "rgba(0, 255, 222, 0)"]
+                        ]
+                    },
+                    data: [ 25, 126, 68, 208, 29, 229, 110, 234, 235, 136, 256]
+                },
+                {
+                    name: 'John',
+                    lineColor: "rgba(0, 174, 255, 1)",
+                    lineWidth: 1,
+                    color: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, "rgba(0, 174, 255, .7)"],
+                            [1, "rgba(0, 174, 255, 0)"]
+                        ]
+                    },
+                    data: [ 15, 26, 58, 118, 69, 149, 144, 134, 215, 236, 156]
+                }
+            ]
+        };
+    	if (fn!=undefined){
+    		fn(options)
+    	}
+    	// HighCharts.chart(id, options);
+        HighCharts.chart(id,options)
+    },
 	/**
 	 * 二次封装的highcharts的3D饼图
 	 * @param  {'string'}   id   		调用插件的dom的ID
@@ -66,7 +209,7 @@ const myCharts = {
             tooltip: {
                 pointFormat: '{point.y}'
             },
-            colors: HighCharts.map(colors, function (color) {
+            colors: colors.map(function (color) {
                 return {
                     radialGradient: { cx:0, cy: -0.8,r:2.3 },
                     stops: [
@@ -189,36 +332,6 @@ const myCharts = {
                         position: 'insideRight'
                     },
                     data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: '联盟广告',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: '视频广告',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: [150, 212, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: '搜索引擎',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: [820, 832, 901, 934, 1290, 1330, 1320]
                 }
         	]*/
 		};
