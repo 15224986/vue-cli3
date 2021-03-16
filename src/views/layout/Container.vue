@@ -6,6 +6,12 @@
                 class="el-menu-vertical-demo"
                 router
             >
+                <el-menu-item index="/500">
+                    <span slot="title">500</span>
+                </el-menu-item>
+                <el-menu-item index="/layout/container2">
+                    <span slot="title">动态路由-container2</span>
+                </el-menu-item>
                 <el-menu-item index="/layout/container/container1/table">
                     <span slot="title">动态路由-表格</span>
                 </el-menu-item>
