@@ -1,3 +1,23 @@
+/**
+ * 使用请看 tags-view 组件里面有实力
+ * 数据结构
+ *  v-mocSmartMenu="{
+ *      customClass: "aaaa",                      // smartMenu 自定义类名
+ *      menus:[
+ *          {
+ *              content:"关闭当前",         // 显示的内容
+ *              callback:(val)=>{},         // 点击回调
+ *              customClass: 'aaaaa',             // item 自定义类名
+ *              icon:'el-icon-share',       // 左侧图标
+ *              suffixIcon:'el-icon-share'  // 右侧图标
+ *          },
+ *          {
+ *              content:"关闭当前",
+ *              callback: "closeSelectedTag"    // 回调为方法时 传入方法名
+ *          }
+ *      ]
+ *  }"
+ */
 export default {
     install: function (Vue, options) {
         var GLOBLEsize = 0;
@@ -11,7 +31,7 @@ export default {
                     var e = event || window.event;
                     e.stopPropagation();//阻止冒泡事件
                     e.cancelBubble = true;//阻止冒泡事件ie
-                    e.preventDefault();//阻止默认事件 
+                    e.preventDefault();//阻止默认事件
                     // 隐藏所有菜单
                     for (let i = 0; i < GLOBLEsize; i++) {
                         if (document.getElementById("mocSmartMenu" + i)) {
@@ -41,24 +61,40 @@ export default {
                         scroll_top = document.body.scrollTop;
                     };
                     menuY = menuY - scroll_top;
-             
+
                     /**
                      * 生成dom元素
                      */
-                    let boxDiv = '';
+                    let boxDom = '';
                     if ( !document.getElementById("mocSmartMenu" + currentSize)) {
                         // 添加外层
-                        boxDiv = document.createElement("div");
-                        boxDiv.setAttribute("id", "mocSmartMenu" + currentSize);
-                        boxDiv.className = "moc-smart-menu";
-                        document.body.appendChild(boxDiv);
+                        boxDom = document.createElement("ul");
+                        boxDom.setAttribute("id", "mocSmartMenu" + currentSize);
+                        let customClass = binding.value["customClass"];
+                        if( customClass ){
+                            boxDom.className = "moc-smart-menu " + customClass;
+                        }else{
+                            boxDom.className = "moc-smart-menu";
+                        }
+                        document.body.appendChild(boxDom);
                         // 添加内部按钮
                         binding.value["menus"].map((item) => {
-                            let optionp = document.createElement("div");
-                            optionp.className = "moc-smart-menu-item " + item.theme;
-                            optionp.setAttribute("unselectable", "on");
-                            optionp.innerHTML = item.content;
-                            boxDiv.appendChild(optionp);
+                            let optionp = document.createElement("li");
+                            if( item.customClass ){
+                                optionp.className = "moc-smart-menu-item " + item.customClass;
+                            }else{
+                                optionp.className = "moc-smart-menu-item";
+                            }
+                            let content = item.content;
+                            if( item.icon && item.suffixIcon ){
+                                content = `<i class="${item.icon}"></i> ${item.content} <i class="${item.suffixIcon}"></i>`
+                            }else if( item.icon ){
+                                content = `<i class="${item.icon}"></i> ${item.content}`
+                            }else if( item.suffixIcon ){
+                                content = `${item.content} <i class="${item.suffixIcon}"></i>`
+                            }
+                            optionp.innerHTML = content;
+                            boxDom.appendChild(optionp);
                             /**
                              * 兼容在展开的选项上右击会出现默认
                              */
@@ -66,7 +102,7 @@ export default {
                                 var e = event || window.event;
                                 e.stopPropagation();//阻止冒泡事件
                                 e.cancelBubble = true;//阻止冒泡事件ie
-                                e.preventDefault();//阻止默认事件 
+                                e.preventDefault();//阻止默认事件
                             });
                             optionp.addEventListener("click", (e) => {
                                 // 回调
@@ -82,21 +118,21 @@ export default {
                             });
                         });
                     } else {
-                        boxDiv = document.getElementById("mocSmartMenu" + currentSize);
-                        boxDiv.style = `display: block;`;
+                        boxDom = document.getElementById("mocSmartMenu" + currentSize);
+                        boxDom.style = `display: block;`;
                     }
                     /**
                      * 1.边缘检测从新计算位置
                      * 2.显示
                      */
-                    if (menuX + boxDiv.clientWidth >= document.documentElement.clientWidth) {
-                        menuX = document.documentElement.clientWidth - boxDiv.clientWidth - 10;
+                    if (menuX + boxDom.clientWidth >= document.documentElement.clientWidth) {
+                        menuX = document.documentElement.clientWidth - boxDom.clientWidth - 10;
                     }
-                    if (menuY + boxDiv.clientHeight >= document.documentElement.clientHeight) {
-                        menuY = document.documentElement.clientHeight - boxDiv.clientHeight - 10;
+                    if (menuY + boxDom.clientHeight >= document.documentElement.clientHeight) {
+                        menuY = document.documentElement.clientHeight - boxDom.clientHeight - 10;
                     }
                     // console.log( e.pageY , e.clientY + document.body.scrollTop - document.body.clientTop );
-                    boxDiv.style = `top:${menuY}px;left:${menuX}px;`;
+                    boxDom.style = `top:${menuY}px;left:${menuX}px;`;
                 })
                 GLOBLEsize++;
 
