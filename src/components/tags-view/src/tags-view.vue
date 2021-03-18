@@ -42,28 +42,40 @@
                 arrowLeft: false,
                 arrowRight: false,
                 menudata:{
+                    customClass: "aaaa",
                     menus:[
                         // {
                         //     content:"关闭当前",
                         //     callback:(val)=>{
 
                         //     },
-                        //     theme: 'aaaaa'
+                        //     customClass: 'aaaaa'
                         // },
                         {
                             content:"关闭当前",
                             callback: "closeSelectedTag",
-                            theme: 'aaaaa'
+                            customClass: 'aaaaa'
                         },
                         {
                             content:"关闭其他",
                             callback:"closeOthersTags",
-                            theme: 'aaaaa'
+                            icon:'el-icon-share',
+                            suffixIcon:'el-icon-share'
+                        },
+                        {
+                            content:"关闭右侧",
+                            callback:"closeRightTags",
+                            icon:'el-icon-share'
+                        },
+                        {
+                            content:"关闭左侧",
+                            callback:"closeLeftTags",
+                            suffixIcon:'el-icon-share'
                         },
                         {
                             content:"关闭所有",
                             callback:"closeAllTags",
-                            theme: 'aaaaa'
+                            customClass: 'aaaaa'
                         }
                     ],
                 },
@@ -318,6 +330,65 @@
                     });
                 }
                 this.arrowBtn();
+            },
+            closeRightTags(){
+                var path = '',
+                    query = '',
+                    active = false;
+                let tagsView = this.tagsView.filter( (item, index)=>{
+                    if( this.selectedTagIndex > index ){
+                        return item;
+                    }else if( this.selectedTagIndex === index ){
+                        path = item.path;
+                        query = item.query;
+                        return item;
+                    }else{
+                        if( item.affix ){
+                            return item;
+                        }else{
+                            if( item.active ){
+                                active = item.active;
+                            }
+                        }
+                    }
+                } )
+                this.tagsView = tagsView;
+                if( active ){
+                    this.$router.push({
+                        path: path,
+                        query: query
+                    });
+                }
+                this.arrowBtn();
+            },
+            closeLeftTags(){
+                var path = '',
+                    query = '',
+                    active = false;
+                let tagsView = this.tagsView.filter( (item, index)=>{
+                    if( this.selectedTagIndex < index ){
+                        return item;
+                    }else if( this.selectedTagIndex === index ){
+                        path = item.path;
+                        query = item.query;
+                        return item;
+                    }else{
+                        if( item.affix ){
+                            return item;
+                        }else{
+                            if( item.active ){
+                                active = item.active;
+                            }
+                        }
+                    }
+                } )
+                this.tagsView = tagsView;
+                if( active ){
+                    this.$router.push({
+                        path: path,
+                        query: query
+                    });
+                }
             },
             closeAllTags(){
                 let tagsView = this.tagsView.filter( (item, index)=>{
