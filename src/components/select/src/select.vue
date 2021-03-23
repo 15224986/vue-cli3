@@ -1,5 +1,5 @@
 <template>
-    <div class="moc-cascader" v-clickoutside="handleClose">
+    <div class="moc-cascader" v-moc-click-outside="handleClose">
         <el-popover trigger="manual" v-model="visible" :width="width" placement="bottom-start" popper-class="moc-cascader-popover">
             <div class="moc-cascader-menu" :style="{ height: height+'px' }">
                 <div class="moc-cascader-list">
@@ -40,8 +40,6 @@
 </template>
 
 <script>
-    import Clickoutside from '../../utils/clickoutside';
-
     export default {
         name: 'mocSelect',
         componentName: 'mocSelect',
@@ -132,7 +130,6 @@
                 }
             },
         },
-        directives: { Clickoutside },
         methods: {
             // 展开
             handleOpen(){
