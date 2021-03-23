@@ -153,10 +153,11 @@ Object.keys(filters).forEach(key => {
  * 全局指令
  * 案例： home/directiveFilters
  */
-import mocTitle from '@/directives/title.js'
-Vue.use(mocTitle);
-import dialogDrag from '@/directives/dialogDrag.js'
-Vue.use(dialogDrag);
+import * as directives from '@/directives'
+// 注册指令
+Object.keys(directives).forEach(k => {
+    Vue.directive(k, directives[k])
+})
 
 
 /**
