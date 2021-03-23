@@ -38,8 +38,12 @@
                 <dl class="describe-basics">
                     <dt>全局指令</dt>
                     <dd v-mocTitle="'你好，我是p'">你好，我是pt</dd>
-                    <dd v-mocTitle="$route.meta.breadcrumb">{{ $route.meta.breadcrumb }}</dd>
+                    <dd v-mocTitle="'mocTitle 指令'">mocTitle获取参数</dd>
                     <el-button @click="toggleDialog()" type="primary" plain size="mini">指令添加对 el-dialog 的可拖拽</el-button>
+
+                    <div v-moc-stealth="true">指令模板</div>
+
+
                 </dl>
             </section>
             <section class="section">
@@ -113,7 +117,7 @@
             }
         },
         mounted(){
-            
+
         },
         methods:{
             toggleDialog(){
