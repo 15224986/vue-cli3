@@ -297,7 +297,6 @@ function axiosRequestUse(config){
     //     config.data = Qs.stringify(config.data);
     // }
 
-
     /**
      * 发送请求携带 token
      * 判断本地是否存在token，如果存在的话，则每个http header都加上token
@@ -308,16 +307,17 @@ function axiosRequestUse(config){
     // }
 
     /**
-     * 是否开启 loading
-     * 如果参数中携带了 closeFullScreenLoading = true 则关闭本次的加载中调用
+     * 是否开启了 loading
+     * 如果参数中携带了 isShowFullScreenLoading = false 则本次加载了loading，
+     * 关闭本次开启的FullScreenLoading()
      */
-    let closeFullScreenLoading = '';
-    if (config.method === 'get' || config.method === 'delete' ) {
-        closeFullScreenLoading = config.params.closeFullScreenLoading;
-    }else{
-        closeFullScreenLoading = config.data.closeFullScreenLoading;
+    let isShowFullScreenLoading = true;
+    if (config.params && config.params.isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false;
+    } else if (config.data && config.data.isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false;
     }
-    if( !closeFullScreenLoading ){
+    if( isShowFullScreenLoading ){
     	showFullScreenLoading();
     }
 }
@@ -332,20 +332,18 @@ instance.interceptors.response.use(response =>{
         router.push({ path: "/400" });
     }
 
-
     /**
-     * 是否开启了 loading
-     * 如果参数中携带了 closeFullScreenLoading = true 则本次加载了loading，
-     * 关闭本次开启的FullScreenLoading()
+     * 是否开启 loading
+     * 如果参数中携带了 isShowFullScreenLoading = false 则关闭本次的加载中调用
      */
-    let closeFullScreenLoading = '';
-    if (response.config.method === 'get' || response.config.method === 'delete' ) {
-        closeFullScreenLoading = response.config.params.closeFullScreenLoading;
-    }else{
-        closeFullScreenLoading = JSON.parse(response.config.data).closeFullScreenLoading;
+    let isShowFullScreenLoading = true;
+    if (config.params && config.params.isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false;
+    } else if (config.data && config.data.isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false;
     }
-    if( !closeFullScreenLoading ){
-        tryHideFullScreenLoading();
+    if( isShowFullScreenLoading ){
+    	tryHideFullScreenLoading();
     }
 
     // 对响应数据做点什么
