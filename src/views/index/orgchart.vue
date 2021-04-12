@@ -4,6 +4,14 @@
             <section class="section-breadcrumb">
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
+
+
+
+            <section class="section">
+                <orgchart-topology></orgchart-topology>
+            </section>
+
+
             <section class="section">
                 <div class="orgChart-section">
                     <ul class="orgChart-list">
@@ -64,7 +72,9 @@
 </template>
 <script>
     export default {
-        name: "jQuery",
+        components: {
+            orgchartTopology:()=>import('./orgchart-topology.vue')
+        },
         data() {
             return {
                 loading: false,
@@ -406,6 +416,11 @@
             margin-top: 8px;
         }
     }
+
+
+
+
+
 
 
     .orgChart-section{
