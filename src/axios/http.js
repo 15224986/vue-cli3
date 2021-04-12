@@ -276,7 +276,7 @@ instance.interceptors.request.use((config) => {
         });
     }
 
-    console.log( tokenExpire );
+    console.log( 100000 );
 
     axiosRequestUse(config)
 
@@ -336,6 +336,7 @@ instance.interceptors.response.use(response =>{
      * 是否开启 loading
      * 如果参数中携带了 isShowFullScreenLoading = false 则关闭本次的加载中调用
      */
+    const config = response.config;
     let isShowFullScreenLoading = true;
     if (config.params && config.params.isShowFullScreenLoading === false) {
         isShowFullScreenLoading = false;
