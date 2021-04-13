@@ -305,7 +305,8 @@
         height: 680px;
         position: relative;
     }
-    .topology-left{
+    .topology-left,
+    .topology-right{
         width: 226px;
         margin: 60px 0 0 200px;
         float: left;
@@ -314,24 +315,16 @@
             line-height: 32px;
             border: #CCCCCC 1px solid;
             user-select: none;
+            &.drag-active{
+                background-color: #f2f2f2;
+            }
             + li{
                 margin-top: -1px;
             }
         }
     }
     .topology-right{
-        width: 226px;
         margin: 60px 0 0 400px;
-        float: left;
-        li{
-            padding: 4px 20px;
-            line-height: 32px;
-            border: #CCCCCC 1px solid;
-            user-select: none;
-            + li{
-                margin-top: -1px;
-            }
-        }
     }
     .neu-topology-line-caret{
         display: inline-block;
