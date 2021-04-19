@@ -9,6 +9,18 @@ export default {
 	},
     children: [
         {
+        	path: 'shortcut',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/shortcut'),
+        	name: 'shortcut',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "监听键盘操作（组合键）",
+        		path: '/home/shortcut',
+        		affix: false
+        	}
+        },
+        {
         	path: 'elementCustomParams',
         	component: () => import(/* webpackChunkName: "home" */ '@/views/index/elementCustomParams'),
         	name: 'elementCustomParams',
