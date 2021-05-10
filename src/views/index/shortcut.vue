@@ -1,6 +1,93 @@
 <template>
     <article id="page-bodier">
         <div id="wrapper" v-loading="loading">
+
+            <section class="section m-t-20">
+                <moc-more-panel :isOpen.sync="morepanel" originalHeight="39">
+                    <el-form :inline="true" :model="formInline" class="moc-table-search" size="mini">
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="审批人">
+                            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+                        </el-form-item>
+                        <el-form-item label="活动区域">
+                            <el-select v-model="formInline.region" placeholder="活动区域">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-form>
+                    <template #tools>
+                        <el-button type="primary" size="mini">查询</el-button>
+                        <el-button type="primary" size="mini">查询</el-button>
+                        <el-button type="primary" size="mini">查询</el-button>
+                        <el-button type="primary" size="mini">查询</el-button>
+                    </template>
+                </moc-more-panel>
+            </section>
+
+
             <section class="section m-t-20">
                 <h2>多选</h2>
                 <div class="neu-select-group">
@@ -66,6 +153,15 @@
         data() {
             return {
                 loading: false,
+
+                morepanel: false,
+
+                formInline: {
+                    user: '',
+                    region: ''
+                },
+
+
                 ctrlAlt1Num:0,
                 ctrlAltf1Num:0,
 
