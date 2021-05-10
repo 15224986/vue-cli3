@@ -309,6 +309,76 @@
 
 
 
+
+
+
+
+
+
+.moc-more-panel{
+	padding: 20px;
+	position: relative;
+	border: #CCCCCC 1px solid;
+}
+.moc-more-panel-tools{
+	float: right;
+	margin-left: 10px;
+}
+.more-panel-body{
+	overflow: hidden;
+}
+.more-panel-toggle{
+	width: 44px;
+	position: absolute;
+	left: 50%;
+	bottom: -1px;
+	border: #CCCCCC 1px solid;
+	margin-left: -23px;
+	text-align: center;
+	line-height: 16px;
+	cursor: pointer;
+	user-select: none;
+}
+
+
+.moc-table-search{
+	.el-form-item--mini.el-form-item{
+		margin-bottom: 10px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // **************************** 预留位置 **********************************
 %clearfix {
     @include clearfix;
