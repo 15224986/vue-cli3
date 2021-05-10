@@ -53,7 +53,10 @@ import mocSelectTree from './select-tree/index.js';
 import mocSplit from './split/index.js';
 
 // Tooltip 文字提示
-import tooltip from './tooltip/index.js';
+import mocTooltip from './tooltip/index.js';
+
+// more-panel 更多面板
+import mocMorePanel from './more-panel/index.js';
 
 
 
@@ -98,7 +101,8 @@ const components = [
 	mocAllSelect,
 	mocSelectTree,
 	mocSplit,
-    tooltip
+    mocTooltip,
+    mocMorePanel
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -151,7 +155,8 @@ export {
 	mocAllSelect,
 	mocSelectTree,
 	mocSplit,
-    tooltip,
+    mocTooltip,
+    mocMorePanel,
 
 	mocDialog,
 	mocLoading,
