@@ -2,7 +2,7 @@
     <article id="page-bodier">
         <div id="wrapper" v-loading="loading">
 
-            <section class="section m-t-20">
+            <section class="section m-t-20" v-on:keyup.alt.67="onAltC">
                 <moc-more-panel :isOpen.sync="morepanel" originalHeight="39">
                     <el-form :inline="true" :model="formInline" class="moc-table-search" size="mini">
                         <el-form-item label="审批人">
@@ -214,15 +214,22 @@
         mounted() {
             keyCodeForEvent( 49, ()=>{
                 this.$message('同时按下了 Ctrl+Alt+1')
-                 this.ctrlAlt1Num++
+                this.ctrlAlt1Num++
             });
             shortcut.add("Ctrl+Alt+f1", ()=>{
                 this.$message('同时按下了 Ctrl+Alt+f1');
-                 this.ctrlAltf1Num++
+                this.ctrlAltf1Num++
             });
         },
         methods:{
-
+            /**
+             * 通过修饰符
+             * 内部元素存在焦点的时候
+             * 同时按下alt 和 c 键  将调用这个方法
+             */
+            onAltC(){
+               this.$message('在存在焦点时，同时按下了 Alt+c');
+            }
         }
     };
 </script>
