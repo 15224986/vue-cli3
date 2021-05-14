@@ -2,7 +2,7 @@
     <article id="page-bodier">
         <div id="wrapper" v-loading="loading">
 
-            <section class="section m-t-20" v-on:keyup.alt.67="onAltC">
+            <section class="section m-t-20" v-on:keyup.ctrl.alt.67="onAltC">
                 <moc-more-panel :isOpen.sync="morepanel" originalHeight="39">
                     <el-form :inline="true" :model="formInline" class="moc-table-search" size="mini">
                         <el-form-item label="审批人">
@@ -87,8 +87,7 @@
                 </moc-more-panel>
             </section>
 
-
-            <section class="section m-t-20">
+            <section class="section">
                 <h2>多选</h2>
                 <div class="neu-select-group">
                     <checkbox-radio
@@ -128,7 +127,7 @@
                 <p>{{radio}}</p>
             </section>
 
-            <section class="section m-t-20">
+            <section class="section">
                 <h2>同时按下了 Ctrl+Alt+1</h2>
                 <p>执行次数：{{ctrlAlt1Num}}</p>
             </section>
@@ -136,6 +135,14 @@
             <section class="section">
                 <h2>同时按下了 Ctrl+Alt+f1</h2>
                 <p>执行次数：{{ctrlAltf1Num}}</p>
+            </section>
+
+            <section class="section">
+                <h2>内部元素存在焦点且同时按下了 Ctrl+Alt+c</h2>
+                <p>通过修饰符</p>
+                <p>内部元素存在焦点的时候，同时按下alt 和 c 键  将调用这个方法</p>
+
+                <p>执行次数：{{ctrlAlt3Num}}</p>
             </section>
 
 
@@ -162,8 +169,9 @@
                 },
 
 
-                ctrlAlt1Num:0,
-                ctrlAltf1Num:0,
+                ctrlAlt1Num: 0,
+                ctrlAltf1Num: 0,
+                ctrlAlt3Num: 0,
 
                 checkbox:[1, 3],
                 radio: '2',
@@ -228,7 +236,8 @@
              * 同时按下alt 和 c 键  将调用这个方法
              */
             onAltC(){
-               this.$message('在存在焦点时，同时按下了 Alt+c');
+               this.$message('在存在焦点时，同时按下了 Ctrl+Alt+c');
+               this.ctrlAlt3Num++
             }
         }
     };
