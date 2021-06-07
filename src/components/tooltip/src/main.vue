@@ -1,16 +1,13 @@
 <template>
 	<el-tooltip
-		effect="dark"
 		:disabled="isShowTooltip"
 		:content="content"
 		:effect="effect"
 		:placement="placement"
-		:popper-class="popperClass"
+		:popper-class="popperClass ? 'moc-tooltip-popper ' + popperClass : 'moc-tooltip-popper'"
 	>
-		<div class="moc-tooltip" @mouseenter="onMouseOver($event)">
-			<span>
-                <slot></slot>
-            </span>
+		<div :ref="'parent-'+refName" @mouseover="onMouseOver(refName)" class="moc-tooltip">
+			<span :ref="refName" v-html="content"></span>
 		</div>
 	</el-tooltip>
 </template>
@@ -44,7 +41,7 @@
 			effect: {
 				type: String,
 				default: () => {
-					return 'dark'
+					return 'light'
 				}
 			},
 			placement: {
@@ -56,19 +53,21 @@
 		},
 		data() {
 			return {
-				isShowTooltip: true
+				isShowTooltip: false
 			}
 		},
 		methods: {
-			onMouseOver($event) {
-				let parentWidth = $event.target.offsetWidth;
-				let contentWidth = $event.target.children[0].offsetWidth;
-				// 判断是否开启tooltip功能
-				if (contentWidth > parentWidth) {
-					this.isShowTooltip = false;
-				} else {
-					this.isShowTooltip = true;
-				}
+			onMouseOver(str) {
+                if( this.$refs['parent-'+str] && this.$refs[str] ){
+                    let parentWidth = this.$refs['parent-'+str].offsetWidth;
+                    let contentWidth = this.$refs[str].offsetWidth;
+                    // 判断是否开启tooltip功能
+                    if (contentWidth > parentWidth) {
+                        this.isShowTooltip = false;
+                    } else {
+                        this.isShowTooltip = true;
+                    }
+                }
 			}
 		}
 	}
