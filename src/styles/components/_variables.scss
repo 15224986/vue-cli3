@@ -6,9 +6,19 @@
 $sidebar-width: 250px !default;
 $assist-width: 0 !default;
 
-// 定义颜色
+
+// *********************** 颜色变量 ************************
 $headerColor: #25bb9b !default;
 $borColor: #ddd !default;
+$borColor-focus: #0fb2ee !default;
+
+$text-color: #333333;
+$text-vice-color: #666666;
+$text-focus-color: #0fb2ee;
+
+
+$themes-color: #00a0e9;
+$themes-vice-color: #f5f5f6;
 
 //
 // 与 font 文字相关的变量
