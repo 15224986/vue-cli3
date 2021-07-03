@@ -1,24 +1,24 @@
 <template>
-    <div class="moc-transfer" :style="{height:height}">
-        <div class="moc-transfer-panel moc-transfer-list">
+    <div class="moc-transfer" :style="{height:height}" v-moc-click-outside="handleClearValue">
+        <div class="moc-transfer-panel">
             <div class="moc-transfer-head">
                 <h2>{{ titles[0] }}</h2>
-                <h5>共计{{leftTotal}}条</h5>
+                <h5>{{sourceValue.length}}/{{sourceOptions.length}}</h5>
             </div>
-            <div class="moc-transfer-search">
-                <input v-model="dataSearch" class="moc-transfer-input" type="text">
-                <i class="moc-transfer-icon el-icon-search"></i>
+            <div v-if="filterable" class="moc-transfer-search">
+                <el-input v-model="sourceSearch" :placeholder="filterPlaceholder" clearable size="small" prefix-icon="el-icon-search"></el-input>
             </div>
             <div class="moc-transfer-group">
-                <select multiple="multiple" v-model="activeList">
+                <select multiple="multiple" v-model="sourceValue">
                     <option
-                        v-for="(item,index) in leftList"
+                        v-for="(item,index) in sourceList"
                         :key="index"
-                        :value="item.value"
-                        :disabled="item.disabled"
-                        @dblclick="moveDataList(item)"
+                        :value="item[props.value]"
+                        :disabled="item[props.disabled]"
+                        :title="item[props.label]"
+                        @dblclick="addToRight()"
                     >
-                        {{ item.label }}
+                        {{ item[props.label] }}
                     </option>
 				</select>
             </div>
@@ -26,29 +26,46 @@
         <div class="moc-transfer-btns">
             <p class="moc-transfer-btns-tools"></p>
             <div class="moc-transfer-btns-content">
-                <a @click="moveDataList()" class="moc-transfer-btn" :class="{'moc-disabled':activeList.length<1}" href="javascript:;"><i class="el-icon-arrow-right"></i></a>
-                <a @click="moveSelectedList()" class="moc-transfer-btn" :class="{'moc-disabled':activeSelected.length<1}" href="javascript:;"><i class="el-icon-arrow-left"></i></a>
+                <el-button
+                    type="primary"
+                    size="small"
+                    :class="['moc-transfer-btn', hasButtonTexts ? 'is-with-texts' : '']"
+                    :disabled="sourceValue.length === 0"
+                    @click.native="addToRight"
+                >
+                    {{ buttonTexts[0] }}<i class="el-icon-arrow-right"></i>
+                </el-button>
+                <div class="moc-transfer-btn-interval"></div>
+                <el-button
+                    type="primary"
+                    size="small"
+                    :class="['moc-transfer-btn', hasButtonTexts ? 'is-with-texts' : '']"
+                    :disabled="targetValue.length === 0"
+                    @click.native="addToLeft"
+                >
+                    <i class="el-icon-arrow-left"></i>{{ buttonTexts[1] }}
+                </el-button>
             </div>
         </div>
-        <div class="moc-transfer-panel moc-transfer-selected">
+        <div class="moc-transfer-panel">
             <div class="moc-transfer-head">
                 <h2>{{ titles[1] }}</h2>
-                <h5>共计{{rightTotal}}条</h5>
+                <h5>{{targetValue.length}}/{{targetOptions.length}}</h5>
             </div>
-            <div class="moc-transfer-search">
-                <input v-model="selectedSearch" class="moc-transfer-input" type="text">
-                <i class="moc-transfer-icon el-icon-search"></i>
+            <div v-if="filterable" class="moc-transfer-search">
+                <el-input v-model="targetSearch" :placeholder="filterPlaceholder" clearable size="small" prefix-icon="el-icon-search"></el-input>
             </div>
             <div class="moc-transfer-group">
-                <select multiple="multiple" v-model="activeSelected">
+                <select multiple="multiple" v-model="targetValue">
                     <option
-                        v-for="(item,index) in rightList"
+                        v-for="(item,index) in targetList"
                         :key="index"
-                        :value="item.value"
-                        :disabled="item.disabled"
-                        @dblclick="moveSelectedList(item)"
+                        :value="item[props.value]"
+                        :disabled="item[props.disabled]"
+                        :title="item[props.label]"
+                        @dblclick="addToLeft()"
                     >
-                        {{ item.label }}
+                        {{ item[props.label] }}
                     </option>
 				</select>
             </div>
@@ -60,148 +77,119 @@ export default {
     name: 'mocTransfer',
     componentName: 'mocTransfer',
     props:{
-        data:{
-            type: Array,
-            default() {
-                return []
-            }
-        },
         value: {
             type: Array,
-            default() {
-                return []
-            }
+            default: () => []
         },
-        titles: {
+        options:{
             type: Array,
-            default() {
-                return ['备选列表','已选列表']
-            }
+            default: () => []
         },
         height: {
             type: String,
             default: '360px'
-        }
+        },
+        // 是否可搜索
+        filterable: Boolean,
+        filterPlaceholder: {
+          type: String,
+          default: '请输入搜索内容'
+        },
+
+        titles: {
+            type: Array,
+            default() {
+                return ['备选列表', '已选列表']
+            }
+        },
+        buttonTexts: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        // 数据源的字段别名
+        props:{
+            type: Object,
+            default:() => {
+                return {
+                    'label': 'label',
+                    'value': 'value',
+                    'disabled': 'disabled'
+                };
+            }
+        },
     },
     data() {
         return {
             // 搜索的值
-            dataSearch:'',
-            selectedSearch:'',
-            // option 列表
-            dataList:[],
-            selectedList:[],
+            sourceSearch:'',
+            targetSearch:'',
             // 选中列表
-            activeList:[],
-            activeSelected:[],
-            // 条数
-            leftTotal:0,
-            rightTotal:0
+            sourceValue:[],
+            targetValue:[]
         };
-    },
-    watch:{
-        value(){
-            this.getTotal();
-        },
-        data(){
-            this.getlist();
-            this.getTotal();
-        }
     },
     computed:{
         /**
+         * 获取options
+         */
+        sourceOptions() {
+            return this.options.filter(item => this.value.indexOf(item[this.props.value]) === -1);
+        },
+        targetOptions() {
+            return this.options.filter(item => this.value.indexOf(item[this.props.value]) > -1);
+        },
+        /**
          * 输出字段搜索的方法
          */
-        leftList: function(){
-            return this.dataList.filter( (item)=> {
-                if( item.label.search(this.dataSearch) !== -1 ){
+        sourceList() {
+            return this.sourceOptions.filter( (item)=> {
+                if( item[this.props.label].search(this.sourceSearch) !== -1 ){
                     return item
                 }
             })
         },
-        rightList: function(){
-            return this.selectedList.filter( (item)=> {
-                if( item.label.search(this.selectedSearch) !== -1 ){
+        targetList() {
+            return this.targetOptions.filter( (item)=> {
+                if( item[this.props.label].search(this.targetSearch) !== -1 ){
                     return item
                 }
             })
+        },
+        /**
+         * 判断是否有文字
+         */
+        hasButtonTexts() {
+          return this.buttonTexts.length === 2;
         }
-    },
-    mounted(){
-        this.getlist();
-        this.getTotal();
     },
     methods:{
         /**
-         * 获取列表数据
-         */
-        getlist(){
-            this.dataList = [];
-            this.selectedList = [];
-
-            this.data.forEach( (item)=> {
-                if( this.value.indexOf(item.value) == -1 ){
-                    this.dataList.push( item );
-                }else{
-                    this.selectedList.push( item );
-                }
-            })
-        },
-        /**
          * 移动到右边
          */
-        moveDataList(){
-            /**
-             * 字段的循环插入
-             */
-            let selectedArr = [];
-            for(let index=this.dataList.length-1; index>=0; index--){
-                let item = this.dataList[index];
-                if( this.activeList.indexOf(item.value) !== -1 ){
-                    selectedArr.unshift( item );
-                    this.dataList.splice(index,1);
-                }
-            }
-            this.selectedList = [ ...this.selectedList, ...selectedArr ];
-
-            this.activeList = [];
-            this.valveChange();
+        addToRight(){
+            let selectedValue = [...this.sourceValue, ...this.value];
+            this.sourceValue = []
+            this.$emit('input', selectedValue);
+            this.$emit('change', selectedValue);
         },
         /**
          * 移动到左边
          */
-        moveSelectedList(){
-            let dataArr = [];
-            for(let index=this.selectedList.length-1; index>=0; index--){
-                let item = this.selectedList[index];
-                if( this.activeSelected.indexOf(item.value) !== -1 ){
-                    dataArr.unshift( item );
-                    this.selectedList.splice(index,1);
-                }
-            }
-            this.dataList = [ ...this.dataList, ...dataArr ];
-
-            this.activeSelected = [];
-            this.valveChange();
-        },
-        /**
-         * 修改选中的值
-         */
-        valveChange(){
-            let selectedValue = [];
-            this.selectedList.forEach( (item)=> {
-                selectedValue.push( item.value );
-            })
+        addToLeft(){
+            let selectedValue = this.value.filter(item => this.targetValue.indexOf(item) === -1 );
+            this.targetValue = []
             this.$emit('input', selectedValue);
+            this.$emit('change', selectedValue);
         },
         /**
-         * 获取条数
+         * 清空选中
          */
-        getTotal(){
-            this.leftTotal = this.dataList.length;
-            this.rightTotal = this.selectedList.length;
+        handleClearValue(){
+            this.targetValue = []
+            this.sourceValue = []
         }
-
     }
 };
 </script>
