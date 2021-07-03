@@ -6,8 +6,21 @@
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
 
+
             <section class="section">
-                <h3 class="section-title">tinymce富文本编辑器</h3>
+                <h3 class="section-title">Transfer 穿梭框</h3>
+
+                <moc-transfer
+                    v-model="transfer"
+                    :data="options.workOrderFieldVos"
+                    :titles="['备选字段', '已选字段']"
+                    height="480px"
+                >
+                </moc-transfer>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">Tinymce 富文本编辑器</h3>
 
                 <ul class="section-subhead">
                     <li>1、中文文档：<a href="http://tinymce.ax-z.cn/quick-start.php" target="_blank">http://tinymce.ax-z.cn/quick-start.php</a></li>
@@ -38,8 +51,42 @@
         name: "Tinymce",
         data() {
             return {
-                isShow: false,
                 loading: false,
+
+                /**
+                 * Transfer 穿梭框
+                 */
+                transfer: ['选项1', '选项3'],
+                options:{
+                    workOrderFieldVos:[
+                        {
+                            value: '选项1',
+                            label: '黄金糕'
+                        },
+                        {
+                            value: '选项2',
+                            label: '双皮奶',
+                            disabled: true
+                        },
+                        {
+                            value: '选项3',
+                            label: '蚵仔煎'
+                        },
+                        {
+                            value: '选项4',
+                            label: '龙须面'
+                        },
+                        {
+                            value: '选项5',
+                            label: '北京烤鸭'
+                        }
+                    ]
+                },
+
+                /**
+                 * Tinymce 富文本编辑器
+                 */
+                isShow: false,
                 msg: `<h2>Welcome to Use Tinymce Editor</h2>`,
                 disabled: false
             };
