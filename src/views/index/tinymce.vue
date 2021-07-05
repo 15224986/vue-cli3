@@ -1,6 +1,6 @@
 <template>
     <article id="page-bodier">
-        <div id="wrapper" v-loading="loading" v-mocTitle="$route.meta.title">
+        <div id="wrapper" v-loading="loading">
 
             <section class="section-breadcrumb">
                 <moc-breadcrumb></moc-breadcrumb>
@@ -12,14 +12,17 @@
 
                 <moc-transfer
                     v-model="transfer"
-                    :data="options.workOrderFieldVos"
-                    :titles="['备选字段', '已选字段']"
+                    :options="options.workOrderFieldVos"
                     height="480px"
+                    filterable
+                    :titles="['备选字段', '已选字段']"
+                    :button-texts="['到左边', '到右边']"
+                    @change="transferChange"
                 >
                 </moc-transfer>
             </section>
 
-            <section class="section">
+            <section class="section" v-mocTitle="$route.meta.title">
                 <h3 class="section-title">Tinymce 富文本编辑器</h3>
 
                 <ul class="section-subhead">
@@ -58,29 +61,7 @@
                  */
                 transfer: ['选项1', '选项3'],
                 options:{
-                    workOrderFieldVos:[
-                        {
-                            value: '选项1',
-                            label: '黄金糕'
-                        },
-                        {
-                            value: '选项2',
-                            label: '双皮奶',
-                            disabled: true
-                        },
-                        {
-                            value: '选项3',
-                            label: '蚵仔煎'
-                        },
-                        {
-                            value: '选项4',
-                            label: '龙须面'
-                        },
-                        {
-                            value: '选项5',
-                            label: '北京烤鸭'
-                        }
-                    ]
+                    workOrderFieldVos:[]
                 },
 
                 /**
@@ -92,7 +73,31 @@
             };
         },
         mounted(){
-
+            setTimeout(()=>{
+                this.options.workOrderFieldVos = [
+                    {
+                        value: '选项1',
+                        label: '黄金糕'
+                    },
+                    {
+                        value: '选项2',
+                        label: '双皮奶',
+                        disabled: true
+                    },
+                    {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    },
+                    {
+                        value: '选项4',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }
+                ]
+            }, 3000)
         },
         /**
          * 使用keep-alive缓存时，修改不可以编辑的问题
@@ -104,6 +109,11 @@
             this.isShow = false;
         },
         methods: {
+            transferChange(val){
+                console.log( val )
+            },
+
+
             // 鼠标单击的事件
             onClick (e, editor) {
                 console.log('Element clicked')
