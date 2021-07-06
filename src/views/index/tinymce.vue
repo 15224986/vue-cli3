@@ -6,10 +6,23 @@
                 <moc-breadcrumb></moc-breadcrumb>
             </section>
 
+            <section class="section">
+                <h3 class="section-title">Selectable 选择</h3>
+                <ul class="section-subhead">
+                    <li>模拟 jQuery UI 的 Selectable 组件</li>
+                </ul>
+
+                <moc-selectable v-model="selectable" :options="options.workOrderFieldVos" @node-dblclick="nodeDblclick" class="selectable-dom">
+                    <template v-slot="{node, index}">
+                        <p>{{node.label}} {{index + 1}}</p>
+                    </template>
+                </moc-selectable>
+                <p>{{selectable}}</p>
+
+            </section>
 
             <section class="section">
                 <h3 class="section-title">Transfer 穿梭框</h3>
-
                 <moc-transfer
                     v-model="transfer"
                     :options="options.workOrderFieldVos"
@@ -51,17 +64,22 @@
 </template>
 <script>
     export default {
-        name: "Tinymce",
         data() {
             return {
                 loading: false,
 
+
+
+
                 /**
                  * Transfer 穿梭框
                  */
+                selectable: ['选项1', '选项3'],
                 transfer: ['选项1', '选项3'],
                 options:{
-                    workOrderFieldVos:[]
+                    workOrderFieldVos:[
+
+                    ]
                 },
 
                 /**
@@ -81,8 +99,7 @@
                     },
                     {
                         value: '选项2',
-                        label: '双皮奶',
-                        disabled: true
+                        label: '双皮奶'
                     },
                     {
                         value: '选项3',
@@ -94,7 +111,68 @@
                     },
                     {
                         value: '选项5',
-                        label: '北京烤鸭'
+                        disabled: true,
+                        label: '北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭'
+                    },
+                    {
+                        value: '选项6',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项7',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项8',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项9',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项10',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项11',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项12',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项13',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项14',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项15',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项16',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项17',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项18',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项19',
+                        label: '龙须面'
+                    },
+                    {
+                        value: '选项20',
+                        label: '龙须面'
                     }
                 ]
             }, 3000)
@@ -109,6 +187,11 @@
             this.isShow = false;
         },
         methods: {
+            nodeDblclick(node){
+                console.log(node)
+            },
+
+
             transferChange(val){
                 console.log( val )
             },
