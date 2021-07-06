@@ -67,6 +67,49 @@
 }
 
 
+
+
+
+
+
+
+// **************************** Selectable 选择 **********************************
+.moc-selectable-item{
+	list-style: none;
+	padding: 5px 10px;
+	line-height: 20px;
+	user-select: none;
+	&.is-active{
+		color: #FFFFFF;
+		background-color: $dropdown-active-color;
+	}
+	&.is-disabled{
+		background-color: $toggle-bg-cpolor;
+		cursor: not-allowed;
+	}
+}
+// 案例
+.selectable-dom{
+	border: 1px solid black;
+	height: 360px;
+	overflow: auto;
+	.moc-selectable-item{
+		+ .moc-selectable-item{
+			border-top: 1px solid black;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 .section{
     padding: 20px;
     background-color: #fff;
