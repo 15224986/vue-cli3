@@ -61,6 +61,20 @@ import mocMorePanel from './more-panel/index.js';
 // Transfer 穿梭框
 import mocTransfer from './transfer/index.js';
 
+// Selectable 选择
+import mocSelectable from './selectable/index.js';
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 提示插件
@@ -104,7 +118,8 @@ const components = [
 	mocSplit,
     mocTooltip,
     mocMorePanel,
-    mocTransfer
+    mocTransfer,
+    mocSelectable
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -160,6 +175,7 @@ export {
     mocTooltip,
     mocMorePanel,
     mocTransfer,
+    mocSelectable,
 
 	mocDialog,
 	mocLoading,
