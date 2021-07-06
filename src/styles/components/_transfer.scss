@@ -35,20 +35,12 @@
 }
 .moc-transfer-group{
 	height: calc(100% - 42px);
-	overflow: auto;
-	select{
-		width: 100%;
+	.moc-selectable{
 		height: 100%;
-		padding-right: 0;
+		overflow: auto;
 	}
-	option{
+	.moc-selectable-item{
 		padding-left: 26px;
-		padding-top: 4px;
-		padding-bottom: 5px;
-		user-select: none;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 }
 .moc-transfer-search + .moc-transfer-group{
