@@ -9,18 +9,7 @@
                 <el-input v-model="sourceSearch" :placeholder="filterPlaceholder" clearable size="small" prefix-icon="el-icon-search"></el-input>
             </div>
             <div class="moc-transfer-group">
-                <select multiple="multiple" v-model="sourceValue">
-                    <option
-                        v-for="(item,index) in sourceList"
-                        :key="index"
-                        :value="item[props.value]"
-                        :disabled="item[props.disabled]"
-                        :title="item[props.label]"
-                        @dblclick="addToRight()"
-                    >
-                        {{ item[props.label] }}
-                    </option>
-				</select>
+                <moc-selectable v-model="sourceValue" :options="sourceList" @node-dblclick="addToRight"></moc-selectable>
             </div>
         </div>
         <div class="moc-transfer-btns">
@@ -29,7 +18,7 @@
                 <el-button
                     type="primary"
                     size="small"
-                    :class="['moc-transfer-btn', hasButtonTexts ? 'is-with-texts' : '']"
+                    :class="['moc-transfer-btn', hasButtonTexts ? 'moc-has-texts' : '']"
                     :disabled="sourceValue.length === 0"
                     @click.native="addToRight"
                 >
@@ -39,7 +28,7 @@
                 <el-button
                     type="primary"
                     size="small"
-                    :class="['moc-transfer-btn', hasButtonTexts ? 'is-with-texts' : '']"
+                    :class="['moc-transfer-btn', hasButtonTexts ? 'moc-has-texts' : '']"
                     :disabled="targetValue.length === 0"
                     @click.native="addToLeft"
                 >
@@ -56,18 +45,7 @@
                 <el-input v-model="targetSearch" :placeholder="filterPlaceholder" clearable size="small" prefix-icon="el-icon-search"></el-input>
             </div>
             <div class="moc-transfer-group">
-                <select multiple="multiple" v-model="targetValue">
-                    <option
-                        v-for="(item,index) in targetList"
-                        :key="index"
-                        :value="item[props.value]"
-                        :disabled="item[props.disabled]"
-                        :title="item[props.label]"
-                        @dblclick="addToLeft()"
-                    >
-                        {{ item[props.label] }}
-                    </option>
-				</select>
+                <moc-selectable v-model="targetValue" :options="targetList" @node-dblclick="addToLeft"></moc-selectable>
             </div>
         </div>
     </div>
