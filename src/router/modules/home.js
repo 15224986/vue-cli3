@@ -9,6 +9,18 @@ export default {
 	},
     children: [
         {
+        	path: 'morePanel',
+        	name: 'morePanel',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/morePanel'),
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "查看更多面板",
+        		path: '/home/morePanel',
+        		affix: false
+        	}
+        },
+        {
         	path: 'shortcut',
         	component: () => import(/* webpackChunkName: "home" */ '@/views/index/shortcut'),
         	name: 'shortcut',
@@ -283,6 +295,33 @@ export default {
 				path: '/home/sliderScale',
 				affix: false
 			}
-		}
+		},
+
+
+
+		{
+			path: 'logicflow',
+			component: () => import(/* webpackChunkName: "home" */ '@/views/index/plugin/logicflow'),
+			name: 'logicflow',
+			meta: {
+				loginRrquired: false,
+				keepAlive: true,
+				title: "LogicFlow 流程图",
+				path: '/home/logicflow',
+				affix: false
+			}
+		},
+        {
+        	path: 'uuid',
+        	component: () => import(/* webpackChunkName: "home" */ '@/views/index/plugin/uuid'),
+        	name: 'uuid',
+        	meta: {
+        		loginRrquired: false,
+        		keepAlive: true,
+        		title: "UUID库",
+        		path: '/home/uuid',
+        		affix: false
+        	}
+        }
 	]
 }
