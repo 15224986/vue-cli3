@@ -16,97 +16,46 @@
                 router
             >
 
-                <el-menu-item index="/home/shortcut">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">监听键盘操作（组合键）</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/jQuery">
-                    <i class="el-icon-menu"></i>
-                    <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
-                        <span>jQuery、Array、String</span>
-                    </el-tooltip>
-                </el-menu-item>
-
-                <el-menu-item index="/home/verify">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">验证码</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/directiveFilters">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">全局指令、过滤器、工具</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/orgchart">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">orgchart组织架构图</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/tinymce" :route="{'path':'/home/tinymce', query:{'title':'富文本编辑器', id:'151'}}">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">tinymce5富文本编辑器</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/sector">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">css3 效果</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/syncModel">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">数据的双向传递</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/multilayerNesting">
-                    <i class="el-icon-menu"></i>
-                    <el-tooltip slot="title" content="Vue多层嵌套、utils公共方法" placement="right">
-                        <span>Vue多层嵌套、utils公共方法</span>
-                    </el-tooltip>
-                </el-menu-item>
-
-                <el-menu-item index="/home/complexData">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">js复杂数据类型的深层复制</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/fuzzySearch">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">模糊搜索、文字滚动</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/tableRelevant">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">table相关</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/exportExcel">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">导出excel</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/sortablejs">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">拖拽排序</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/draggableResizable">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">可拖拽可缩放</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/mockjsData">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">mock.js测试</span>
-                </el-menu-item>
-
-                <el-menu-item index="/home/lotteryDraw">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">抽奖功能</span>
-                </el-menu-item>
-
-
                 <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>基础、技巧</span>
+                    </template>
+
+                    <el-menu-item index="/home/morePanel">
+                        <span slot="title">查看更多面板</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/jQuery">
+                        <el-tooltip slot="title" content="jQuery 全局引用，Array、String 原型链添加方法" placement="right">
+                            <span>jQuery、Array、String</span>
+                        </el-tooltip>
+                    </el-menu-item>
+                    <el-menu-item index="/home/directiveFilters">
+                        <span slot="title">全局指令、过滤器、工具</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/sector">
+                        <span slot="title">css3 效果</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/syncModel">
+                        <span slot="title">数据的双向传递</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/multilayerNesting">
+                        <el-tooltip slot="title" content="Vue多层嵌套、utils公共方法" placement="right">
+                            <span>Vue多层嵌套、utils公共方法</span>
+                        </el-tooltip>
+                    </el-menu-item>
+                    <el-menu-item index="/home/complexData">
+                        <span slot="title">js复杂数据类型的深层复制</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/fuzzySearch">
+                        <span slot="title">模糊搜索、文字滚动</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/tableRelevant">
+                        <span slot="title">table相关</span>
+                    </el-menu-item>
+                </el-submenu>
+
+                <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-menu"></i>
                         <span>element-ui 用法</span>
@@ -115,15 +64,12 @@
                     <el-menu-item index="/home/elementCustomParams">
                         <span slot="title">Element 自定义参数</span>
                     </el-menu-item>
-
                     <el-menu-item index="/home/selectRelevant">
                         <span slot="title">select全选、联动</span>
                     </el-menu-item>
-
                     <el-menu-item index="/home/requiredType">
                         <span slot="title">切换必填状态、tooltip使用</span>
                     </el-menu-item>
-
                     <el-menu-item index="/home/transferSearch">
                         <el-tooltip slot="title" content="穿梭框自定义搜索、图片放大" placement="right">
                             <span>穿梭框自定义搜索、图片放大</span>
@@ -131,9 +77,7 @@
                     </el-menu-item>
                 </el-submenu>
 
-
-
-                <el-submenu index="2">
+                <el-submenu index="3">
                     <template slot="title">
                         <i class="el-icon-menu"></i>
                         <span>通过View UI补充的组件</span>
@@ -142,12 +86,52 @@
                     <el-menu-item index="/home/anchor">
                         <span slot="title">Anchor锚点、Affix图钉</span>
                     </el-menu-item>
-
                     <el-menu-item index="/home/sliderScale">
                         <span slot="title">滑块缩放、面板分割</span>
                     </el-menu-item>
                 </el-submenu>
 
+                <el-submenu index="4">
+                    <template slot="title">
+                        <span>安装的插件</span>
+                    </template>
+
+                    <el-menu-item index="/home/mockjsData">
+                        <span slot="title">mock.js测试</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/logicflow">
+                        <span slot="title">LogicFlow 流程图</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/shortcut">
+                        <span slot="title">监听键盘操作（组合键）</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/uuid">
+                        <span slot="title">UUID库</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/sortablejs">
+                        <span slot="title">拖拽排序</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/draggableResizable">
+                        <span slot="title">可拖拽可缩放</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/tinymce" :route="{'path':'/home/tinymce', query:{'title':'富文本编辑器', id:'151'}}">
+                        <el-tooltip slot="title" content="tinymce5富文本编辑器、Selectable 选择" placement="right">
+                            <span>tinymce5富文本编辑器、Selectable 选择</span>
+                        </el-tooltip>
+                    </el-menu-item>
+                    <el-menu-item index="/home/orgchart">
+                        <span slot="title">orgchart组织架构图</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/verify">
+                        <span slot="title">验证码</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/exportExcel">
+                        <span slot="title">导出excel</span>
+                    </el-menu-item>
+                    <el-menu-item index="/home/lotteryDraw">
+                        <span slot="title">抽奖功能</span>
+                    </el-menu-item>
+                </el-submenu>
             </el-menu>
         </aside>
         <main id="content">
