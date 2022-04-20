@@ -253,6 +253,9 @@ import { getToken, getTokenExpire } from '@/utils/auth'
 const whiteList = ['/mock/table']
 // 请求拦截器
 instance.interceptors.request.use((config) => {
+    axiosRequestUse(config)
+    
+    
     const timestamp = new Date().getTime();
     // const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
     const tokenExpire = getTokenExpire()-0;
@@ -269,16 +272,16 @@ instance.interceptors.request.use((config) => {
                 })
             })
 
-            setTimeout(() => {
-              console.log('获取token');
-              resolve(config)
-            }, 3000);
+//             setTimeout(() => {
+//               console.log('获取token');
+//               resolve(config)
+//             }, 3000);
         });
     }
 
     console.log( 100000 );
 
-    axiosRequestUse(config)
+    
 
 
     return config;
