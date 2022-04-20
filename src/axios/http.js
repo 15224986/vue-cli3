@@ -41,50 +41,36 @@ const http = ( params = {} ) => {
 
 
 /**
- * 封装all方法
- * 创建的 instance 里面并没有all方法，所有使用 Axios 执行，如果要想使用 instance.all 需要 添加下面的解决方案，
- * 这里之所以要加上注释，因为在eslint里是不允许对__proto__进行重新赋值的
- * https://blog.csdn.net/weixin_33928137/article/details/88040948
+ * 封装all、spread方法
  */
-/* eslint-disable no-proto */
-// instance.__proto__ = Axios
-http.__proto__ = Axios
-/* eslint-enable */
-http.all = ( promiseArray = [] ) => {
-	return new Promise((resolve, reject) => {
-		Axios.all(promiseArray)
-			.then(allResponse => {
-				resolve(allResponse)
-			})
-			.catch((error) => {
-				reject(error)
-			})
-	})
+http.all = function(promises) {
+	return Promise.all(promises);
+};
+http.spread = function(callback) {
+	return function wrap(arr) {
+		return callback.apply(null, arr);
+	};
 };
 /**
  * 使用例子
  */
 // httpall(){
-//     let params = {};
-//     let params2 = {
-//         baseURL:''       // 修改默认路径
-//     };
-//     let ajaxArr= [
-//         this.$http.get('/mock/additionOptions', params, params2),
-//         this.$http.get('/mock/addition', params, params2)
-//     ];
-//     this.$http.all(ajaxArr).then(response => {
-//             console.log( response );
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-//     this.$http.all(ajaxArr).then(this.$http.spread(function(acct, perms) {
-//             console.log( acct, perms );
-//         }))
-//         .catch(error => {
-//             console.log(error);
-//         });
+    // let params = {};
+    // let params2 = {
+    //     baseURL:''       // 修改默认路径
+    // };
+    // let ajaxArr= [
+    //     this.$http.get('/mock/additionOptions', params, params2),
+    //     this.$http.get('/mock/addition', params, params2)
+    // ];
+    // this.$http.all(ajaxArr).then( ([acct, perms])=>{
+    // 	console.log( acct, perms );
+    // }).catch(error => {
+    // 	console.log(error);
+    // });
+    // this.$http.all(ajaxArr).then(this.$http.spread(function(acct, perms) {
+    // 	console.log( acct, perms );
+    // }));
 // },
 
 
@@ -232,83 +218,7 @@ function endLoading() {
  * 调用tryHideFullScreenLoading()方法，needLoadingRequestCount - 1。needLoadingRequestCount为 0 时，结束 loading。
  */
 let needLoadingRequestCount = 0
-function showFullScreenLoading() {
-    if (needLoadingRequestCount === 0) {
-        startLoading()
-    }
-    needLoadingRequestCount++
-}
-function tryHideFullScreenLoading() {
-    if (needLoadingRequestCount <= 0) return
-    needLoadingRequestCount--
-    if (needLoadingRequestCount === 0) {
-        endLoading()
-    }
-}
-
-import { getToken, getTokenExpire } from '@/utils/auth'
-/**
- * 设置白名单接口
- */
-const whiteList = ['/mock/table']
-// 请求拦截器
-instance.interceptors.request.use((config) => {
-    axiosRequestUse(config)
-    
-    
-    const timestamp = new Date().getTime();
-    // const tokenExpire = window.localStorage.getItem("Admin-Token-expire")-0;
-    const tokenExpire = getTokenExpire()-0;
-
-    if( timestamp >= tokenExpire && whiteList.indexOf(config.url) !== -1 ){
-        return new Promise((resolve, reject) => {
-            //刷新token
-            store.dispatch('userInfo/RefreshToken', refreshToken).then(() => {
-                axiosRequestUse(config)  // 拦截操作
-                resolve(config)
-            }).catch(() => {
-                store.dispatch('userInfo/LogOut').then(() => {
-                    location.reload() // 为了重新实例化vue-router对象 避免bug
-                })
-            })
-
-//             setTimeout(() => {
-//               console.log('获取token');
-//               resolve(config)
-//             }, 3000);
-        });
-    }
-
-    console.log( 100000 );
-
-    
-
-
-    return config;
-}, error =>{
-    // 对请求错误做些什么
-    return Promise.reject(error)
-});
-function axiosRequestUse(config){
-
-    /**
-     * 在发送请求之前转换post传过去时的参数格式
-     * 安装插件 querystring 进行转化
-     * 通过querystring 将json格式的请求数据转换为form-data格式
-     */
-    // if (config.method === 'post' || config.method === 'put' ) {
-    //     config.data = Qs.stringify(config.data);
-    // }
-
-    /**
-     * 发送请求携带 token
-     * 判断本地是否存在token，如果存在的话，则每个http header都加上token
-     */
-    // const token = getToken();
-    // if (token) {
-    //     config.headers['token'] = token;
-    // }
-
+function showFullScreenLoading(config) {
     /**
      * 是否开启了 loading
      * 如果参数中携带了 isShowFullScreenLoading = false 则本次加载了loading，
@@ -320,11 +230,90 @@ function axiosRequestUse(config){
     } else if (config.data && config.data.isShowFullScreenLoading === false) {
         isShowFullScreenLoading = false;
     }
-    if( isShowFullScreenLoading ){
-    	showFullScreenLoading();
+    // console.log( "request:", isShowFullScreenLoading )
+    if (isShowFullScreenLoading) {
+        if (needLoadingRequestCount === 0) {
+            startLoading()
+        }
+        needLoadingRequestCount++
     }
 }
+function tryHideFullScreenLoading(config) {
+    /**
+     * 是否开启 loading
+     * 如果参数中携带了 isShowFullScreenLoading = true 则关闭本次的加载中调用
+     */
+    let isShowFullScreenLoading = true;
+    if (config.params && config.params.isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false
+    } else if (config.data && JSON.parse(config.data).isShowFullScreenLoading === false) {
+        isShowFullScreenLoading = false
+    }
+    if (isShowFullScreenLoading) {
+        if (needLoadingRequestCount <= 0) return
+        needLoadingRequestCount--
+        if (needLoadingRequestCount === 0) {
+            endLoading()
+        }
+    }
+}
+function hideFullScreenLoading() {
+   if (needLoadingRequestCount <= 0) return
+   needLoadingRequestCount--
+   if (needLoadingRequestCount === 0) {
+       endLoading()
+   }
+}
 
+
+/**
+ * 设置白名单接口
+ * 白名单接口不验证token
+ */
+const whiteList = ['mock/table', 'sys/user/login']
+// 请求拦截器
+instance.interceptors.request.use((config) => {
+    // console.log( config.url )
+    // 开启 loading
+    showFullScreenLoading(config);
+
+    /**
+     * 发送请求携带 token
+     * 判断本地是否存在token，如果存在的话，则每个http header都加上token
+     */
+    const token = store.getters.token;
+    if (token) {
+        config.headers['token'] = token;
+    }
+
+    /**
+     * 刷新token
+     */
+    const timestamp = new Date().getTime();
+    const tokenExpire = store.getters.tokenExpire-0;
+    if( whiteList.indexOf(config.url) === -1 && timestamp >= tokenExpire ){
+        // console.log( timestamp , tokenExpire, timestamp >= tokenExpire )
+        const refreshToken = store.getters.refreshToken;
+        return new Promise((resolve, reject) => {
+            //刷新token
+            store.dispatch('userInfo/RefreshToken', refreshToken).then(() => {
+                // console.log('获取token');
+                resolve(config)
+            }).catch(() => {
+                store.dispatch('userInfo/FedLogOut').then(() => {
+                    router.push({ path: "/login" });
+                    reject()
+                    // 清空信息后 刷新页面  因为没有token所以回到登录页
+                    // location.reload() // 为了重新实例化vue-router对象 避免bug
+                })
+            })
+        });
+    }
+    return config;
+}, error =>{
+    // 对请求错误做些什么
+    return Promise.reject(error)
+});
 // 添加响应拦截器
 instance.interceptors.response.use(response =>{
     // 根据code跳转到响应页面
@@ -334,29 +323,12 @@ instance.interceptors.response.use(response =>{
     }else if( response.data && response.data.code == 400 ){
         router.push({ path: "/400" });
     }
-
-    /**
-     * 是否开启 loading
-     * 如果参数中携带了 isShowFullScreenLoading = false 则关闭本次的加载中调用
-     */
-    const config = response.config;
-    let isShowFullScreenLoading = true;
-    if (config.params && config.params.isShowFullScreenLoading === false) {
-        isShowFullScreenLoading = false;
-    } else if (config.data && config.data.isShowFullScreenLoading === false) {
-        isShowFullScreenLoading = false;
-    }
-    if( isShowFullScreenLoading ){
-    	tryHideFullScreenLoading();
-    }
-
+    // 关闭 loading
+    tryHideFullScreenLoading( response.config );
     // 对响应数据做点什么
     return response
 }, error =>{
-    /**
-     * 关闭本次开启的FullScreenLoading()
-     */
-    tryHideFullScreenLoading();
+    hideFullScreenLoading();
 
     // 对响应错误做点什么
 	return Promise.reject(error)
